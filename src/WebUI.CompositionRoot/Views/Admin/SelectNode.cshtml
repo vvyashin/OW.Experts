@@ -1,0 +1,59 @@
+﻿@model WebUI.ViewModels.Admin.NodeCandidateListViewModel
+
+@{
+    ViewBag.Title = "SelectNode";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Выбор узлов семантической сети</h2>
+
+@if (Model.NodeCandidates.Count == 0) {
+    <div>В ходе сессии не удалось сформировать ни одного узла семантической сети.</div>
+}
+@{ var totalExpert = @Model.NodeCandidates.First().TotalExpert; }
+@using (Html.BeginForm("SelectNode", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" })) {
+    @Html.AntiForgeryToken()
+    <div>Общее количество экспертов: (@totalExpert экспертов)</div>
+    var groupedNodeCandidates = Model.NodeCandidates.GroupBy(x => x.Notion, (s, models) => new { Notion = s, Types = models.ToList()}).ToList();
+    <table class="table" style="width: auto">
+        @{ int returnNodeK = 0; }
+        @for (int nodeI = 0; nodeI < groupedNodeCandidates.Count; nodeI++) {
+            <tr>
+                <td>
+                    @groupedNodeCandidates[nodeI].Notion
+                </td>
+                <td>
+                    <table class="table-condensed">
+                        @for (int typeJ = 0; typeJ < groupedNodeCandidates[nodeI].Types.Count; typeJ++, returnNodeK++) {
+                            <tr>
+                                <td>
+                                    Тип: @groupedNodeCandidates[nodeI].Types[typeJ].TypeName (@groupedNodeCandidates[nodeI].Types[typeJ].ExpertCount экспертов)
+                                </td>
+                                <td>
+                                    @groupedNodeCandidates[nodeI].Types[typeJ].ExpertPercent.ToString("P0")
+                                </td>
+                                <td>
+                                    @Html.Hidden("model.NodeCandidates[" + returnNodeK + "].Notion",
+                                        @groupedNodeCandidates[nodeI].Types[typeJ].Notion)
+                                    @Html.Hidden("model.NodeCandidates[" + returnNodeK + "].TypeId",
+                                        @groupedNodeCandidates[nodeI].Types[typeJ].TypeId)
+                                    @Html.Hidden("model.NodeCandidates[" + returnNodeK + "].ExpertCount",
+                                        @groupedNodeCandidates[nodeI].Types[typeJ].ExpertCount)
+                                    @Html.Hidden("model.NodeCandidates[" + returnNodeK + "].TotalExpert",
+                                        totalExpert)
+                                    @Html.CheckBox("model.NodeCandidates[" + returnNodeK + "].IsSaveAsNode",
+                                        @groupedNodeCandidates[nodeI].Types[typeJ].IsSaveAsNode)
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </td>
+            </tr>
+        }
+    </table>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Выбрать узлы семантической сети"/>
+        </div>
+    </div>
+}

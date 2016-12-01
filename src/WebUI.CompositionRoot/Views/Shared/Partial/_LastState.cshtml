@@ -1,0 +1,16 @@
+﻿@using WebUI.Infrastructure
+@{
+    string error = this.GetErrorMessage();
+    string success = this.GetSuccessMessage();
+
+    if (error != null) {
+        <div class="alert-danger alert">
+            @error
+        </div>
+    }
+    else if (success != null) {
+        <div class="alert-success alert">
+            @success
+        </div>
+    }
+}

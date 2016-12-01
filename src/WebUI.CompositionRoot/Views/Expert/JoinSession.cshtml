@@ -1,0 +1,16 @@
+﻿@model WebUI.ViewModels.Admin.SessionViewModel
+@{
+    ViewBag.Title = "Присоединиться к сессии";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Присоединиться к сессии</h2>
+<div class="user-info">
+    @Html.Partial("Partial/_AboutSession")
+
+    @using (Html.BeginForm("JoinSession", "Expert", FormMethod.Post)) {
+        @Html.AntiForgeryToken()
+        <input type="submit" class="btn btn-primary" value="Присоединиться к текущей сессии"
+               style="margin-left: 10%"/>
+    }
+</div>

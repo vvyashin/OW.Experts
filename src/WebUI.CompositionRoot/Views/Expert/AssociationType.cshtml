@@ -1,0 +1,50 @@
+﻿@using System.Web.Mvc.Html
+@using WebUI.Infrastructure
+@model WebUI.ViewModels.Expert.AssociationTypeViewModel
+@{
+    ViewBag.Title = "AssociationType";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Типы ассоциаций</h2>
+
+@Html.Partial("Partial/_LastState")
+
+@using (Html.BeginForm("AssociationType", "Expert", FormMethod.Post, new {@class = "form-horizontal", role = "form"})) {
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <div class="alert-info alert">
+            Выберите типы для названных ассоциаций. Также в текстовом поле возможно предложить собственный.
+        </div>
+        <table class="table" style="max-width: 600px">
+            @for (int index = 0; index < Model.ExpertAssociations.Count; index++) {
+                <tr>
+                    <td>
+                        @Html.Hidden("model.ExpertAssociations[" + index + "].Id",
+                            Model.ExpertAssociations.ElementAt(index).Id)
+                        @Html.TextBox("model.ExpertAssociations[" + index + "].Notion",
+                            Model.ExpertAssociations.ElementAt(index).Notion,
+                            new {@class = "form-control", @readonly = "true"})
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @Html.DropDownList("model.ExpertAssociations[" + index + "].TypeId",
+                                    this.GetTypeSelectList(Model.ExpertAssociations.ElementAt(index).TypeId), new {@class = "form-control"})
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        @Html.TextBox("model.ExpertAssociations[" + index + "].OfferType",
+                            Model.ExpertAssociations.ElementAt(index).OfferType,
+                            new {@class = "form-control", @placeholder = "Предложите свой тип"})
+                    </td>
+                </tr>
+            }
+        </table>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Завершить" class="btn btn-success"/>
+            </div>
+        </div>
+    </div>
+}

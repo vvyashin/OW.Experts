@@ -1,0 +1,120 @@
+﻿@using System.Web.UI.WebControls
+@model WebUI.ViewModels.Expert.RelationViewModel
+
+@{
+    ViewBag.Title = "Relation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Связи</h2>
+
+@Html.Partial("Partial/_LastState")
+
+@using (Html.BeginForm(Html.BeginForm("Relation", "Expert", FormMethod.Post, new {@class = "form-horizontal", role = "form"}))) {
+    @Html.AntiForgeryToken()
+
+    var firstName = Model.FirstNodeNotion;
+    var firstType = Model.FirstNodeType;
+    var secondName = Model.SecondNodeNotion;
+    var secondType = Model.SecondNodeType;
+
+    <div style="max-width: 800px; padding: 5px; margin: 5px">
+        @Html.HiddenFor(x => x.StraightRelationid)
+        @Html.HiddenFor(x => x.ReverseRelationId)
+        @Html.HiddenFor(x => x.FirstNodeNotion, Model.FirstNodeNotion)
+        @Html.HiddenFor(x => x.FirstNodeType, Model.FirstNodeType)
+        @Html.HiddenFor(x => x.SecondNodeNotion, Model.SecondNodeNotion)
+        @Html.HiddenFor(x => x.SecondNodeType, Model.SecondNodeType)
+
+        <div class="form-group">
+            <label>Связаны ли @firstType '@firstName' и @secondType '@secondName'</label>
+            <div class="radio">
+                <label>
+                    @Html.RadioButtonFor(x => x.DoesRelationExist, "yes")
+                    Да
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    @Html.RadioButtonFor(x => x.DoesRelationExist, "no", new {@checked = ""})
+                    Нет
+                </label>
+            </div>
+        </div>
+        <div name="hiddenable" id="hiddenable" style="display: none;">
+            <div class="form-group">
+                <label>Определите возможные виды связи</label>
+
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(x => x.IsStraightMeronym)
+                        @firstType '@firstName' является частью @secondType '@secondName'
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(x => x.IsStraightTaxonym)
+                        @firstType '@firstName' является подтипом для @secondType '@secondName'
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Определите возможные виды связи</label>
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(x => x.IsReverseMeronym)
+                        @secondType '@secondName' является частью @firstType '@firstName'
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(x => x.IsReverseTaxonym)
+                        @secondType '@secondName' является подтипом для @firstType '@firstName'
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div style="padding-top: 10px;">
+            <input class="btn btn-success" name="actionButton" type="submit" value="Вперёд"/>
+        </div>
+    </div>
+}
+<style>
+    .modal-content {
+        width: 600px !important;
+        height: 600px !important;
+        margin: 30px auto !important;
+    }
+</style>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(function() {
+            $('body').on('click', '.modal-link', function(e) {
+                e.preventDefault();
+                $(this).attr('data-target', '#modal-container');
+                $(this).attr('data-toggle', 'modal');
+            });
+            $('body').on('click', '.modal-close-btn', function() {
+                $('#modal-container').modal('hide');
+            });
+            $('#modal-container').on('hidden.bs.modal', function() {
+                $(this).removeData('bs.modal');
+            });
+            $('#CancelModal').on('click', function() {
+                return false;
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $("input[type='radio']").change(function() {
+            if ($(this).val() === "yes") {
+                $("#hiddenable").show();
+            } else {
+                $("#hiddenable").hide();
+            }
+        });
+    </script>
+}

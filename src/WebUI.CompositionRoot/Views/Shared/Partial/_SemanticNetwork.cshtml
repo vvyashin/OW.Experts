@@ -1,0 +1,30 @@
+﻿@model Domain.SemanticNetworkReadModel
+
+@foreach (var concept in Model.Concepts) {
+    <div class="panel panel-info" style="display: inline-block; vertical-align: top" id="@($"{concept.Notion}-{concept.TypeName}");">
+        <div class="panel-heading">@concept.Notion (@concept.TypeName)</div>
+        <div class="panel-body">
+            <p>Входящие ребра</p>
+            <ul class="list-group">
+                @foreach (var verge in concept.Incoming.OrderBy(m => m.Weight)) {
+                    <li class="list-group-item">
+                        <a href="#@($"{concept.Notion}-{concept.TypeName}");">
+                            @verge.RelationType (длина: @verge.Weight): @verge.SourceNotion (@verge.SourceType)
+                        </a>
+                    </li>
+                }
+            </ul>
+            <hr/>
+            <p>Исходящие ребра</p>
+            <ul class="list-group">
+                @foreach (var verge in concept.Outgoing.OrderBy(m => m.Weight)) {
+                    <li class="list-group-item">
+                        <a href="#@($"{concept.Notion}-{concept.TypeName}");">
+                            @verge.RelationType (длина: @verge.Weight): @verge.DestinationNotion (@verge.DestinationType)
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+}

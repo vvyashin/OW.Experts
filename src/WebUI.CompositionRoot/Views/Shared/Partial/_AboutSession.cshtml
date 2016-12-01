@@ -1,0 +1,42 @@
+﻿@using Domain
+@using Microsoft.AspNet.Identity
+@model WebUI.ViewModels.Admin.SessionViewModel
+
+<div class="panel panel-default" style="max-width: 800px">
+    <table class="table">
+        <tbody>
+        <tr>
+            <td>Текущий пользователь:</td><td class="text-info">
+                <b>@User.Identity.GetUserName()</b>
+            </td>
+        </tr>
+        <tr>
+            <td>Начало сессии:</td><td class="text-info">
+                <b>@Model.StartTime</b>
+            </td>
+        </tr>
+        <tr>
+            <td>Базовое понятие:</td><td class="text-info">
+                <b>@Model.BaseNotion</b>
+            </td>
+        </tr>
+        <tr>
+            <td>Текущий этап:</td>
+            <td class="text-info">
+                @if (Model.CurrentPhase == SessionPhase.MakingAssociations) {
+                    <b>Составление ассоциаций</b>
+                }
+                else if (Model.CurrentPhase == SessionPhase.SpecifyingAssociationsTypes) {
+                    <b>Выбор типов ассоциаций</b>
+                }
+                else if (Model.CurrentPhase == SessionPhase.SelectingNodes) {
+                    <b>Выбор узлов из ассоциаций</b>
+                }
+                else if (Model.CurrentPhase == SessionPhase.SelectingAndSpecifyingRelations) {
+                    <b>Определение наличия связей между ассоциациями</b>
+                }
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

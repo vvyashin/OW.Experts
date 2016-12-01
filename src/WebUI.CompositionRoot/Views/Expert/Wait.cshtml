@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Wait";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Подождите</h2>
+
+@Html.Partial("Partial/_LastState")
+
+<div class="alert-info alert">
+    Подождите пока администратор не разрешит продолжить. После чего нажмите кнопку <b>Обновить</b>
+</div>
+
+<input type="button" class="btn btn-primary" value="Обновить"
+       onclick="location.href = '@Url.Action("ExpertTest")'"/>

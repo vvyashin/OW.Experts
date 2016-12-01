@@ -1,0 +1,131 @@
+﻿@using Domain
+@model WebUI.ViewModels.Admin.SessionViewModel
+
+@{
+    ViewBag.Title = "Страница администратора. Сессия экспертов";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@Html.Partial("Partial/_LastState")
+
+@if (Model.CurrentPhase == SessionPhase.MakingAssociations) {
+    <div class="alert-info alert text-justify" style="max-width: 800px">
+        Когда все эксперты зарегистрируются, присоединяться к сессии и предложат свои ассоциации, нажмите на кнопку <b>Следующий этап</b>.
+        Более подробное описание внизу страницы.
+    </div>
+}
+else if (Model.CurrentPhase == SessionPhase.SpecifyingAssociationsTypes) {
+    <div class="alert-info alert text-justify" style="max-width: 800px">
+        Когда все эксперты предложат типы к своим ассоциациям, нажмите на кнопку <b>Следующий этап</b>.
+        Более подробное описание внизу страницы.
+    </div>
+}
+else if (Model.CurrentPhase == SessionPhase.SelectingNodes) {
+    <div class="alert-info alert text-justify" style="max-width: 800px">
+        Теперь нажмите на кнопку <b>Выбрать узлы сети</b> и выберите из списка наиболее подходящие на ваш взгляд узлы, которые тут же
+        попадут в семантическую сеть. После чего произойдет автоматический редирект на страницу с первичной версией семантической сети
+        Более подробное описание внизу страницы.
+    </div>
+}
+else if (Model.CurrentPhase == SessionPhase.SelectingAndSpecifyingRelations) {
+    <div class="alert-info alert text-justify" style="max-width: 800px">
+        Когда все эксперты предложат типы связей между понятиями и закончат сессию, нажмите на кнопку <b>Сохранить связи в сети</b>.
+        После чего итоговая сеть отобразится на экране. Для просмотра сети в дальнейшем нажмите на кнопку <b>Показать сеть</b>.
+        Таким же образом вы можете просматривать первичную семантическую сеть и во время работы экспертов. В конце нажмите на кнопку
+        <b>Завершить сессию</b>. Более подробное описание внизу страницы.
+    </div>
+}
+
+<div class="btn-group btn-group-justified" style="max-width: 800px">
+    <div class="btn-group">
+        @if (Model.CurrentPhase == SessionPhase.SelectingNodes) {
+            <input type="button" class="btn btn-default" value="Выбрать узлы сети"
+                   onclick="location.href = '@Url.Action("SelectNode")'"/>
+        }
+        else {
+            <input type="button" class="btn btn-default" value="Выбрать узлы сети"
+                   onclick="location.href = '@Url.Action("SelectNode")'" disabled/>
+        }
+    </div>
+    <div class="btn-group">
+        @if (Model.CurrentPhase == SessionPhase.SelectingNodes ||
+             Model.CurrentPhase == SessionPhase.SelectingAndSpecifyingRelations) {
+            <input type="button" class="btn btn-primary" value="Показать сеть"
+                   onclick="location.href = '@Url.Action("SemanticNetwork")'"/>
+        }
+        else {
+            <input type="button" class="btn btn-primary" value="Показать сеть"
+                   onclick="location.href = '@Url.Action("SemanticNetwork")'" disabled/>
+        }
+    </div>
+    <div class="btn-group">
+        @using (Html.BeginForm("SaveVerges", "Admin", FormMethod.Post)) {
+            @Html.AntiForgeryToken()
+            if (Model.CurrentPhase == SessionPhase.SelectingAndSpecifyingRelations) {
+                <input type="submit" class="btn btn-default" value="Сохранить связи в сети"/>
+            }
+            else {
+                <input type="submit" class="btn btn-default" value="Сохранить связи в сети" disabled/>
+            }
+        }
+    </div>
+</div>
+
+@Html.Partial("Partial/_AboutSession", Model)
+
+@if (Model.CurrentPhase == SessionPhase.SelectingAndSpecifyingRelations) {
+    using (Html.BeginForm("NextPhase", "Admin", FormMethod.Post)) {
+        @Html.AntiForgeryToken()
+        <input type="submit" value="Завершить cессию" class="btn btn-primary"
+               style="margin-left: 10%"/>
+    }
+}
+else {
+    using (Html.BeginForm("NextPhase", "Admin", FormMethod.Post)) {
+        @Html.AntiForgeryToken()
+        <input type="submit" value="Следующий этап" class="btn btn-primary"
+               style="margin-left: 10%"/>
+    }
+}
+
+<div class="panel panel-default" style="max-width: 800px; margin-top: 20px;">
+    <div class="panel-heading">
+        Описание этапов
+    </div>
+    <div class="panel-body text-justify">
+        <p>
+            <b>Составление ассоциаций</b>
+        </p>
+        <p class="text-indent">
+            На данном этапе регистрируются и присоединяются к сессии эксперты, после чего предлагают собственные ассоциации для базового понятия.
+            Начинать можно не дожидаясь регистрации всех экспертов. После того, как все эксперты присоединятся к сессии, составят и сохранят свои
+            ассоциации, администратор сессии должен перевести ее на следующий этап.
+        </p>
+        <p>
+            <b>Выбор типов ассоциаций</b>
+        </p>
+        <p class="text-indent">
+            На данном этапе эксперты уже не могут регистрироваться. Для предложенных каждым экспертом ассоциаций ему необходимо выбрать их типы из предложенных.
+            Выбор обязателен. Также эксперты могут, необязательно, предложить собственный тип напротив ассоциации. Когда эксперты закончат администратор должен
+            перевести сессию на следующий этап
+        </p>
+        <p>
+            <b>Определение наличия связей между ассоциациями</b>
+        </p>
+        <p class="text-indent">
+            В начале данного этапа администратор должен выбрать узлы семантической сети из предложенных ассоциаций. Для этого на данной странице необходимо нажать
+            соответствующую кнопку и на открывшейся странице выбрать чекбоксы напротив нужных ассоциаций и типов. После чего можно будет просмотреть первичную
+            семантическую сеть. Для этого необходимо нажать соответствующую кнопку.
+        </p>
+        <p class="text-indent">
+            Как только узлы семантической сети выбраны эксперты смогут приступить к последнему этапу. Им необходимо будет ответить на вопросы,
+            связаны ли два понятия и, если связывают, то какой тип имеет связь. И так для каждой пары выбранных узлов.
+        </p>
+        <p class="text-indent">
+            Когда все эксперты закончат, администратор при помощи соответствующей кнопки должен сохранить связи как ребра семантической сети.
+            После чего может просмотреть получившуюся в ходе тестирования семантическую сеть.
+        </p>
+    </div>
+</div>
