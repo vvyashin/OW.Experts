@@ -231,6 +231,20 @@ namespace Domain.Services
             // ReSharper disable once AssignNullToNotNullAttribute
             return _expertService.GetNextRelationPairByExpertNameAndSession(expertName, CurrentSession);
         }
+
+        /// <summary>
+        /// Finishes current session phase for expert
+        /// </summary>
+        /// <param name="expertName"></param>
+        public void FinishCurrentPhase([NotNull] string expertName)
+        {
+            if (expertName == null) throw new ArgumentNullException(nameof(expertName));
+            IfCurrentSessionDoesNotExistThrow();
+
+            // ReSharper disable once AssignNullToNotNullAttribute
+            _expertService.FinishCurrentPhase(expertName, CurrentSession);
+        }
+
         #endregion
 
         #region semantic network facade

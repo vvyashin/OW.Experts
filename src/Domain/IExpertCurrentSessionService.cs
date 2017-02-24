@@ -23,5 +23,7 @@ namespace Domain
         void AssociationsTypes([NotNull] IReadOnlyCollection<AssociationDto> associations, [NotNull] string expertName);
 
         void Relations([NotNull] RelationTupleDto relationTupleDto, [NotNull] string expertName);
+
+        void FinishCurrentPhase([NotNull] string expertName);
     }
 }

@@ -70,6 +70,8 @@ namespace Domain
         /// </summary>
         public virtual SessionPhase? LastCompletedPhase { get; set; }
 
+        public virtual bool IsPhaseCompleted => LastCompletedPhase == SessionOfExperts.CurrentPhase;
+
         /// <summary>
         /// Clear all old associations and add new associations
         /// </summary>
@@ -158,6 +160,11 @@ namespace Domain
             else {
                 relationForEdit.UpdateTypes(types, offerType);
             }
+        }
+
+        public virtual void FinishCurrentPhase()
+        {
+            LastCompletedPhase = SessionOfExperts.CurrentPhase;
         }
 
         public override string ToString()

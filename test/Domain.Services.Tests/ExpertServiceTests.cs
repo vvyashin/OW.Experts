@@ -519,21 +519,18 @@ namespace Domain.Services.Tests
             Assert.IsFalse(result);
         }
 
-        [TestCase(null, false)]
-        [TestCase(SessionPhase.MakingAssociations, false)]
-        [TestCase(SessionPhase.SpecifyingAssociationsTypes, false)]
-        [TestCase(SessionPhase.SelectingAndSpecifyingRelations, true)]
-        public void DoesExpertCompleteCurrentPhase_ReturnLastEndedPhaseOfExpertAndSessionPhaseEqualityResult(
-            SessionPhase? lastEndedPhase, bool expectedResult)
+        [TestCase(true)]
+        [TestCase(false)]
+        public void DoesExpertCompleteCurrentPhase_ReturnIsPhaseCompleted(bool isPhaseCompleted)
         {
             ExpertService serviceUnderTest = CreateServiceUnderTest();
             var session = CreateSession(SessionPhase.SelectingAndSpecifyingRelations);
             var expert = FromExpertRepositoryReturnFakeExpert("expertName", session);
-            expert.LastCompletedPhase.Returns(lastEndedPhase);
+            expert.IsPhaseCompleted.Returns(isPhaseCompleted);
             
             var actualResult = serviceUnderTest.DoesExpertCompleteCurrentPhase("expertName", session);
             
-            Assert.That(actualResult, Is.EqualTo(expectedResult));
+            Assert.That(actualResult, Is.EqualTo(isPhaseCompleted));
         }
 
         #endregion
@@ -721,6 +718,33 @@ namespace Domain.Services.Tests
             }
         }
 
+        #endregion
+
+        #region FinishCurrentPhase
+
+        [Test]
+        public void FinishCurrentPhase_ExpertDoesNotExist_InvalidOperationException()
+        {
+            ExpertService serviceUnderTest = CreateServiceUnderTest();
+            FromExpertRepositoryReturnNullExpert();
+
+            Assert.Throws<InvalidOperationException>(
+                () => serviceUnderTest.FinishCurrentPhase("expertName", CreateSession()));
+        }
+
+        [Test]
+        public void FinishCurrentPhase_FinishCurrentPhaseForExpert()
+        {
+            ExpertService serviceUnserTests = CreateServiceUnderTest();
+            var expertName = "expertName";
+            var session = CreateSession();
+            var expert = FromExpertRepositoryReturnFakeExpert(expertName, session);
+
+            serviceUnserTests.FinishCurrentPhase(expertName, session);
+
+            expert.Received(1).FinishCurrentPhase();
+        }
+        
         #endregion
     }
 }

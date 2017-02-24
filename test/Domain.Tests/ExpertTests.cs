@@ -206,5 +206,44 @@ namespace Domain.Tests
 
             actual.Should().Be($"Name - Сессия: {_sessionFake.ToString()}");
         }
+
+        [TestCase(SessionPhase.SelectingAndSpecifyingRelations)]
+        [TestCase(SessionPhase.MakingAssociations)]
+        public void FinishPhase_SetLastCompletedPhaseAsCurrentPhaseOfSession(SessionPhase currentPhase)
+        {
+            var expert = CreateExpert();
+            SetCurrentSessionPhase(currentPhase);
+
+            expert.FinishCurrentPhase();
+
+            expert.LastCompletedPhase.Should().Be(currentPhase);
+        }
+
+        [TestCase(SessionPhase.MakingAssociations, null)]
+        [TestCase(SessionPhase.SpecifyingAssociationsTypes, SessionPhase.MakingAssociations)]
+        public void IsPhaseCompleted_CurrentSessionPhaseDoesNotEqualLastCompletedPhase_ReturnFalse(
+            SessionPhase currentPhase, SessionPhase? lastCompletedPhase)
+        {
+            var expert = CreateExpert();
+            SetCurrentSessionPhase(currentPhase);
+            expert.LastCompletedPhase = lastCompletedPhase;
+
+            expert.IsPhaseCompleted.Should().Be(false);
+        }
+
+        [Test]
+        public void IsPhaseCompleted_CurrentSessionPhaseEqualsLastCompletedPhase_ReturnTrue()
+        {
+            var expert = CreateExpert();
+            SetCurrentSessionPhase(SessionPhase.MakingAssociations);
+            expert.LastCompletedPhase = SessionPhase.MakingAssociations;
+
+            expert.IsPhaseCompleted.Should().Be(true);
+        }
+
+        private void SetCurrentSessionPhase(SessionPhase currentPhase)
+        {
+            _sessionFake.CurrentPhase.Returns(currentPhase);
+        }
     }
 }

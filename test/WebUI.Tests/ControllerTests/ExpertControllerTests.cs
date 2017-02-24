@@ -5,6 +5,7 @@ using Domain;
 using Domain.Infrastructure;
 using NSubstitute;
 using NUnit.Framework;
+using WebUI.Constants;
 using WebUI.Controllers;
 using WebUI.Infrastructure;
 using WebUI.Services;
@@ -104,6 +105,7 @@ namespace WebUI.UnitTests
         #endregion
 
         #region ExpertTest
+
         [Test]
         public void ExpertTest_SessionDoesNotExist_DisplayNoSessionView()
         {
@@ -262,7 +264,7 @@ namespace WebUI.UnitTests
             ExpertController cut = CreateControllerUnderTest();
             SetNullCurrentSession();
             
-            var result = (RedirectToRouteResult)cut.Association(new AllAssociationViewModel());
+            var result = (RedirectToRouteResult)cut.Association(new AllAssociationViewModel(), ViewConstants.SaveAction);
             
             Assert.AreEqual(SessionNotExistErrorMessage, cut.TempData[DataConstants.Error]);
             Assert.AreEqual("ExpertTest", result.RouteValues["action"]);
@@ -277,7 +279,7 @@ namespace WebUI.UnitTests
             ExpertController cut = CreateControllerUnderTest();
             SetFakeCurrentSession(currentPhase);
             
-            var result = (RedirectToRouteResult)cut.Association(new AllAssociationViewModel());
+            var result = (RedirectToRouteResult)cut.Association(new AllAssociationViewModel(), ViewConstants.SaveAction);
             
             Assert.AreEqual(NotAvailableOnThisPhaseErrorMessage, cut.TempData[DataConstants.Error]);
             Assert.AreEqual("ExpertTest", result.RouteValues["action"]);
@@ -291,7 +293,7 @@ namespace WebUI.UnitTests
             // set the ModelState.IsValid = false
             cut.ModelState.AddModelError("test", "test error");
             
-            var result = (ViewResult)cut.Association(new AllAssociationViewModel());
+            var result = (ViewResult)cut.Association(new AllAssociationViewModel(), ViewConstants.SaveAction);
             
             Assert.AreEqual("Association", result.ViewName);
         }
@@ -304,11 +306,24 @@ namespace WebUI.UnitTests
             cut.CurrentAuthorizedUser = Substitute.For<ICurrentUser>();
             SetFakeCurrentSession(SessionPhase.MakingAssociations);
             
-            var result = (RedirectToRouteResult)cut.Association(new AllAssociationViewModel() {Body = ""});
+            var result = (RedirectToRouteResult)cut.Association(new AllAssociationViewModel() {Body = ""}, ViewConstants.SaveAction);
 
             FakeExpertCurrentSessionOfExpertsService.Received(1)
                 .Associations(Arg.Any<IReadOnlyCollection<string>>(), Arg.Any<string>());
             Assert.AreEqual("ExpertTest", result.RouteValues["action"]);
+        }
+
+        [Test]
+        public void Association_ActionIsFinish_CallFinishCurrentPhase()
+        {
+            ExpertController cut = CreateControllerUnderTest();
+            SetFakeCurrentSession(SessionPhase.MakingAssociations);
+            var stubUserName = "userName";
+            cut.CurrentAuthorizedUser = CreateUser(stubUserName);
+
+            cut.Association(new AllAssociationViewModel() { Body = "" }, ViewConstants.FinishAction);
+
+            FakeExpertCurrentSessionOfExpertsService.Received(1).FinishCurrentPhase(Arg.Is(stubUserName));
         }
 
         #endregion
@@ -321,7 +336,7 @@ namespace WebUI.UnitTests
             ExpertController cut = CreateControllerUnderTest();
             SetNullCurrentSession();
             
-            var result = (RedirectToRouteResult)cut.AssociationType(new AssociationTypeViewModel());
+            var result = (RedirectToRouteResult)cut.AssociationType(new AssociationTypeViewModel(), ViewConstants.SaveAction);
             
             Assert.AreEqual(SessionNotExistErrorMessage, cut.TempData[DataConstants.Error]);
             Assert.AreEqual("ExpertTest", result.RouteValues["action"]);
@@ -336,7 +351,7 @@ namespace WebUI.UnitTests
             ExpertController cut = CreateControllerUnderTest();
             SetFakeCurrentSession(currentPhase);
             
-            var result = (RedirectToRouteResult)cut.AssociationType(new AssociationTypeViewModel());
+            var result = (RedirectToRouteResult)cut.AssociationType(new AssociationTypeViewModel(), ViewConstants.SaveAction);
             
             Assert.AreEqual(NotAvailableOnThisPhaseErrorMessage, cut.TempData[DataConstants.Error]);
             Assert.AreEqual("ExpertTest", result.RouteValues["action"]);
@@ -350,7 +365,7 @@ namespace WebUI.UnitTests
             // set the ModelState.IsValid = false
             cut.ModelState.AddModelError("test", "test error");
             
-            var result = (ViewResult)cut.AssociationType(new AssociationTypeViewModel());
+            var result = (ViewResult)cut.AssociationType(new AssociationTypeViewModel(), ViewConstants.SaveAction);
             
             Assert.AreEqual("AssociationType", result.ViewName);
         }
@@ -365,11 +380,29 @@ namespace WebUI.UnitTests
             var result = (RedirectToRouteResult)cut.AssociationType(new AssociationTypeViewModel()
             {
                 ExpertAssociations = new List<AssociationViewModel>()
-            });
+            }, 
+            ViewConstants.SaveAction);
 
             FakeExpertCurrentSessionOfExpertsService.Received(1)
                 .AssociationsTypes(Arg.Any<IReadOnlyCollection<AssociationDto>>(), Arg.Any<string>());
             Assert.AreEqual("ExpertTest", result.RouteValues["action"]);
+        }
+
+        [Test]
+        public void AssociationType_ActionIsFinish_CallFinishCurrentPhase()
+        {
+            ExpertController cut = CreateControllerUnderTest();
+            SetFakeCurrentSession(SessionPhase.SpecifyingAssociationsTypes);
+            var stubUserName = "userName";
+            cut.CurrentAuthorizedUser = CreateUser(stubUserName);
+
+            cut.AssociationType(new AssociationTypeViewModel()
+            {
+                ExpertAssociations = new List<AssociationViewModel>()
+            }, 
+            ViewConstants.FinishAction);
+
+            FakeExpertCurrentSessionOfExpertsService.Received(1).FinishCurrentPhase(Arg.Is(stubUserName));
         }
 
         #endregion

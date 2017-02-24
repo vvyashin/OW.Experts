@@ -88,7 +88,7 @@ namespace Domain.Services
 
             // ReSharper disable once PossibleNullReferenceException
             expert.ReplaceAllAssociations(notions);
-
+            
             _expertRepository.AddOrUpdate(expert);
         }
 
@@ -194,7 +194,7 @@ namespace Domain.Services
             if (sessionOfExperts == null) throw new ArgumentNullException(nameof(sessionOfExperts));
 
             var expert = GetExpertByNameAndSession(expertName, sessionOfExperts, ExpertFetch.None);
-            return expert?.LastCompletedPhase != null && expert.LastCompletedPhase == sessionOfExperts.CurrentPhase;
+            return expert != null && expert.IsPhaseCompleted;
         }
 
         /// <summary>
@@ -281,6 +281,16 @@ namespace Domain.Services
         public virtual IReadOnlyCollection<GroupedRelation> GetGroupedRelations([NotNull] SessionOfExperts sessionOfExperts)
         {
             return _relationRepository.GetGroupedRelations(sessionOfExperts);
+        }
+
+        public virtual void FinishCurrentPhase([NotNull] string expertName, [NotNull] SessionOfExperts sessionOfExperts)
+        {
+            var expert = GetExpertByNameAndSession(expertName, sessionOfExperts, ExpertFetch.None);
+            IfExpertDoesNotExistThrow(expert, expertName, sessionOfExperts);
+
+            // ReSharper disable once PossibleNullReferenceException
+            expert.FinishCurrentPhase();
+            _expertRepository.AddOrUpdate(expert);
         }
     }
 }

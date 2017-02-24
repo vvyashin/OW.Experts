@@ -41,6 +41,26 @@ namespace Domain.Services.Tests
 
             return session;
         }
+
+        private void ShouldThrowIfSessionExists(Action<CurrentSessionOfExpertsService> action)
+        {
+            CurrentSessionOfExpertsService serviceUnderTest = CreateServiceUnderTest();
+            SetFakeSession();
+
+            Assert.Throws(Is.TypeOf<InvalidOperationException>()
+                .And.Message.EqualTo(SessionExistErrorMessage),
+                () => action(serviceUnderTest));
+        }
+
+        private void ShouldThrowIfSessionDoesNotExist(Action<CurrentSessionOfExpertsService> action)
+        {
+            CurrentSessionOfExpertsService serviceUnderTest = CreateServiceUnderTest();
+            SetNullSession();
+
+            Assert.Throws(Is.TypeOf<InvalidOperationException>()
+                .And.Message.EqualTo(SessionDoesNotExistErrorMessage),
+                () => action(serviceUnderTest));
+        }
         
         #region StartNewSession
 
@@ -56,12 +76,7 @@ namespace Domain.Services.Tests
         [Test]
         public void StartNewSession_CurrentSessionExists_ThrowInvalidOperationException()
         {
-            CurrentSessionOfExpertsService serviceUnderTest = CreateServiceUnderTest();
-            SetFakeSession();
-
-            Assert.Throws(Is.TypeOf<InvalidOperationException>()
-                .And.Message.EqualTo(SessionExistErrorMessage),
-                () => serviceUnderTest.StartNewSession("TestNotion"));
+            ShouldThrowIfSessionExists(serviceUnderTest => serviceUnderTest.StartNewSession("TestNotion"));
         }
 
         [Test]
@@ -75,19 +90,15 @@ namespace Domain.Services.Tests
             FakeSessionOfExpertsRepository.AddOrUpdate(Arg.Is<SessionOfExperts>(
                 s => s.BaseNotion == "TestNotion"));
         }
+        
         #endregion
 
         #region NextPhase
 
         [Test]
-        public void NextPhase_SessionDoesNotExist_NewInvalidOperationException()
+        public void NextPhase_SessionDoesNotExist_ThrowInvalidOperationException()
         {
-            CurrentSessionOfExpertsService serviceUnderTest = CreateServiceUnderTest();
-            SetNullSession();
-            
-            Assert.Throws(Is.TypeOf<InvalidOperationException>()
-                .And.Message.EqualTo(SessionDoesNotExistErrorMessage),
-                () => serviceUnderTest.NextPhase());
+            ShouldThrowIfSessionDoesNotExist(serviceUnderTest => serviceUnderTest.NextPhase());
         }
         
         [Test]
@@ -120,7 +131,7 @@ namespace Domain.Services.Tests
         #region DoesExpertJoinSession
 
         [Test]
-        public void DoesExpertJoinSession_NameIsNull_NewArgumentNullException()
+        public void DoesExpertJoinSession_NameIsNull_ThrowArgumentNullException()
         {
             CurrentSessionOfExpertsService serviceUnderTest = CreateServiceUnderTest();
 
@@ -168,30 +179,24 @@ namespace Domain.Services.Tests
         #region JoinSession
 
         [Test]
-        public void JoinSession_NameIsNull_NewArgumentNullException()
+        public void JoinSession_NameIsNull_ThrowArgumentNullException()
         {
             CurrentSessionOfExpertsService serviceUnderTest = CreateServiceUnderTest();
             
             Assert.Throws(Is.TypeOf<ArgumentNullException>(),
                 () => serviceUnderTest.JoinSession(null));
-
         }
 
         [Test]
-        public void JoinSession_SessionDoesNotExist_InvalidOperationException()
+        public void JoinSession_SessionDoesNotExist_ThrowInvalidOperationException()
         {
-            CurrentSessionOfExpertsService serviceUnderTest = CreateServiceUnderTest();
-            SetNullSession();
-            
-            Assert.Throws(Is.TypeOf<InvalidOperationException>()
-                .And.Message.EqualTo(SessionDoesNotExistErrorMessage),
-                () => serviceUnderTest.JoinSession("testExpert"));
+            ShouldThrowIfSessionDoesNotExist(serviceUnderTest => serviceUnderTest.JoinSession("testExpert"));
         }
 
         [TestCase(SessionPhase.SpecifyingAssociationsTypes)]
         [TestCase(SessionPhase.SelectingAndSpecifyingRelations)]
         [TestCase(SessionPhase.SelectingNodes)]
-        public void JoinSession_SessionExistsAndIsNotInAssociationPhase_InvalidOperationException(
+        public void JoinSession_SessionExistsAndIsNotInAssociationPhase_ThrowInvalidOperationException(
             SessionPhase currentPhase)
         {
             CurrentSessionOfExpertsService serviceUnderTest = CreateServiceUnderTest();
@@ -220,7 +225,7 @@ namespace Domain.Services.Tests
         #region Associations
 
         [Test]
-        public void Associations_NameIsNull_NewArgumentNullException()
+        public void Associations_NameIsNull_ThrowArgumentNullException()
         {
             CurrentSessionOfExpertsService serviceUnderTest = CreateServiceUnderTest();
             
@@ -229,7 +234,7 @@ namespace Domain.Services.Tests
         }
 
         [Test]
-        public void Associations_NotionsIsNull_NewArgumentNullException()
+        public void Associations_NotionsIsNull_ThrowArgumentNullException()
         {
             CurrentSessionOfExpertsService serviceUnderTest = CreateServiceUnderTest();
             
@@ -238,14 +243,9 @@ namespace Domain.Services.Tests
         }
 
         [Test]
-        public void Associations_CurrentSessionDoesNotExist_NewInvalidOperationException()
+        public void Associations_CurrentSessionDoesNotExist_ThrowInvalidOperationException()
         {
-            CurrentSessionOfExpertsService serviceUnderTest = CreateServiceUnderTest();
-            SetNullSession();
-            
-            Assert.Throws(Is.TypeOf<InvalidOperationException>()
-                .And.Message.EqualTo(SessionDoesNotExistErrorMessage),
-                () => serviceUnderTest.Associations(new List<string>(), "testExpert"));
+            ShouldThrowIfSessionDoesNotExist(serviceUnderTest => serviceUnderTest.Associations(new List<string>(), "testExpert"));
         }
 
         [TestCase(SessionPhase.SpecifyingAssociationsTypes)]
@@ -280,7 +280,7 @@ namespace Domain.Services.Tests
         #region AssociationsTypes
 
         [Test]
-        public void AssociationsTypes_NameIsNull_NewArgumentNullException()
+        public void AssociationsTypes_NameIsNull_ThrowArgumentNullException()
         {
             CurrentSessionOfExpertsService serviceUnderTest = CreateServiceUnderTest();
             
@@ -289,7 +289,7 @@ namespace Domain.Services.Tests
         }
 
         [Test]
-        public void AssociationsTypes_DtoIsNull_NewArgumentNullException()
+        public void AssociationsTypes_DtoIsNull_ThrowArgumentNullException()
         {
             CurrentSessionOfExpertsService serviceUnderTest = CreateServiceUnderTest();
             
@@ -300,12 +300,7 @@ namespace Domain.Services.Tests
         [Test]
         public void AssociationsTypes_CurrentSessionDoesNotExist_NewInvalidOperationException()
         {
-            CurrentSessionOfExpertsService serviceUnderTest = CreateServiceUnderTest();
-            SetNullSession();
-
-            Assert.Throws(Is.TypeOf<InvalidOperationException>()
-                .And.Message.EqualTo(SessionDoesNotExistErrorMessage),
-                () => serviceUnderTest.AssociationsTypes(new List<AssociationDto>(), "testExpert"));
+            ShouldThrowIfSessionDoesNotExist(serviceUnderTest => serviceUnderTest.AssociationsTypes(new List<AssociationDto>(), "testExpert"));
         }
 
         [TestCase(SessionPhase.MakingAssociations)]
@@ -340,7 +335,7 @@ namespace Domain.Services.Tests
         #region Relation
 
         [Test]
-        public void Relation_NameIsNull_NewArgumentNullException()
+        public void Relation_NameIsNull_ThrowArgumentNullException()
         {
             CurrentSessionOfExpertsService serviceUnderTest = CreateServiceUnderTest();
 
@@ -349,7 +344,7 @@ namespace Domain.Services.Tests
         }
 
         [Test]
-        public void Relation_DtoIsNull_NewArgumentNullException()
+        public void Relation_DtoIsNull_ThrowArgumentNullException()
         {
             CurrentSessionOfExpertsService serviceUnderTest = CreateServiceUnderTest();
             
@@ -358,20 +353,16 @@ namespace Domain.Services.Tests
         }
 
         [Test]
-        public void Relation_CurrentSessionDoesNotExist_NewInvalidOperationException()
+        public void Relation_CurrentSessionDoesNotExist_ThrowInvalidOperationException()
         {
-            CurrentSessionOfExpertsService serviceUnderTest = CreateServiceUnderTest();
-            SetNullSession();
-            
-            Assert.Throws(Is.TypeOf<InvalidOperationException>()
-                .And.Message.EqualTo(SessionDoesNotExistErrorMessage),
-                () => serviceUnderTest.Relations(new RelationTupleDto(), "testExpert"));
+            ShouldThrowIfSessionDoesNotExist(
+                serviceUnderTest => serviceUnderTest.Relations(new RelationTupleDto(), "testExpert"));
         }
 
         [TestCase(SessionPhase.MakingAssociations)]
         [TestCase(SessionPhase.SpecifyingAssociationsTypes)]
         [TestCase(SessionPhase.SelectingNodes)]
-        public void Relation_SessionExistsAndIsNotInRelationPhase_InvalidOperationException(SessionPhase currentPhase)
+        public void Relation_SessionExistsAndIsNotInRelationPhase_ThrowInvalidOperationException(SessionPhase currentPhase)
         {
             CurrentSessionOfExpertsService serviceUnderTest = CreateServiceUnderTest();
             SetFakeSession(currentPhase);
@@ -399,14 +390,9 @@ namespace Domain.Services.Tests
         #region GetAllNodeCandidates
 
         [Test]
-        public void GetAllNodeCandidates_CurrentSessionDoesNotExist_NewInvalidOperationException()
+        public void GetAllNodeCandidates_CurrentSessionDoesNotExist_ThrowInvalidOperationException()
         {
-            CurrentSessionOfExpertsService serviceUnderTest = CreateServiceUnderTest();
-            SetNullSession();
-            
-            Assert.Throws(Is.TypeOf<InvalidOperationException>()
-                .And.Message.EqualTo(SessionDoesNotExistErrorMessage),
-                () => serviceUnderTest.GetAllNodeCandidates());
+            ShouldThrowIfSessionDoesNotExist(serviceUnderTest => serviceUnderTest.GetAllNodeCandidates());
         }
 
         [Test]
@@ -429,12 +415,7 @@ namespace Domain.Services.Tests
         [Test]
         public void GetExpertCount_CurrentSessionDoesNotExist_NewInvalidOperationException()
         {
-            CurrentSessionOfExpertsService serviceUnderTest = CreateServiceUnderTest();
-            SetNullSession();
-            
-            Assert.Throws(Is.TypeOf<InvalidOperationException>()
-                .And.Message.EqualTo(SessionDoesNotExistErrorMessage),
-                () => serviceUnderTest.GetExpertCount());
+            ShouldThrowIfSessionDoesNotExist(serviceUnderTest => serviceUnderTest.GetExpertCount());
         }
 
         [Test]
@@ -455,7 +436,7 @@ namespace Domain.Services.Tests
         #region DoesExpertCompleteCurrentPhase
 
         [Test]
-        public void DoesExpertCompleteCurrentPhase_NameIsNull_NewArgumentNullException()
+        public void DoesExpertCompleteCurrentPhase_NameIsNull_ThrowArgumentNullException()
         {
             CurrentSessionOfExpertsService serviceUnderTest = CreateServiceUnderTest();
             
@@ -505,7 +486,7 @@ namespace Domain.Services.Tests
         #region GetAssociationsByExpertName
 
         [Test]
-        public void GetAssociationsByExpertName_NameIsNull_NewArgumentNullException()
+        public void GetAssociationsByExpertName_NameIsNull_ThrowArgumentNullException()
         {
             CurrentSessionOfExpertsService serviceUnderTest = CreateServiceUnderTest();
             
@@ -514,14 +495,9 @@ namespace Domain.Services.Tests
         }
 
         [Test]
-        public void GetAssociationsByExpertName_CurrentSessionDoesNotExist_NewInvalidOperationException()
+        public void GetAssociationsByExpertName_CurrentSessionDoesNotExist_ThrowInvalidOperationException()
         {
-            CurrentSessionOfExpertsService serviceUnderTest = CreateServiceUnderTest();
-            SetNullSession();
-            
-            Assert.Throws(Is.TypeOf<InvalidOperationException>()
-                .And.Message.EqualTo(SessionDoesNotExistErrorMessage),
-                () => serviceUnderTest.GetAssociationsByExpertName("expertTest"));
+            ShouldThrowIfSessionDoesNotExist(serviceUnderTest => serviceUnderTest.GetAssociationsByExpertName("expertTest"));
         }
 
         [Test]
@@ -545,7 +521,7 @@ namespace Domain.Services.Tests
         #region GetNextRelationByExpertName
 
         [Test]
-        public void GetNextRelationByExpertName_NameIsNull_NewArgumentNullException()
+        public void GetNextRelationByExpertName_NameIsNull_ThrowArgumentNullException()
         {
             CurrentSessionOfExpertsService serviceUnderTest = CreateServiceUnderTest();
             
@@ -554,14 +530,9 @@ namespace Domain.Services.Tests
         }
 
         [Test]
-        public void GetNextRelationByExpertName_CurrentSessionDoesNotExist_NewInvalidOperationException()
+        public void GetNextRelationByExpertName_CurrentSessionDoesNotExist_ThrowInvalidOperationException()
         {
-            CurrentSessionOfExpertsService serviceUnderTest = CreateServiceUnderTest();
-            SetNullSession();
-            
-            Assert.Throws(Is.TypeOf<InvalidOperationException>()
-                .And.Message.EqualTo(SessionDoesNotExistErrorMessage),
-                () => serviceUnderTest.GetNextRelationByExpertName("expertTest"));            
+            ShouldThrowIfSessionDoesNotExist(serviceUnderTest => serviceUnderTest.GetNextRelationByExpertName("expertTest"));
         }
 
         [Test]
@@ -586,7 +557,7 @@ namespace Domain.Services.Tests
         #region CreateSemanticNetworkFromNodeCandidates
 
         [Test]
-        public void CreateSemanticNetworkFromNodeCandidates_DtoIsNull_NewArgumentNullException()
+        public void CreateSemanticNetworkFromNodeCandidates_DtoIsNull_ThrowArgumentNullException()
         {
             CurrentSessionOfExpertsService serviceUnderTest = CreateServiceUnderTest();
 
@@ -595,14 +566,10 @@ namespace Domain.Services.Tests
         }
 
         [Test]
-        public void CreateSemanticNetworkFromNodeCandidates_CurrentSessionDoesNotExist_NewInvalidOperationException()
+        public void CreateSemanticNetworkFromNodeCandidates_CurrentSessionDoesNotExist_ThrowInvalidOperationException()
         {
-            CurrentSessionOfExpertsService serviceUnderTest = CreateServiceUnderTest();
-            SetNullSession();
-            
-            Assert.Throws(Is.TypeOf<InvalidOperationException>()
-                .And.Message.EqualTo(SessionDoesNotExistErrorMessage),
-                () => serviceUnderTest.CreateSemanticNetworkFromNodeCandidates(new List<NodeCandidate>()));
+            ShouldThrowIfSessionDoesNotExist(
+                serviceUnderTest => serviceUnderTest.CreateSemanticNetworkFromNodeCandidates(new List<NodeCandidate>()));
         }
 
         [TestCase(SessionPhase.SpecifyingAssociationsTypes)]
@@ -639,12 +606,8 @@ namespace Domain.Services.Tests
         [Test]
         public void SaveRelationsAsVergesOfSemanticNetwork_CurrentSessionDoesNotExist_NewInvalidOperationException()
         {
-            CurrentSessionOfExpertsService serviceUnderTest = CreateServiceUnderTest();
-            SetNullSession();
-            
-            Assert.Throws(Is.TypeOf<InvalidOperationException>()
-                .And.Message.EqualTo(SessionDoesNotExistErrorMessage),
-                () => serviceUnderTest.SaveRelationsAsVergesOfSemanticNetwork());
+            ShouldThrowIfSessionDoesNotExist(
+                serviceUnderTest => serviceUnderTest.SaveRelationsAsVergesOfSemanticNetwork());
         }
 
         [TestCase(SessionPhase.SpecifyingAssociationsTypes)]
@@ -682,12 +645,7 @@ namespace Domain.Services.Tests
         [Test]
         public void GetSematicNetwork_CurrentSessionDoesNotExist_NewInvalidOperationException()
         {
-            CurrentSessionOfExpertsService serviceUnderTest = CreateServiceUnderTest();
-            SetNullSession();
-
-            Assert.Throws(Is.TypeOf<InvalidOperationException>()
-                .And.Message.EqualTo(SessionDoesNotExistErrorMessage),
-                () => serviceUnderTest.GetSemanticNetwork());
+            ShouldThrowIfSessionDoesNotExist(serviceUnderTest => serviceUnderTest.GetSemanticNetwork());
         }
 
         [Test]
@@ -702,6 +660,28 @@ namespace Domain.Services.Tests
             var result = serviceUnderTest.GetSemanticNetwork();
 
             Assert.That(result, Is.EqualTo(semanticNetworkStub));
+        }
+
+        #endregion
+
+        #region FinishCurrentPhase
+
+        [Test]
+        public void FinishCurrentPhase_CurrentSessionDoesNotExist_Throw()
+        {
+            ShouldThrowIfSessionDoesNotExist(serviceUnderTests => serviceUnderTests.FinishCurrentPhase("expertName"));
+        }
+
+        [Test]
+        public void FinishCurrentPhase_CurrentSessionExists_CallExpertService()
+        {
+            CurrentSessionOfExpertsService serviceUnderTest = CreateServiceUnderTest();
+            var session = SetFakeSession();
+            string expertName = "expertTest";
+            
+            serviceUnderTest.FinishCurrentPhase(expertName);
+
+            FakeExpertService.Received(1).FinishCurrentPhase(Arg.Is(expertName), Arg.Is(session));
         }
 
         #endregion

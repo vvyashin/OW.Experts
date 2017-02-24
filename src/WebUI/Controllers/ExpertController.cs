@@ -5,9 +5,9 @@ using System.Web.Mvc;
 using Domain;
 using Domain.Infrastructure;
 using JetBrains.Annotations;
+using WebUI.Constants;
 using WebUI.Infrastructure;
 using WebUI.Infrastructure.AutoConverter;
-using WebUI.Infrastructure.Binders;
 using WebUI.Services;
 using WebUI.ViewModels;
 using WebUI.ViewModels.Admin;
@@ -85,7 +85,7 @@ namespace WebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Association(AllAssociationViewModel model)
+        public ActionResult Association(AllAssociationViewModel model, string action)
         {
             // ReSharper disable once PossibleNullReferenceException
             return HandleHttpPostRequest(
@@ -99,12 +99,20 @@ namespace WebUI.Controllers
                             .Distinct()
                             .Where(x => !String.IsNullOrWhiteSpace(x))
                             .ToList(), CurrentAuthorizedUser.Name);
+                    FinishPhaseIfActionIsFinish(action);
                     this.Success("Ассоциации успешно сохранены");
                     return RedirectToAction("ExpertTest");
                 },
                 viewWithProcessedForm: View("Association", model),
                 andIfErrorReturn: RedirectToAction("ExpertTest", "Expert")
                 );
+        }
+
+        private void FinishPhaseIfActionIsFinish(string action)
+        {
+            if (action == ViewConstants.FinishAction) {
+                _currentSessionOfExpertsService.FinishCurrentPhase(CurrentAuthorizedUser.Name);
+            }
         }
 
         private ActionResult AssociationType()
@@ -134,7 +142,7 @@ namespace WebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AssociationType(AssociationTypeViewModel model)
+        public ActionResult AssociationType(AssociationTypeViewModel model, string action)
         {
             return HandleHttpPostRequest(
                 currentSessionShouldExist: true,
@@ -143,6 +151,7 @@ namespace WebUI.Controllers
                 {
                     _currentSessionOfExpertsService.AssociationsTypes(
                         model.ExpertAssociations.ConvertTo<List<AssociationDto>>(), CurrentAuthorizedUser.Name);
+                    FinishPhaseIfActionIsFinish(action);
                     this.Success("Типы ассоциаций успешно сохранены");
                     return RedirectToAction("ExpertTest");
                 },

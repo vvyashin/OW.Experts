@@ -1,4 +1,5 @@
 ﻿@using System.Web.Mvc.Html
+@using WebUI.Constants
 @model WebUI.ViewModels.Expert.AllAssociationViewModel
 
 @{
@@ -28,7 +29,8 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input class="btn btn-success" type="submit" value="Сохранить"/>
+                <button class="btn btn-success" type="submit" name="action" value="@ViewConstants.SaveAction">Сохранить</button>
+                <button class="btn btn-success" type="submit" name="action" value="@ViewConstants.FinishAction">Завершить</button>
             </div>
         </div>
     </div>
