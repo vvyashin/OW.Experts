@@ -1,7 +1,7 @@
 ﻿using System;
 using JetBrains.Annotations;
 
-namespace Domain.Infrastructure
+namespace OW.Experts.Domain.Infrastructure.Query
 {
     public abstract class LinqQueryBase<TResult, TSpecification> : IQuery<TResult, TSpecification>
     {

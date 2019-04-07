@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Domain.Infrastructure;
 using JetBrains.Annotations;
+using OW.Experts.Domain.Infrastructure.Fetching;
+using OW.Experts.Domain.Infrastructure.Query;
+using OW.Experts.Domain.Infrastructure.Repository;
 
-namespace Domain.Linq
+namespace OW.Experts.Domain.Linq.Repositories
 {
     public class NodeRepository : INodeRepository
     {

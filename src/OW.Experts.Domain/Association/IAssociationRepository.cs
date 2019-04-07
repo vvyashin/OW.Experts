@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
 
-namespace Domain
+namespace OW.Experts.Domain
 {
     public interface IAssociationRepository
     {

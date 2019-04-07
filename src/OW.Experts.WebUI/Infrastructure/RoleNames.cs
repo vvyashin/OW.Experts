@@ -1,4 +1,4 @@
-﻿namespace WebUI.Infrastructure
+﻿namespace OW.Experts.WebUI.Infrastructure
 {
     public static class RoleNames
     {

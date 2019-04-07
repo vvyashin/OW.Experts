@@ -1,8 +1,9 @@
 ﻿using System;
-using Domain.Infrastructure;
 using JetBrains.Annotations;
+using OW.Experts.Domain.Infrastructure.Query;
+using OW.Experts.Domain.Infrastructure.Repository;
 
-namespace Domain.Linq
+namespace OW.Experts.Domain.Linq.Repositories
 {
     public abstract class TypeRepository<T> : ITypeRepository<T>
         where T : TypeBase

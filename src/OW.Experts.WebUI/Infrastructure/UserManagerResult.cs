@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
 
-namespace WebUI.Infrastructure
+namespace OW.Experts.WebUI.Infrastructure
 {
     public class UserManagerResult
     {

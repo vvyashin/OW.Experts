@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Domain.Infrastructure;
 using JetBrains.Annotations;
+using OW.Experts.Domain.Infrastructure.Query;
+using OW.Experts.Domain.Infrastructure.Repository;
+using OW.Experts.Domain.Linq.Queries;
 
-namespace Domain.Linq
+namespace OW.Experts.Domain.Linq.Repositories
 {
     public class SessionOfExpertsRepository : ISessionOfExpertsRepository
     {

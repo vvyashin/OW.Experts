@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
-using Domain.Infrastructure;
 using JetBrains.Annotations;
 using NHibernate;
 using NHibernate.Context;
-using NHibernate.Linq;
+using OW.Experts.Domain.Infrastructure;
+using OW.Experts.Domain.Infrastructure.Query;
 
-namespace Domain.NHibernate
+namespace OW.Experts.Domain.NHibernate
 {
     public class NHLinqProvider : ILinqProvider
     {

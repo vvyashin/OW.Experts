@@ -1,7 +1,7 @@
 ﻿using System.Data;
 using JetBrains.Annotations;
 
-namespace Domain.Infrastructure
+namespace OW.Experts.Domain.Infrastructure.Repository
 {
     public interface IUnitOfWorkFactory
     {

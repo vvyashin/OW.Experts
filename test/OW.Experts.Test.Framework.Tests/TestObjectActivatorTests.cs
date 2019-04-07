@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
 
-namespace Test.Infrastructure.Tests
+namespace OW.Experts.Test.Infrastructure.Tests
 {
     [TestFixture]
     public class TestObjectActivatorTests

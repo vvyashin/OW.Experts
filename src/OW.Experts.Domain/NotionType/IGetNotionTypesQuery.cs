@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Domain.Infrastructure;
+using OW.Experts.Domain.Infrastructure.Query;
 
-namespace Domain
+namespace OW.Experts.Domain
 {
     // alias
     public interface IGetNotionTypesQuery<TResultItem> : IQuery<IReadOnlyCollection<TResultItem>, GetNotionTypesSpecification<TResultItem>>

@@ -3,7 +3,7 @@ using FluentAssertions;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace Domain.Infrastructure.Tests
+namespace OW.Experts.Domain.Infrastructure.Tests
 {
     [TestFixture]
     public class DomainObjectTests

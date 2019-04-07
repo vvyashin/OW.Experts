@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Domain.Infrastructure;
-using Domain.Infrastructure.Extensions;
 using JetBrains.Annotations;
+using OW.Experts.Domain.Infrastructure;
+using OW.Experts.Domain.Infrastructure.Extensions;
 
-namespace Domain
+namespace OW.Experts.Domain
 {
     /// <summary>
     /// Relation and its type offered by expert during the session

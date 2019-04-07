@@ -1,4 +1,4 @@
-﻿namespace Domain
+﻿namespace OW.Experts.Domain
 {
     /// <summary>
     /// Type of relation that represents as edges of semantic network or association of experts

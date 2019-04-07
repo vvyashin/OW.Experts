@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Test.Infrastructure
+namespace OW.Experts.Test.Infrastructure
 {
     /// <summary>
     /// Contains method for creating instances of types with non public constructor

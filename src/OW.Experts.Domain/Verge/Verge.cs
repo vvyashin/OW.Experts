@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Domain.Infrastructure;
 using JetBrains.Annotations;
+using OW.Experts.Domain.Infrastructure;
 
-namespace Domain
+namespace OW.Experts.Domain
 {
     public class Verge : DomainObject
     {

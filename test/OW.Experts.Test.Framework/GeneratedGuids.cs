@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Domain.Infrastructure.Tests
+namespace OW.Experts.Test.Infrastructure
 {
     public static class GeneratedGuids
     {

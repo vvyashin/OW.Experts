@@ -1,8 +1,8 @@
-﻿using Domain;
-using NSubstitute;
+﻿using NSubstitute;
 using NUnit.Framework;
+using OW.Experts.Domain;
 
-namespace WebUI.UnitTests
+namespace OW.Experts.WebUI.UnitTests.Base
 {
     public class SessionControllerTests
     {

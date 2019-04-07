@@ -1,4 +1,4 @@
-﻿namespace WebUI.Constants
+﻿namespace OW.Experts.WebUI.Constants
 {
     public static class ViewConstants
     {

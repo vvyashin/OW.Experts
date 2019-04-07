@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Domain;
-using Domain.Infrastructure;
 using JetBrains.Annotations;
-using WebUI.Constants;
-using WebUI.Infrastructure;
-using WebUI.Infrastructure.AutoConverter;
-using WebUI.Services;
-using WebUI.ViewModels;
-using WebUI.ViewModels.Admin;
-using WebUI.ViewModels.Expert;
+using OW.Experts.Domain;
+using OW.Experts.Domain.Infrastructure.Repository;
+using OW.Experts.WebUI.Constants;
+using OW.Experts.WebUI.Infrastructure;
+using OW.Experts.WebUI.Infrastructure.AutoConverter;
+using OW.Experts.WebUI.Services;
+using OW.Experts.WebUI.ViewModels;
+using OW.Experts.WebUI.ViewModels.Admin;
+using OW.Experts.WebUI.ViewModels.Expert;
 
-namespace WebUI.Controllers
+namespace OW.Experts.WebUI.Controllers
 {
     [Authorize(Roles = RoleNames.Expert)]
     public class ExpertController : BaseSessionController

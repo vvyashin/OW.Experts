@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 
-namespace Domain
+namespace OW.Experts.Domain
 {
     public interface ICurrentSessionService
     {

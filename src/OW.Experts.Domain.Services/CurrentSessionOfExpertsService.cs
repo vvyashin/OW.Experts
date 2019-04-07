@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 
-namespace Domain.Services
+namespace OW.Experts.Domain.Services
 {
     public class CurrentSessionOfExpertsService : IAdminCurrentSessionService, IExpertCurrentSessionService
     {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebUI.ViewModels.Expert
+namespace OW.Experts.WebUI.ViewModels.Expert
 {
     public class AllAssociationViewModel
     {

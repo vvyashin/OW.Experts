@@ -2,7 +2,7 @@
 using NSubstitute;
 using NUnit.Framework;
 
-namespace Domain.Tests
+namespace OW.Experts.Domain.Tests
 {
     [TestFixture]
     public class VergeTests

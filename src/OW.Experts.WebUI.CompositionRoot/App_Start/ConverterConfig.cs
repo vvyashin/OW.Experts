@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-using WebUI.Infrastructure.AutoConverter.Rules;
+using OW.Experts.WebUI.Infrastructure.AutoConverter.Rules;
 
-namespace WebUI.CompositionRoot
+namespace OW.Experts.WebUI.CompositionRoot
 {
     public static class ConverterConfig
     {

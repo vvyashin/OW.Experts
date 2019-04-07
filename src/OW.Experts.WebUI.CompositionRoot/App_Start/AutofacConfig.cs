@@ -2,10 +2,10 @@
 using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.Mvc;
-using WebUI.CompositionRoot.AutofacModules;
-using WebUI.Services;
+using OW.Experts.WebUI.CompositionRoot.AutofacModules;
+using OW.Experts.WebUI.Services;
 
-namespace WebUI.CompositionRoot
+namespace OW.Experts.WebUI.CompositionRoot
 {
     public static class AutofacConfig
     {

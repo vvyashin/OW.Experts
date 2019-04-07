@@ -1,7 +1,7 @@
-﻿using Domain;
-using Domain.NHibernate;
+﻿using OW.Experts.Domain;
+using OW.Experts.Domain.NHibernate;
 
-namespace Data.Seed
+namespace OW.Experts.Data.Seed
 {
     class Program
     {

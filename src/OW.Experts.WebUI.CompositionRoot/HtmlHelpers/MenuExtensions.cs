@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 
-namespace WebUI.CompositionRoot.HtmlHelpers
+namespace OW.Experts.WebUI.CompositionRoot.HtmlHelpers
 {
     public static class MenuExtensions
     {

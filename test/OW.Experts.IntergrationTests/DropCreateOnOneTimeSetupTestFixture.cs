@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace IntergrationTests
+namespace OW.Experts.IntergrationTests
 {
     public class DropCreateOnOneTimeSetupTestFixture : DropCreateTestFixture
     {

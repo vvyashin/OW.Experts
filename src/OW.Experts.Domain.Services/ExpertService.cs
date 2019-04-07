@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 
-namespace Domain.Services
+namespace OW.Experts.Domain.Services
 {
     internal class ExpertService
     {

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
-using WebUI.ViewModels.Admin;
+using OW.Experts.WebUI.ViewModels.Admin;
 
-namespace WebUI.Infrastructure.Binders
+namespace OW.Experts.WebUI.Infrastructure.Binders
 {
     public class NodeCandidatesBinder : DefaultModelBinder
     {

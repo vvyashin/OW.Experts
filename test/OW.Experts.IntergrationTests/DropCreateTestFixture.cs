@@ -1,12 +1,15 @@
-﻿using Domain.Infrastructure;
-using Domain.NHibernate;
-using FluentNHibernate.Cfg;
+﻿using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
 using NHibernate.Tool.hbm2ddl;
 using NUnit.Framework;
+using OW.Experts.Domain.Infrastructure;
+using OW.Experts.Domain.Infrastructure.Fetching;
+using OW.Experts.Domain.Infrastructure.Query;
+using OW.Experts.Domain.Infrastructure.Repository;
+using OW.Experts.Domain.NHibernate;
 
-namespace IntergrationTests
+namespace OW.Experts.IntergrationTests
 {
     public class DropCreateTestFixture
     {

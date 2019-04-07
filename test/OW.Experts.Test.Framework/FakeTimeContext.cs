@@ -1,7 +1,7 @@
 ﻿using System;
-using Domain.Infrastructure;
+using OW.Experts.Domain.Infrastructure;
 
-namespace Test.Infrastructure
+namespace OW.Experts.Test.Infrastructure
 {
     public class FakeTimeContext : TimeContext
     {

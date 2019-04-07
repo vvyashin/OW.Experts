@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using WebUI.ViewModels;
+using OW.Experts.WebUI.ViewModels;
 
-namespace WebUI.Infrastructure
+namespace OW.Experts.WebUI.Infrastructure
 {
     public static class ControllerExtensions
     {

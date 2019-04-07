@@ -2,13 +2,13 @@
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
-using WebUI.CompositionRoot;
-using WebUI.CompositionRoot.IdentityEFAuth;
-using WebUI.Infrastructure;
+using OW.Experts.WebUI.CompositionRoot;
+using OW.Experts.WebUI.CompositionRoot.IdentityEFAuth;
+using OW.Experts.WebUI.Infrastructure;
 
 [assembly: OwinStartup(typeof (IdentityConfig))]
 
-namespace WebUI.CompositionRoot
+namespace OW.Experts.WebUI.CompositionRoot
 {
     public class IdentityConfig
     {

@@ -1,9 +1,9 @@
 ﻿using System;
-using Domain.Infrastructure.Extensions;
 using FluentAssertions;
 using NUnit.Framework;
+using OW.Experts.Domain.Infrastructure.Extensions;
 
-namespace Domain.Infrastructure.Tests
+namespace OW.Experts.Domain.Infrastructure.Tests
 {
     [TestFixture]
     public class StringExtensionsTests

@@ -1,7 +1,7 @@
 ﻿using System;
 using JetBrains.Annotations;
 
-namespace Domain.Infrastructure
+namespace OW.Experts.Domain.Infrastructure.Repository
 {
     public interface IRepository<T>
         where T : DomainObject

@@ -1,11 +1,12 @@
 ﻿using System.Linq;
-using Domain;
-using Domain.Infrastructure;
 using FluentAssertions;
 using NUnit.Framework;
-using Test.Infrastructure;
+using OW.Experts.Domain;
+using OW.Experts.Domain.Infrastructure;
+using OW.Experts.Test.Infrastructure;
+using OW.Experts.Test.Infrastructure.FluentAssertions;
 
-namespace IntergrationTests.MappingTests
+namespace OW.Experts.IntergrationTests.MappingTests
 {
     [TestFixture]
     public class SessionOfExpertsTests : DropCreateOnSetupTestFixture

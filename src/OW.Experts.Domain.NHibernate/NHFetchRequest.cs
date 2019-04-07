@@ -5,10 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Domain.Infrastructure;
 using NHibernate.Linq;
+using OW.Experts.Domain.Infrastructure.Fetching;
 
-namespace Domain.NHibernate
+namespace OW.Experts.Domain.NHibernate
 {
     public class NHFetchRequest<TQueried, TFetch> : IFetchRequest<TQueried, TFetch>
     {

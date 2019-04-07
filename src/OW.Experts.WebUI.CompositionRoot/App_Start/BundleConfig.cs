@@ -1,6 +1,6 @@
 ﻿using System.Web.Optimization;
 
-namespace WebUI.CompositionRoot
+namespace OW.Experts.WebUI.CompositionRoot
 {
     public static class BundleConfig
     {

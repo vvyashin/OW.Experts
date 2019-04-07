@@ -1,4 +1,4 @@
-﻿namespace WebUI.Infrastructure.AutoConverter.Rules
+﻿namespace OW.Experts.WebUI.Infrastructure.AutoConverter.Rules
 {
     public interface IConvertRegister
     {

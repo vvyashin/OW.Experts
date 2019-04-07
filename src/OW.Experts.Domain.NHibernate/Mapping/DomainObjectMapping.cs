@@ -1,7 +1,7 @@
-﻿using Domain.Infrastructure;
-using FluentNHibernate.Mapping;
+﻿using FluentNHibernate.Mapping;
+using OW.Experts.Domain.Infrastructure;
 
-namespace Domain.NHibernate.Mapping
+namespace OW.Experts.Domain.NHibernate.Mapping
 {
     public abstract class DomainObjectMapping<T> : ClassMap<T> where T : DomainObject
     {

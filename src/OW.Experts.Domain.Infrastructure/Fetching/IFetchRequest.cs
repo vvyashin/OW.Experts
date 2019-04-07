@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Domain.Infrastructure
+namespace OW.Experts.Domain.Infrastructure.Fetching
 {
     public interface IFetchRequest<TQueried, TFetch> : IOrderedQueryable<TQueried>
     {

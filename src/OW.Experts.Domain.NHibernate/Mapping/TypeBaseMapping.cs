@@ -1,4 +1,4 @@
-﻿namespace Domain.NHibernate.Mapping
+﻿namespace OW.Experts.Domain.NHibernate.Mapping
 {
     public abstract class TypeBaseMapping<T> : DomainObjectMapping<T>
         where T : TypeBase

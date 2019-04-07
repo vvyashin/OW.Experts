@@ -3,7 +3,7 @@ using Autofac;
 using Autofac.Core.Activators.Reflection;
 using Module = Autofac.Module;
 
-namespace WebUI.CompositionRoot.AutofacModules
+namespace OW.Experts.WebUI.CompositionRoot.AutofacModules
 {
     public class DomainModule : Module
     {

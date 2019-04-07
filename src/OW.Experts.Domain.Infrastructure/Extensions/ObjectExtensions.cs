@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Domain.Infrastructure.Extensions
+namespace OW.Experts.Domain.Infrastructure.Extensions
 {
     public static class ObjectExtensions
     {

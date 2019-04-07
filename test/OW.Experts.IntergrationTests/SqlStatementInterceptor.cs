@@ -2,7 +2,7 @@
 using NHibernate;
 using NHibernate.SqlCommand;
 
-namespace IntergrationTests
+namespace OW.Experts.IntergrationTests
 {
     public class SqlStatementInterceptor : EmptyInterceptor
     {

@@ -1,7 +1,7 @@
 ﻿using System;
-using Domain;
+using OW.Experts.Domain;
 
-namespace WebUI.ViewModels.Admin
+namespace OW.Experts.WebUI.ViewModels.Admin
 {
     public class SessionViewModel
     {

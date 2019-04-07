@@ -1,7 +1,7 @@
 ﻿using System;
 using JetBrains.Annotations;
 
-namespace Domain.Linq
+namespace OW.Experts.Domain.Linq.Queries
 {
     internal class GetExpertCountSpecification
     {

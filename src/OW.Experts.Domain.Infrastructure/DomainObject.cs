@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Domain.Infrastructure
+namespace OW.Experts.Domain.Infrastructure
 {
     /// <summary>
     /// Base type for all domain objects

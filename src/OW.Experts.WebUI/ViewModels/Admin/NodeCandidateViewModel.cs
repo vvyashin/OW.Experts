@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace WebUI.ViewModels.Admin
+namespace OW.Experts.WebUI.ViewModels.Admin
 {
     public class NodeCandidateListViewModel
     {

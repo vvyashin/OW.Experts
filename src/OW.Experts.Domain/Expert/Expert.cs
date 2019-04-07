@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Domain.Infrastructure;
-using Domain.Infrastructure.Extensions;
 using JetBrains.Annotations;
+using OW.Experts.Domain.Infrastructure;
+using OW.Experts.Domain.Infrastructure.Extensions;
 
-namespace Domain
+namespace OW.Experts.Domain
 {
     public class Expert : DomainObject
     {

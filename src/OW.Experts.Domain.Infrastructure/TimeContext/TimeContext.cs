@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Domain.Infrastructure
+namespace OW.Experts.Domain.Infrastructure
 {
     public abstract class TimeContext
     {

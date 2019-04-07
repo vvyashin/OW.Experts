@@ -1,11 +1,12 @@
 ﻿using System;
-using Domain.Infrastructure;
-using Domain.Infrastructure.Extensions;
 using FluentAssertions;
 using NUnit.Framework;
-using Test.Infrastructure;
+using OW.Experts.Domain.Infrastructure;
+using OW.Experts.Domain.Infrastructure.Extensions;
+using OW.Experts.Test.Infrastructure;
+using OW.Experts.Test.Infrastructure.FluentAssertions;
 
-namespace Domain.Tests
+namespace OW.Experts.Domain.Tests
 {
     [TestFixture]
     public class SessionOfExpertsTests

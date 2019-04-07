@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Domain;
 using FluentAssertions;
 using NUnit.Framework;
+using OW.Experts.Domain;
 
-namespace IntergrationTests.MappingTests
+namespace OW.Experts.IntergrationTests.MappingTests
 {
     [TestFixture]
     public class ExpertBoundedContextTests : DropCreateOnSetupTestFixture

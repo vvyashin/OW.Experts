@@ -1,9 +1,9 @@
 ﻿using System.Data.Entity;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using WebUI.Infrastructure;
+using OW.Experts.WebUI.Infrastructure;
 
-namespace WebUI.CompositionRoot.IdentityEFAuth
+namespace OW.Experts.WebUI.CompositionRoot.IdentityEFAuth
 {
     public class IdentityDbInitializer : DropCreateDatabaseIfModelChanges<AppIdentityDbContext>
     {

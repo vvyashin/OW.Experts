@@ -1,8 +1,8 @@
-﻿using Domain;
-using ExpressMapper;
-using WebUI.ViewModels.Admin;
+﻿using ExpressMapper;
+using OW.Experts.Domain;
+using OW.Experts.WebUI.ViewModels.Admin;
 
-namespace WebUI.Infrastructure.AutoConverter.Rules
+namespace OW.Experts.WebUI.Infrastructure.AutoConverter.Rules
 {
     public class SessionConvertRegister : IConvertRegister
     {

@@ -1,9 +1,9 @@
 ﻿using System;
-using Domain;
 using ExpressMapper;
-using WebUI.ViewModels.Admin;
+using OW.Experts.Domain;
+using OW.Experts.WebUI.ViewModels.Admin;
 
-namespace WebUI.Infrastructure.AutoConverter.Rules
+namespace OW.Experts.WebUI.Infrastructure.AutoConverter.Rules
 {
     public class NodeCandidateConvertRegister : IConvertRegister 
     {

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Web.Mvc;
-using Domain;
-using Domain.Infrastructure;
 using JetBrains.Annotations;
-using WebUI.Infrastructure;
-using WebUI.Services;
+using OW.Experts.Domain;
+using OW.Experts.Domain.Infrastructure.Repository;
+using OW.Experts.WebUI.Infrastructure;
+using OW.Experts.WebUI.Services;
 
-namespace WebUI.Controllers
+namespace OW.Experts.WebUI.Controllers
 {
     public class BaseSessionController : Controller
     {

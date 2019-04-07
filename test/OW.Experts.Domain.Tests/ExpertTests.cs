@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using Domain.Infrastructure.Extensions;
 using FluentAssertions;
 using NSubstitute;
 using NUnit.Framework;
-using Domain.Infrastructure.Tests;
+using OW.Experts.Domain.Infrastructure.Extensions;
+using OW.Experts.Test.Infrastructure;
 
-namespace Domain.Tests
+namespace OW.Experts.Domain.Tests
 {
     [TestFixture]
     public class ExpertTests

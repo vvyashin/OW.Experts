@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 
-namespace WebUI.Infrastructure
+namespace OW.Experts.WebUI.Infrastructure
 {
     public interface IUserManager : IDisposable
     {

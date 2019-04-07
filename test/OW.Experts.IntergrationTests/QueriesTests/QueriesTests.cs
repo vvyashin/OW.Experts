@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using Domain;
-using Domain.Linq;
 using FluentAssertions;
 using NUnit.Framework;
+using OW.Experts.Domain;
+using OW.Experts.Domain.Linq.Repositories;
 
-namespace IntergrationTests
+namespace OW.Experts.IntergrationTests.QueriesTests
 {
     [TestFixture]
     public class QueriesTests : DropCreateOnOneTimeSetupTestFixture

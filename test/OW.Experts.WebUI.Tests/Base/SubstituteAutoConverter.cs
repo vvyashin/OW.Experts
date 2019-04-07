@@ -1,9 +1,9 @@
 ﻿using System;
 using ExpressMapper;
 using NSubstitute;
-using WebUI.Infrastructure.AutoConverter;
+using OW.Experts.WebUI.Infrastructure.AutoConverter;
 
-namespace WebUI.UnitTests
+namespace OW.Experts.WebUI.UnitTests.Base
 {
     public static class SubstituteAutoConverter
     {

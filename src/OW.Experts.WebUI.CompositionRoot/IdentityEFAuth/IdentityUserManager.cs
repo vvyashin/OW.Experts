@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using WebUI.Infrastructure;
+using OW.Experts.WebUI.Infrastructure;
 
-namespace WebUI.CompositionRoot.IdentityEFAuth
+namespace OW.Experts.WebUI.CompositionRoot.IdentityEFAuth
 {
     public class IdentityUserManager : UserManager<AppIdentityUser>, IUserManager
     {

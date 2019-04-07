@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq.Expressions;
-using Domain.Infrastructure;
 using JetBrains.Annotations;
+using OW.Experts.Domain.Infrastructure;
 
-namespace Domain
+namespace OW.Experts.Domain
 {
     public class SessionOfExperts : DomainObject
     {

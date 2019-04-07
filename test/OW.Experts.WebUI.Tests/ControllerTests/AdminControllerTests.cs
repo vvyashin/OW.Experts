@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using Domain;
-using Domain.Infrastructure;
 using NSubstitute;
 using NUnit.Framework;
-using WebUI.Controllers;
-using WebUI.Infrastructure;
-using WebUI.Services;
-using WebUI.ViewModels.Admin;
+using OW.Experts.Domain;
+using OW.Experts.Domain.Infrastructure.Repository;
+using OW.Experts.WebUI.Controllers;
+using OW.Experts.WebUI.Infrastructure;
+using OW.Experts.WebUI.Services;
+using OW.Experts.WebUI.UnitTests.Base;
+using OW.Experts.WebUI.ViewModels.Admin;
 
-namespace WebUI.UnitTests
+namespace OW.Experts.WebUI.UnitTests.ControllerTests
 {
     [TestFixture]
     public class AdminControllerTests : SessionControllerTests

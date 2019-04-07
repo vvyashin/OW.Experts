@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Data;
-using Domain.Infrastructure;
 using JetBrains.Annotations;
 using NHibernate;
+using OW.Experts.Domain.Infrastructure.Repository;
 
-namespace Domain.NHibernate
+namespace OW.Experts.Domain.NHibernate
 {
     public class NHUnitOfWorkFactory : IUnitOfWorkFactory
     {

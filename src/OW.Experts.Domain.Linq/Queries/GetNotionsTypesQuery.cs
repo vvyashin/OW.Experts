@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Domain.Infrastructure;
 using JetBrains.Annotations;
+using OW.Experts.Domain.Infrastructure.Query;
 
-namespace Domain.Linq
+namespace OW.Experts.Domain.Linq.Queries
 {
     public class GetNotionsTypesQuery<TResulItem> : LinqQueryBase<IReadOnlyCollection<TResulItem>, GetNotionTypesSpecification<TResulItem>>, 
         IGetNotionTypesQuery<TResulItem>

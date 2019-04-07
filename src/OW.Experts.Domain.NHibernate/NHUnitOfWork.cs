@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Data;
-using Domain.Infrastructure;
 using JetBrains.Annotations;
 using NHibernate;
 using NHibernate.Context;
+using OW.Experts.Domain.Infrastructure.Repository;
 
-namespace Domain.NHibernate
+namespace OW.Experts.Domain.NHibernate
 {
     public class NHUnitOfWork : IUnitOfWork
     {

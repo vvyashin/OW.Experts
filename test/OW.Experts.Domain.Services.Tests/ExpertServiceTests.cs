@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Domain.Infrastructure.Tests;
 using NSubstitute;
 using NUnit.Framework;
+using OW.Experts.Test.Infrastructure;
 
-namespace Domain.Services.Tests
+namespace OW.Experts.Domain.Services.Tests
 {
     [TestFixture]
     public class ExpertServiceTests

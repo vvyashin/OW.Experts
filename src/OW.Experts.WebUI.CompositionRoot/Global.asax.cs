@@ -2,11 +2,11 @@
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using WebUI.CompositionRoot.IdentityEFAuth;
-using WebUI.Infrastructure.Binders;
-using WebUI.ViewModels.Admin;
+using OW.Experts.WebUI.CompositionRoot.IdentityEFAuth;
+using OW.Experts.WebUI.Infrastructure.Binders;
+using OW.Experts.WebUI.ViewModels.Admin;
 
-namespace WebUI.CompositionRoot
+namespace OW.Experts.WebUI.CompositionRoot
 {
     public class MvcApplication : System.Web.HttpApplication
     {

@@ -1,6 +1,6 @@
 ﻿using System.Web;
 
-namespace WebUI.Infrastructure
+namespace OW.Experts.WebUI.Infrastructure
 {
     public class HttpContextCurrentUser : ICurrentUser
     {

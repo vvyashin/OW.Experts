@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using JetBrains.Annotations;
 
-namespace Domain.Infrastructure
+namespace OW.Experts.Domain.Infrastructure.Query
 {
     public interface ILinqProvider
     {

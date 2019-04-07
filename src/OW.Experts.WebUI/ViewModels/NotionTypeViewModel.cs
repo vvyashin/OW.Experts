@@ -1,4 +1,4 @@
-﻿namespace WebUI.ViewModels
+﻿namespace OW.Experts.WebUI.ViewModels
 {
     public class NotionTypeViewModel
     {

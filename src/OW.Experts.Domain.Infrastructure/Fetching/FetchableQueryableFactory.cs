@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace Domain.Infrastructure
+namespace OW.Experts.Domain.Infrastructure.Fetching
 {
     public abstract class FetchableQueryableFactory
     {

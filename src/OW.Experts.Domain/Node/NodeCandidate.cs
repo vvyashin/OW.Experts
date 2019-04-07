@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Domain
+namespace OW.Experts.Domain
 {
     public class NodeCandidate
     {

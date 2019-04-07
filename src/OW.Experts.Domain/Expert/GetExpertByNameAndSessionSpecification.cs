@@ -1,7 +1,7 @@
 ﻿using System;
 using JetBrains.Annotations;
 
-namespace Domain
+namespace OW.Experts.Domain
 {
     public class GetExpertByNameAndSessionSpecification
     {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebUI.ViewModels.Account
+namespace OW.Experts.WebUI.ViewModels.Account
 {
     public class LoginViewModel
     {

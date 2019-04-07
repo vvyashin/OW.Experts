@@ -1,7 +1,7 @@
-﻿using Domain.Infrastructure;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
+using OW.Experts.Domain.Infrastructure.Repository;
 
-namespace Domain
+namespace OW.Experts.Domain
 {
     public interface IVergeRepository : IRepository<Verge>
     {

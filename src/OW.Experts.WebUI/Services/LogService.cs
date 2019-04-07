@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WebUI.Services
+namespace OW.Experts.WebUI.Services
 {
     public class LogService
     {

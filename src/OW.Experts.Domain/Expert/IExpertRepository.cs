@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Domain.Infrastructure;
 using JetBrains.Annotations;
+using OW.Experts.Domain.Infrastructure.Repository;
 
-namespace Domain
+namespace OW.Experts.Domain
 {
     public interface IExpertRepository : IRepository<Expert>
     {

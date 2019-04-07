@@ -1,7 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 
-namespace Domain.Tests
+namespace OW.Experts.Domain.Tests
 {
     [TestFixture]
     public class NotionTypeTests

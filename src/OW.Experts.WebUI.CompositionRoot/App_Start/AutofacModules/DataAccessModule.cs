@@ -1,12 +1,13 @@
 ﻿using System.Reflection;
 using Autofac;
-using Domain;
-using Domain.Infrastructure;
-using Domain.Linq;
-using Domain.NHibernate;
+using OW.Experts.Domain;
+using OW.Experts.Domain.Infrastructure.Fetching;
+using OW.Experts.Domain.Infrastructure.Repository;
+using OW.Experts.Domain.Linq.Queries;
+using OW.Experts.Domain.NHibernate;
 using Module = Autofac.Module;
 
-namespace WebUI.CompositionRoot.AutofacModules
+namespace OW.Experts.WebUI.CompositionRoot.AutofacModules
 {
     public class DataAccessModule : Module
     {

@@ -1,10 +1,10 @@
 ﻿using System.Web.Mvc;
 using NSubstitute;
 using NUnit.Framework;
-using WebUI.Controllers;
-using WebUI.Infrastructure;
+using OW.Experts.WebUI.Controllers;
+using OW.Experts.WebUI.Infrastructure;
 
-namespace WebUI.UnitTests
+namespace OW.Experts.WebUI.UnitTests.ControllerTests
 {
     [TestFixture]
     public class HomeControllerTests

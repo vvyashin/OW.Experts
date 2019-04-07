@@ -1,4 +1,4 @@
-﻿namespace Domain
+﻿namespace OW.Experts.Domain
 {
     public class GroupedRelation
     {

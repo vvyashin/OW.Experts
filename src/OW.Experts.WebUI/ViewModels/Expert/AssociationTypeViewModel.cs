@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace WebUI.ViewModels.Expert
+namespace OW.Experts.WebUI.ViewModels.Expert
 {
     public class AssociationTypeViewModel
     {

@@ -3,7 +3,7 @@ using FluentNHibernate.Cfg.Db;
 using NHibernate;
 using NHibernate.Tool.hbm2ddl;
 
-namespace Domain.NHibernate
+namespace OW.Experts.Domain.NHibernate
 {
     public static class OWDatabaseConfiguration
     {

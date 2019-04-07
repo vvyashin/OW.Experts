@@ -1,8 +1,8 @@
 ﻿using System;
-using Domain.Infrastructure;
 using JetBrains.Annotations;
+using OW.Experts.Domain.Infrastructure;
 
-namespace Domain
+namespace OW.Experts.Domain
 {
     public class Association : DomainObject
     {

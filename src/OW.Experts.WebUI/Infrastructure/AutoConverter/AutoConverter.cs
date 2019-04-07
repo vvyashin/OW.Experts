@@ -1,6 +1,6 @@
 ﻿using ExpressMapper;
 
-namespace WebUI.Infrastructure.AutoConverter
+namespace OW.Experts.WebUI.Infrastructure.AutoConverter
 {
     public static class AutoConverter
     {

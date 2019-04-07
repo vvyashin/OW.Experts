@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 using JetBrains.Annotations;
 
-namespace Domain
+namespace OW.Experts.Domain
 {
     public class GetNotionTypesSpecification<TResult>
     {

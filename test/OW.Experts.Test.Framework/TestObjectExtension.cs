@@ -1,4 +1,4 @@
-﻿namespace Test.Infrastructure
+﻿namespace OW.Experts.Test.Infrastructure
 {
     /// <summary>
     /// Contains extension method for setting properties with non public setters

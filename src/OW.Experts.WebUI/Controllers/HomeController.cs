@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
-using WebUI.Infrastructure;
+using OW.Experts.WebUI.Infrastructure;
 
-namespace WebUI.Controllers
+namespace OW.Experts.WebUI.Controllers
 {
     public class HomeController : Controller
     {

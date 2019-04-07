@@ -1,9 +1,9 @@
-﻿using Domain.Infrastructure;
-using FluentAssertions;
+﻿using FluentAssertions;
 using FluentAssertions.Execution;
 using FluentAssertions.Primitives;
+using OW.Experts.Domain.Infrastructure;
 
-namespace Test.Infrastructure
+namespace OW.Experts.Test.Infrastructure.FluentAssertions
 {
     public static class TimeContextAssertionExtensions
     {

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Domain.Infrastructure.Extensions;
 using NSubstitute;
 using NUnit.Framework;
+using OW.Experts.Domain.Infrastructure.Extensions;
 
-namespace Domain.Services.Tests
+namespace OW.Experts.Domain.Services.Tests
 {
     [TestFixture]
     public class SemanticNetworkServiceTests
@@ -85,7 +85,7 @@ namespace Domain.Services.Tests
 
             FakeNodeRepository.GetByNotionAndType(Arg.Any<string>(), Arg.Any<NotionType>()).Returns((Node)null);
             var generalType = ReturnsGeneralNotionTypeFromRepository();
-            var notionTypeId = Infrastructure.Tests.GeneratedGuids.First;
+            var notionTypeId = global::OW.Experts.Test.Infrastructure.GeneratedGuids.First;
             var notionType = Substitute.For<NotionType>();
             FakeNotionTypeRepository.GetById(Arg.Is(notionTypeId)).Returns(notionType);
             
@@ -108,7 +108,7 @@ namespace Domain.Services.Tests
             var serviceUnderTests = CreateServiceUnderTest();
 
             FakeNodeRepository.GetByNotionAndType(Arg.Any<string>(), Arg.Any<NotionType>()).Returns((Node)null);
-            var notionTypeId = Infrastructure.Tests.GeneratedGuids.First;
+            var notionTypeId = global::OW.Experts.Test.Infrastructure.GeneratedGuids.First;
             var notionType = Substitute.For<NotionType>();
             FakeNotionTypeRepository.GetById(Arg.Is(notionTypeId)).Returns(notionType);
 
@@ -136,7 +136,7 @@ namespace Domain.Services.Tests
 
             var generalType = ReturnsGeneralNotionTypeFromRepository();
 
-            var notionTypeId = Infrastructure.Tests.GeneratedGuids.First;
+            var notionTypeId = global::OW.Experts.Test.Infrastructure.GeneratedGuids.First;
             var notionType = Substitute.For<NotionType>();
             FakeNotionTypeRepository.GetById(Arg.Is(notionTypeId)).Returns(notionType);
 
@@ -146,7 +146,7 @@ namespace Domain.Services.Tests
             var node = Substitute.For<Node>();
             FakeNodeRepository.GetByNotionAndType(Arg.Is("notion"), Arg.Is(notionType)).Returns(node);
             
-            var nodeCandidate = new NodeCandidate() { IsSaveAsNode = true, Notion = "notion", TypeId = Infrastructure.Tests.GeneratedGuids.First };
+            var nodeCandidate = new NodeCandidate() { IsSaveAsNode = true, Notion = "notion", TypeId = global::OW.Experts.Test.Infrastructure.GeneratedGuids.First };
             var session = CreateFakeSession("baseNotion");
 
             #endregion

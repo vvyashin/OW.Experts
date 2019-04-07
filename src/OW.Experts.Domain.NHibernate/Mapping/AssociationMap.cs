@@ -1,6 +1,6 @@
 ﻿using FluentNHibernate.Mapping;
 
-namespace Domain.NHibernate.Mapping
+namespace OW.Experts.Domain.NHibernate.Mapping
 {
     class AssociationMap : DomainObjectMapping<Association>
     {

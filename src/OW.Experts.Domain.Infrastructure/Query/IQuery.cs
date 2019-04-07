@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 
-namespace Domain.Infrastructure
+namespace OW.Experts.Domain.Infrastructure.Query
 {
     public interface IQuery<out TResult, in TSpecification>
     {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebUI.ViewModels.Admin
+namespace OW.Experts.WebUI.ViewModels.Admin
 {
     public class NewSessionViewModel
     {

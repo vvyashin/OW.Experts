@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Domain.Infrastructure
+namespace OW.Experts.Domain.Infrastructure.Repository
 {
     /// <summary>
     /// Wrapper class for managing transaction
