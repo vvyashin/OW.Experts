@@ -72,7 +72,7 @@ namespace Domain.Tests
 
             node.AddSessionOfExperts(session);
 
-            node.SessionsOfExperts.ShouldBeEquivalentTo(new[] {session});
+            node.SessionsOfExperts.Should().BeEquivalentTo(new[] {session});
         }
     }
 }

@@ -28,7 +28,7 @@ namespace Domain.Tests
 
             verge.UpdateWeightFromSession(20, session);
 
-            verge.SessionWeightSlices.ShouldAllBeEquivalentTo(new[] { new { Session = session, Verge = verge, Weight = 20 }},
+            verge.SessionWeightSlices.Should().AllBeEquivalentTo(new[] { new { Session = session, Verge = verge, Weight = 20 }},
                 opt => opt.ExcludingMissingMembers());
         }
     }

@@ -52,7 +52,7 @@ namespace Domain.Tests
 
             relation.UpdateTypes(newTypeFake.Enumerate(), "offer");
 
-            relation.ShouldBeEquivalentTo(new { IsChosen = ChosenState.HadChosen, Types = newTypeFake.Enumerate(), OfferType = "offer" },
+            relation.Should().BeEquivalentTo(new { IsChosen = ChosenState.HadChosen, Types = newTypeFake.Enumerate(), OfferType = "offer" },
                 opt => opt.ExcludingMissingMembers());
         }
 
@@ -61,7 +61,7 @@ namespace Domain.Tests
         {
             var relation = new Relation(Substitute.For<Expert>(), Substitute.For<Node>(), Substitute.For<Node>());
 
-            relation.ShouldBeEquivalentTo(new {IsChosen = ChosenState.HadNotChosen, Types = new List<RelationType>()},
+            relation.Should().BeEquivalentTo(new {IsChosen = ChosenState.HadNotChosen, Types = new List<RelationType>()},
                 opt => opt.ExcludingMissingMembers());
         }
     }

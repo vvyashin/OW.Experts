@@ -25,7 +25,7 @@ namespace IntergrationTests.MappingTests
             using (UnitOfWorkFactory.Create()) {
                 var savedNode = GetRepository<Node>().GetById(node.Id);
 
-                savedNode.ShouldBeEquivalentTo(savedNode, opt => opt.ExcludingNestedObjects());
+                savedNode.Should().BeEquivalentTo(savedNode, opt => opt.ExcludingNestedObjects());
             }
         }
 
@@ -92,10 +92,10 @@ namespace IntergrationTests.MappingTests
                 node1 = GetRepository<Node>().GetById(node1.Id);
                 node2 = GetRepository<Node>().GetById(node2.Id);
 
-                node1.IngoingVerges.Select(x => x.Id).ShouldAllBeEquivalentTo(new[] {verge2.Id});
-                node1.OutgoingVerges.Select(x => x.Id).ShouldAllBeEquivalentTo(new[] {verge1.Id});
-                node2.IngoingVerges.Select(x => x.Id).ShouldAllBeEquivalentTo(new[] {verge1.Id});
-                node2.OutgoingVerges.Select(x => x.Id).ShouldAllBeEquivalentTo(new[] {verge2.Id});
+                node1.IngoingVerges.Select(x => x.Id).Should().AllBeEquivalentTo(new[] {verge2.Id});
+                node1.OutgoingVerges.Select(x => x.Id).Should().AllBeEquivalentTo(new[] {verge1.Id});
+                node2.IngoingVerges.Select(x => x.Id).Should().AllBeEquivalentTo(new[] {verge1.Id});
+                node2.OutgoingVerges.Select(x => x.Id).Should().AllBeEquivalentTo(new[] {verge2.Id});
 
             }
         }

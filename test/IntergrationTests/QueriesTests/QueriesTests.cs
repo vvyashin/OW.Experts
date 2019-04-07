@@ -75,7 +75,7 @@ namespace IntergrationTests
                     new GetExpertByNameAndSessionSpecification(_expert1.Name, _expert1.SessionOfExperts,
                         ExpertFetch.None));
 
-                actualExpert.ShouldBeEquivalentTo(_expert1, opt => opt.ExcludingNestedObjects());
+                actualExpert.Should().BeEquivalentTo(_expert1, opt => opt.ExcludingNestedObjects());
             }
         }
 
@@ -87,7 +87,7 @@ namespace IntergrationTests
 
                 var actualSemanticNetwork = expertRepository.GetSemanticNetworkBySession(_session1);
 
-                actualSemanticNetwork.Concepts.ShouldAllBeEquivalentTo(new []
+                actualSemanticNetwork.Concepts.Should().AllBeEquivalentTo(new []
                 {
                     new ConceptReadModel("notion1", "type",
                         new List<VergeReadModel>() {new VergeReadModel("notion2", "type", "notion1", "type", "type", 20)}, 

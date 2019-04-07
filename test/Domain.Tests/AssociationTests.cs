@@ -48,7 +48,7 @@ namespace Domain.Tests
             var association = CreateAssociation();
             association.UpdateTypes(typeFake, "offer");
 
-            association.ShouldBeEquivalentTo(new {Type = typeFake, OfferType = "offer"},
+            association.Should().BeEquivalentTo(new {Type = typeFake, OfferType = "offer"},
                 opt => opt.ExcludingMissingMembers());
         }
     }

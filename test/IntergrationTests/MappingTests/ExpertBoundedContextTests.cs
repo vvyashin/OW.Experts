@@ -27,7 +27,7 @@ namespace IntergrationTests.MappingTests
             using (UnitOfWorkFactory.Create()) {
                 var savedExpert = GetRepository<Expert>().GetById(expert.Id);
                 
-                savedExpert.ShouldBeEquivalentTo(expert, opt => opt.ExcludingNestedObjects());
+                savedExpert.Should().BeEquivalentTo(expert, opt => opt.ExcludingNestedObjects());
             }
         }
 
@@ -55,7 +55,7 @@ namespace IntergrationTests.MappingTests
             using (UnitOfWorkFactory.Create()) {
                 var expert = LinqProvider.Query<Expert>().Single();
 
-                expert.Associations.ShouldAllBeEquivalentTo(new[]
+                expert.Associations.Should().AllBeEquivalentTo(new[]
                 {
                     new {Expert = expert, Notion = "notion1"},
                     new {Expert = expert, Notion = "notion2"}
@@ -88,7 +88,7 @@ namespace IntergrationTests.MappingTests
             using (UnitOfWorkFactory.Create()) {
                 var expert = LinqProvider.Query<Expert>().Single();
 
-                expert.Associations.ShouldAllBeEquivalentTo(new[]
+                expert.Associations.Should().AllBeEquivalentTo(new[]
                 {
                     new {Expert = expert, Notion = "notion3"},
                     new {Expert = expert, Notion = "notion4"}
@@ -129,7 +129,7 @@ namespace IntergrationTests.MappingTests
                 var expert = LinqProvider.Query<Expert>().Single();
                 var type = LinqProvider.Query<NotionType>().Single();
 
-                expert.Associations.Single(x => x.Id == associationIdForUpdate).ShouldBeEquivalentTo(
+                expert.Associations.Single(x => x.Id == associationIdForUpdate).Should().BeEquivalentTo(
                     new {Expert = expert, Type = type, OfferType = "offer"},
                     opt => opt.ExcludingMissingMembers());
             }
@@ -176,7 +176,7 @@ namespace IntergrationTests.MappingTests
                 var expert = LinqProvider.Query<Expert>().Single();
                 var nodes = LinqProvider.Query<Node>().ToList();
                 
-                expert.Relations.ShouldAllBeEquivalentTo(new []
+                expert.Relations.Should().AllBeEquivalentTo(new []
                 {
                     new { Expert = expert, Source = nodes.Single(x => x.Notion == "notion1"),
                         Destination = nodes.Single(x => x.Notion == "notion2"), Types = new[] {type1, type2}, OfferType = "offer1" },

@@ -56,7 +56,7 @@ namespace Domain.Tests
                 });
             expert.ReplaceAllAssociations(new List<string>() {"newAssociation1", "newAssociation2"});
 
-            expert.Associations.ShouldAllBeEquivalentTo(new []
+            expert.Associations.Should().AllBeEquivalentTo(new []
             {
                 new { Expert = expert, Name = "newAssociation1" },
                 new { Expert = expert, Name = "newAssociation2" }
@@ -117,7 +117,7 @@ namespace Domain.Tests
 
             expert.GenerateRelations(nodes);
 
-            expert.Relations.ShouldAllBeEquivalentTo(new []
+            expert.Relations.Should().AllBeEquivalentTo(new []
             {
                 new { Source = nodes[0], Destination = nodes[1], Expert = expert },
                 new { Source = nodes[1], Destination = nodes[0], Expert = expert }
@@ -161,7 +161,7 @@ namespace Domain.Tests
             var result = expert.GetNextRelationPair();
 
             new[] { result.Item1, result.Item2}
-                .ShouldBeEquivalentTo(expert.Relations);
+                .Should().BeEquivalentTo(expert.Relations);
         }
 
         [Test]
