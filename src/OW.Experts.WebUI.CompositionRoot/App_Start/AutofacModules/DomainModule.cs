@@ -9,11 +9,11 @@ namespace OW.Experts.WebUI.CompositionRoot.AutofacModules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterAssemblyTypes(Assembly.Load("Domain"))
+            builder.RegisterAssemblyTypes(Assembly.Load("OW.Experts.Domain"))
                 .AsSelf()
                 .InstancePerLifetimeScope();
 
-            builder.RegisterAssemblyTypes(Assembly.Load("Domain.Services"))
+            builder.RegisterAssemblyTypes(Assembly.Load("OW.Experts.Domain.Services"))
                 .Where(t => t.Name.EndsWith("Service"))
                 .FindConstructorsWith(new DefaultConstructorFinder(type =>
                     type.GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)))

@@ -13,7 +13,7 @@ namespace OW.Experts.WebUI.CompositionRoot
         {
             var builder = new ContainerBuilder();
 
-            builder.RegisterControllers(Assembly.Load("WebUI"));
+            builder.RegisterControllers(Assembly.Load("OW.Experts.WebUI"));
             builder.RegisterFilterProvider();
             builder.RegisterType<LogService>().AsSelf().SingleInstance();
             builder.RegisterModule(new DataAccessModule());
