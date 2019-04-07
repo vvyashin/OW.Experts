@@ -7,8 +7,8 @@
     <ProjectGuid>{EF8E7ABE-8039-445D-9EE6-CFC4776DE4F0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Domain.Linq</RootNamespace>
-    <AssemblyName>Domain.Linq</AssemblyName>
+    <RootNamespace>OW.Experts.Domain.Linq</RootNamespace>
+    <AssemblyName>OW.Experts.Domain.Linq</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

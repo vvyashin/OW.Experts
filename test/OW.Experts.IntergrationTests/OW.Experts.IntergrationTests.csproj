@@ -8,8 +8,8 @@
     <ProjectGuid>{1C3F4351-5E29-44AE-A75A-F778FA051A58}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IntergrationTests</RootNamespace>
-    <AssemblyName>IntergrationTests</AssemblyName>
+    <RootNamespace>OW.Experts.IntergrationTests</RootNamespace>
+    <AssemblyName>OW.Experts.IntergrationTests</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>

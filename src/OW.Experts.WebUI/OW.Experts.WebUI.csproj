@@ -7,8 +7,8 @@
     <ProjectGuid>{2A590126-C546-4DE1-8E2D-E354A44918DB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WebUI</RootNamespace>
-    <AssemblyName>WebUI</AssemblyName>
+    <RootNamespace>OW.Experts.WebUI</RootNamespace>
+    <AssemblyName>OW.Experts.WebUI</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

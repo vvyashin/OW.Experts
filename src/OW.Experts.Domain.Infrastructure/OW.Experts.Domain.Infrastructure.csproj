@@ -7,8 +7,8 @@
     <ProjectGuid>{3503CE53-113A-4AB1-95A3-2694A8583253}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Domain.Infrastructure</RootNamespace>
-    <AssemblyName>Domain.Infrastructure</AssemblyName>
+    <RootNamespace>OW.Experts.Domain.Infrastructure</RootNamespace>
+    <AssemblyName>OW.Experts.Domain.Infrastructure</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

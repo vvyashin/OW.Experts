@@ -7,8 +7,8 @@
     <ProjectGuid>{0345F9E6-D90A-47B7-983A-C997CD4E869B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Test.Infrastructure</RootNamespace>
-    <AssemblyName>Test.Infrastructure</AssemblyName>
+    <RootNamespace>OW.Experts.Test.Infrastructure</RootNamespace>
+    <AssemblyName>OW.Experts.Test.Infrastructure</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

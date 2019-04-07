@@ -7,8 +7,8 @@
     <ProjectGuid>{A00DE7C7-E621-45DB-92A5-18E95B1BDF08}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Data.Seed</RootNamespace>
-    <AssemblyName>Data.Seed</AssemblyName>
+    <RootNamespace>OW.Experts.Data.Seed</RootNamespace>
+    <AssemblyName>OW.Experts.Data.Seed</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

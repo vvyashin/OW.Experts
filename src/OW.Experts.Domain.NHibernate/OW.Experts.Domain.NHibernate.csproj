@@ -7,8 +7,8 @@
     <ProjectGuid>{0879F6D9-9105-4ABC-87E9-FD0C6456688D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Domain.NHibernate</RootNamespace>
-    <AssemblyName>Domain.NHibernate</AssemblyName>
+    <RootNamespace>OW.Experts.Domain.NHibernate</RootNamespace>
+    <AssemblyName>OW.Experts.Domain.NHibernate</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

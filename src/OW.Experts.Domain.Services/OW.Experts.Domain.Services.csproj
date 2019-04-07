@@ -7,8 +7,8 @@
     <ProjectGuid>{C3A3DE90-8239-4FBF-A853-D4F743FE9391}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Domain.Services</RootNamespace>
-    <AssemblyName>Domain.Services</AssemblyName>
+    <RootNamespace>OW.Experts.Domain.Services</RootNamespace>
+    <AssemblyName>OW.Experts.Domain.Services</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

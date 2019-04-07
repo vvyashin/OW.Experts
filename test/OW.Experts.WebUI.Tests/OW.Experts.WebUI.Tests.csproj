@@ -8,8 +8,8 @@
     <ProjectGuid>{4B2494DE-6A21-4459-8FBE-4A6D34835F25}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WebUI.UnitTests</RootNamespace>
-    <AssemblyName>WebUI.UnitTests</AssemblyName>
+    <RootNamespace>OW.Experts.WebUI.UnitTests</RootNamespace>
+    <AssemblyName>OW.Experts.WebUI.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

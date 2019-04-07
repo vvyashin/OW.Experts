@@ -8,8 +8,8 @@
     <ProjectGuid>{C8F9DE90-10AB-47EE-B026-8DDCF8E0F5F8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Domain.Infrastructure.Tests</RootNamespace>
-    <AssemblyName>Domain.Infrastructure.Tests</AssemblyName>
+    <RootNamespace>OW.Experts.Domain.Infrastructure.Tests</RootNamespace>
+    <AssemblyName>OW.Experts.Domain.Infrastructure.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>

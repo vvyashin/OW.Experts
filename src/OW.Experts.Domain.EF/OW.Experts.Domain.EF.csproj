@@ -7,8 +7,8 @@
     <ProjectGuid>{1EA1434E-4446-4D25-9C6E-1A6B53532401}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Domain.EF</RootNamespace>
-    <AssemblyName>Domain.EF</AssemblyName>
+    <RootNamespace>OW.Experts.Domain.EF</RootNamespace>
+    <AssemblyName>OW.Experts.Domain.EF</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

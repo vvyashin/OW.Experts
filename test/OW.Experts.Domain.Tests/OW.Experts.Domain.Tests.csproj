@@ -8,8 +8,8 @@
     <ProjectGuid>{209EC491-D9E1-4151-9A90-82A1B6DA95B1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Domain.Tests</RootNamespace>
-    <AssemblyName>Domain.Tests</AssemblyName>
+    <RootNamespace>OW.Experts.Domain.Tests</RootNamespace>
+    <AssemblyName>OW.Experts.Domain.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>

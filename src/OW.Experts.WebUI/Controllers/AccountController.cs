@@ -8,8 +8,6 @@ using Microsoft.Owin.Security;
 using WebUI.Infrastructure;
 using WebUI.ViewModels.Account;
 
-[assembly: InternalsVisibleTo("WebUI.UnitTests")]
-
 namespace WebUI.Controllers
 {
     public class AccountController : Controller
