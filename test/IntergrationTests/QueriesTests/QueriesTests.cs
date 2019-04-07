@@ -87,7 +87,7 @@ namespace IntergrationTests
 
                 var actualSemanticNetwork = expertRepository.GetSemanticNetworkBySession(_session1);
 
-                actualSemanticNetwork.Concepts.Should().AllBeEquivalentTo(new []
+                actualSemanticNetwork.Concepts.Should().BeEquivalentTo(new []
                 {
                     new ConceptReadModel("notion1", "type",
                         new List<VergeReadModel>() {new VergeReadModel("notion2", "type", "notion1", "type", "type", 20)}, 

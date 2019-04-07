@@ -55,7 +55,7 @@ namespace IntergrationTests.MappingTests
             using (UnitOfWorkFactory.Create()) {
                 var expert = LinqProvider.Query<Expert>().Single();
 
-                expert.Associations.Should().AllBeEquivalentTo(new[]
+                expert.Associations.Should().BeEquivalentTo(new[]
                 {
                     new {Expert = expert, Notion = "notion1"},
                     new {Expert = expert, Notion = "notion2"}
@@ -88,7 +88,7 @@ namespace IntergrationTests.MappingTests
             using (UnitOfWorkFactory.Create()) {
                 var expert = LinqProvider.Query<Expert>().Single();
 
-                expert.Associations.Should().AllBeEquivalentTo(new[]
+                expert.Associations.Should().BeEquivalentTo(new[]
                 {
                     new {Expert = expert, Notion = "notion3"},
                     new {Expert = expert, Notion = "notion4"}
@@ -176,7 +176,7 @@ namespace IntergrationTests.MappingTests
                 var expert = LinqProvider.Query<Expert>().Single();
                 var nodes = LinqProvider.Query<Node>().ToList();
                 
-                expert.Relations.Should().AllBeEquivalentTo(new []
+                expert.Relations.Should().BeEquivalentTo(new []
                 {
                     new { Expert = expert, Source = nodes.Single(x => x.Notion == "notion1"),
                         Destination = nodes.Single(x => x.Notion == "notion2"), Types = new[] {type1, type2}, OfferType = "offer1" },
