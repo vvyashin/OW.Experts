@@ -119,11 +119,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\OW.Experts.Domain.Infrastructure\OW.Experts.Domain.Infrastructure.csproj">
-      <Project>{3503CE53-113A-4AB1-95A3-2694A8583253}</Project>
+      <Project>{01a81d14-6cb0-4299-9a22-a3a91abeb784}</Project>
       <Name>OW.Experts.Domain.Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\OW.Experts.Domain\OW.Experts.Domain.csproj">
-      <Project>{d565766f-f84b-4ba5-ac0e-8ba6d9d79bdc}</Project>
+      <Project>{5481f908-6639-45de-9ff7-cb994365c1a5}</Project>
       <Name>OW.Experts.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\OW.Experts.WebUI\OW.Experts.WebUI.csproj">

@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using OW.Experts.IntergrationTests;
 
 namespace IntergrationTests.QueriesTests
 {

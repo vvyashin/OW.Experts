@@ -142,20 +142,19 @@
     <Compile Include="ViewModels\NotionTypeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OW.Experts.Domain.Infrastructure\OW.Experts.Domain.Infrastructure.csproj">
-      <Project>{3503ce53-113a-4ab1-95a3-2694a8583253}</Project>
-      <Name>OW.Experts.Domain.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\OW.Experts.Domain\OW.Experts.Domain.csproj">
-      <Project>{d565766f-f84b-4ba5-ac0e-8ba6d9d79bdc}</Project>
-      <Name>OW.Experts.Domain</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\OW.Experts.Domain.Infrastructure\OW.Experts.Domain.Infrastructure.csproj">
+      <Project>{01a81d14-6cb0-4299-9a22-a3a91abeb784}</Project>
+      <Name>OW.Experts.Domain.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OW.Experts.Domain\OW.Experts.Domain.csproj">
+      <Project>{5481f908-6639-45de-9ff7-cb994365c1a5}</Project>
+      <Name>OW.Experts.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

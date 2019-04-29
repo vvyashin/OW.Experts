@@ -244,23 +244,23 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OW.Experts.Domain.Infrastructure\OW.Experts.Domain.Infrastructure.csproj">
-      <Project>{3503ce53-113a-4ab1-95a3-2694a8583253}</Project>
+      <Project>{01a81d14-6cb0-4299-9a22-a3a91abeb784}</Project>
       <Name>OW.Experts.Domain.Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\OW.Experts.Domain.Linq\OW.Experts.Domain.Linq.csproj">
-      <Project>{ef8e7abe-8039-445d-9ee6-cfc4776de4f0}</Project>
+      <Project>{976ca93d-6dd7-4f5a-83e9-b1de2f8ad667}</Project>
       <Name>OW.Experts.Domain.Linq</Name>
     </ProjectReference>
     <ProjectReference Include="..\OW.Experts.Domain.NHibernate\OW.Experts.Domain.NHibernate.csproj">
-      <Project>{0879f6d9-9105-4abc-87e9-fd0c6456688d}</Project>
+      <Project>{5cd3ae46-a389-4a84-b494-04a587b4b853}</Project>
       <Name>OW.Experts.Domain.NHibernate</Name>
     </ProjectReference>
     <ProjectReference Include="..\OW.Experts.Domain.Services\OW.Experts.Domain.Services.csproj">
-      <Project>{c3a3de90-8239-4fbf-a853-d4f743fe9391}</Project>
+      <Project>{8b414192-83b0-4c21-a960-34e5255c1a3c}</Project>
       <Name>OW.Experts.Domain.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\OW.Experts.Domain\OW.Experts.Domain.csproj">
-      <Project>{d565766f-f84b-4ba5-ac0e-8ba6d9d79bdc}</Project>
+      <Project>{5481f908-6639-45de-9ff7-cb994365c1a5}</Project>
       <Name>OW.Experts.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\OW.Experts.WebUI\OW.Experts.WebUI.csproj">
