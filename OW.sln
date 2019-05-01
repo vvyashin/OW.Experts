@@ -32,15 +32,24 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OW.Experts.Data.Seed", "src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OW.Experts.Domain.Infrastructure.Tests", "test\OW.Experts.Domain.Infrastructure.Tests\OW.Experts.Domain.Infrastructure.Tests.csproj", "{960A2942-0D71-401A-A0BC-EE49F9B1B3E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OW.Experts.Domain.Services.Tests", "test\OW.Experts.Domain.Services.Tests\OW.Experts.Domain.Services.Tests.csproj", "{5CF3B7C1-27DE-4150-BC99-11DB9D519EB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OW.Experts.Domain.Services.Tests", "test\OW.Experts.Domain.Services.Tests\OW.Experts.Domain.Services.Tests.csproj", "{5CF3B7C1-27DE-4150-BC99-11DB9D519EB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OW.Experts.Domain.Tests", "test\OW.Experts.Domain.Tests\OW.Experts.Domain.Tests.csproj", "{4356BD26-426C-43DE-98EC-CFCDB8EF07B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OW.Experts.Domain.Tests", "test\OW.Experts.Domain.Tests\OW.Experts.Domain.Tests.csproj", "{4356BD26-426C-43DE-98EC-CFCDB8EF07B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OW.Experts.IntergrationTests", "test\OW.Experts.IntergrationTests\OW.Experts.IntergrationTests.csproj", "{794FA0AD-3E06-4973-A440-8E73218C2203}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OW.Experts.IntergrationTests", "test\OW.Experts.IntergrationTests\OW.Experts.IntergrationTests.csproj", "{794FA0AD-3E06-4973-A440-8E73218C2203}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OW.Experts.Test.Framework", "test\OW.Experts.Test.Framework\OW.Experts.Test.Framework.csproj", "{8BD4961F-4590-4674-B45B-6D42D05573A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OW.Experts.Test.Framework", "test\OW.Experts.Test.Framework\OW.Experts.Test.Framework.csproj", "{8BD4961F-4590-4674-B45B-6D42D05573A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OW.Experts.Test.Framework.Tests", "test\OW.Experts.Test.Framework.Tests\OW.Experts.Test.Framework.Tests.csproj", "{2563B02B-0216-4844-975F-F999CE231DDE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OW.Experts.Test.Framework.Tests", "test\OW.Experts.Test.Framework.Tests\OW.Experts.Test.Framework.Tests.csproj", "{2563B02B-0216-4844-975F-F999CE231DDE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{EEFABE58-85B3-4AAE-A9BB-1F590A272847}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		Directory.Build.props = Directory.Build.props
+		stylecop.json = stylecop.json
+		StyleCop.props = StyleCop.props
+		StyleCop.ruleset = StyleCop.ruleset
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
