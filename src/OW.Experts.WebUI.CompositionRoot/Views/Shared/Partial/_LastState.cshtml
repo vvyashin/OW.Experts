@@ -1,7 +1,7 @@
 ﻿@using OW.Experts.WebUI.Infrastructure
 @{
-    string error = this.GetErrorMessage();
-    string success = this.GetSuccessMessage();
+    var error = this.GetErrorMessage();
+    var success = this.GetSuccessMessage();
 
     if (error != null) {
         <div class="alert-danger alert">

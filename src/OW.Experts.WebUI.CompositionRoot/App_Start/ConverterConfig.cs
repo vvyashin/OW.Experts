@@ -14,9 +14,8 @@ namespace OW.Experts.WebUI.CompositionRoot
                 .GetTypes()
                 .Where(p => !p.IsInterface && !p.IsAbstract && registerInterface.IsAssignableFrom(p));
 
-            foreach (var convertRegister in convertRegisters) {
+            foreach (var convertRegister in convertRegisters)
                 ((IConvertRegister)Activator.CreateInstance(convertRegister)).Register();
-            }
         }
     }
 }

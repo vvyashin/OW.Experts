@@ -2,8 +2,8 @@
 {
     public static class ViewConstants
     {
-        public static string SaveAction = "Save";
+        public const string SaveAction = "Save";
 
-        public static string FinishAction = "Finish";
+        public const string FinishAction = "Finish";
     }
 }

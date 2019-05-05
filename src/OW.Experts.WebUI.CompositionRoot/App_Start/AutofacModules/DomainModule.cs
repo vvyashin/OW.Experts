@@ -15,8 +15,10 @@ namespace OW.Experts.WebUI.CompositionRoot.AutofacModules
 
             builder.RegisterAssemblyTypes(Assembly.Load("OW.Experts.Domain.Services"))
                 .Where(t => t.Name.EndsWith("Service"))
-                .FindConstructorsWith(new DefaultConstructorFinder(type =>
-                    type.GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)))
+                .FindConstructorsWith(
+                    new DefaultConstructorFinder(
+                        type =>
+                            type.GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)))
                 .AsSelf()
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();

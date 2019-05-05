@@ -15,21 +15,18 @@ namespace OW.Experts.WebUI.Controllers
     [Authorize(Roles = RoleNames.Admin)]
     public class AdminController : BaseSessionController
     {
-        #region dependencies
-
         [NotNull]
         private readonly IAdminCurrentSessionService _currentSessionOfExpertsService;
 
-        #endregion
-
-        public AdminController([NotNull] IUnitOfWorkFactory unitOfWorkFactory, 
-            [NotNull] IAdminCurrentSessionService currentSessionOfExpertsService, [NotNull] LogService logService)
+        public AdminController(
+            [NotNull] IUnitOfWorkFactory unitOfWorkFactory,
+            [NotNull] IAdminCurrentSessionService currentSessionOfExpertsService,
+            [NotNull] LogService logService)
             : base(unitOfWorkFactory, currentSessionOfExpertsService, logService)
         {
-            if (currentSessionOfExpertsService == null)
-                throw new ArgumentNullException(nameof(currentSessionOfExpertsService));
+            if (currentSessionOfExpertsService == null) throw new ArgumentNullException(nameof(currentSessionOfExpertsService));
             if (logService == null) throw new ArgumentNullException(nameof(logService));
-            
+
             _currentSessionOfExpertsService = currentSessionOfExpertsService;
         }
 
@@ -43,15 +40,10 @@ namespace OW.Experts.WebUI.Controllers
         public ActionResult CurrentSession()
         {
             using (UnitOfWorkFactory.Create()) {
-                if (_currentSessionOfExpertsService.CurrentSession == null) {
-                    // If current session is not exists
-                    return View("NewSession");
-                }
-                else {
-                    SessionViewModel sessionViewModel = _currentSessionOfExpertsService.
-                        CurrentSession.ConvertTo<SessionViewModel>();
-                    return View("CurrentSession", sessionViewModel);
-                }
+                if (_currentSessionOfExpertsService.CurrentSession == null) return View("NewSession");
+
+                var sessionViewModel = _currentSessionOfExpertsService.CurrentSession.ConvertTo<SessionViewModel>();
+                return View("CurrentSession", sessionViewModel);
             }
         }
 
@@ -67,8 +59,7 @@ namespace OW.Experts.WebUI.Controllers
                     return RedirectToAction("CurrentSession");
                 },
                 andIfErrorReturn: RedirectToAction("CurrentSession"),
-                viewWithProcessedForm: View("NewSession", model)
-                );
+                viewWithProcessedForm: View("NewSession", model));
         }
 
         [HttpPost]
@@ -82,8 +73,7 @@ namespace OW.Experts.WebUI.Controllers
                     _currentSessionOfExpertsService.NextPhase();
                     return RedirectToAction("CurrentSession");
                 },
-                andIfErrorReturn: RedirectToAction("CurrentSession")
-                );
+                andIfErrorReturn: RedirectToAction("CurrentSession"));
         }
 
         [HttpGet]
@@ -94,22 +84,24 @@ namespace OW.Experts.WebUI.Controllers
                 currentSessionShouldOnPhase: SessionPhase.SelectingNodes,
                 tryExecute: () =>
                 {
-                    var nodeCandidatesForView = _currentSessionOfExpertsService.GetAllNodeCandidates().
-                        ConvertTo<List<NodeCandidateViewModel>>();
+                    var nodeCandidatesForView = _currentSessionOfExpertsService.GetAllNodeCandidates()
+                        .ConvertTo<List<NodeCandidateViewModel>>();
 
-                    return View("SelectNode", new NodeCandidateListViewModel()
-                    {
-                        NodeCandidates = nodeCandidatesForView,
-                    });
+                    return View(
+                        "SelectNode",
+                        new NodeCandidateListViewModel
+                        {
+                            NodeCandidates = nodeCandidatesForView
+                        });
                 },
-                andIfFailReturn: RedirectToAction("CurrentSession")
-                );
+                andIfFailReturn: RedirectToAction("CurrentSession"));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult SelectNode(
-            [ModelBinder(typeof (NodeCandidatesBinder))] NodeCandidateListViewModel nodeCandidateListViewModels)
+            [ModelBinder(typeof(NodeCandidatesBinder))]
+            NodeCandidateListViewModel nodeCandidateListViewModels)
         {
             return HandleHttpPostRequest(
                 currentSessionShouldExist: true,
@@ -122,8 +114,7 @@ namespace OW.Experts.WebUI.Controllers
                     return RedirectToAction("CurrentSession");
                 },
                 andIfErrorReturn: RedirectToAction("CurrentSession"),
-                viewWithProcessedForm: View("SelectNode", nodeCandidateListViewModels)
-                );
+                viewWithProcessedForm: View("SelectNode", nodeCandidateListViewModels));
         }
 
         [HttpGet]
@@ -133,12 +124,11 @@ namespace OW.Experts.WebUI.Controllers
                 currentSessionShouldExist: true,
                 tryExecute: () =>
                 {
-                    SemanticNetworkReadModel semanticNetwork =
+                    var semanticNetwork =
                         _currentSessionOfExpertsService.GetSemanticNetwork();
                     return View("SemanticNetwork", semanticNetwork);
                 },
-                andIfFailReturn: RedirectToAction("CurrentSession")
-                );
+                andIfFailReturn: RedirectToAction("CurrentSession"));
         }
 
         [HttpPost]
@@ -153,8 +143,7 @@ namespace OW.Experts.WebUI.Controllers
                     _currentSessionOfExpertsService.SaveRelationsAsVergesOfSemanticNetwork();
                     return RedirectToAction("SemanticNetwork");
                 },
-                andIfErrorReturn: RedirectToAction("CurrentSession")
-                );
+                andIfErrorReturn: RedirectToAction("CurrentSession"));
         }
     }
 }

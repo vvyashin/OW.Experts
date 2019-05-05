@@ -1,12 +1,12 @@
 ﻿var password;
-$("#check").mousedown(function () {
-    password = $('#hidden-pass').val();
+$("#check").mousedown(function() {
+    password = $("#hidden-pass").val();
     $("#shown-pass").val(password);
     $("#hidden-pass").hide();
     $("#shown-pass").show();
 });
 
-$("#check").mouseup(function () {
+$("#check").mouseup(function() {
     password = $("#shown-pass").val();
     $("#hidden-pass").val(password);
     $("#shown-pass").hide();

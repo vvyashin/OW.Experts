@@ -16,7 +16,9 @@ namespace OW.Experts.WebUI.Infrastructure
             controller.TempData[DataConstants.Success] = successMessage;
         }
 
-        public static void PopulateNotionTypes(this ControllerBase controller, IReadOnlyCollection<NotionTypeViewModel> notionTypes)
+        public static void PopulateNotionTypes(
+            this ControllerBase controller,
+            IReadOnlyCollection<NotionTypeViewModel> notionTypes)
         {
             controller.ViewBag.NotionTypes = notionTypes;
         }

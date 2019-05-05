@@ -1,5 +1,4 @@
-﻿@using System.Web.Mvc.Html
-@using OW.Experts.WebUI.Constants
+﻿@using OW.Experts.WebUI.Constants
 @using OW.Experts.WebUI.Infrastructure
 @model OW.Experts.WebUI.ViewModels.Expert.AssociationTypeViewModel
 @{
@@ -10,34 +9,34 @@
 
 @Html.Partial("Partial/_LastState")
 
-@using (Html.BeginForm("AssociationType", "Expert", FormMethod.Post, new {@class = "form-horizontal", role = "form"})) {
+@using (Html.BeginForm("AssociationType", "Expert", FormMethod.Post, new { @class = "form-horizontal", role = "form" })) {
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
         <div class="alert-info alert">
             Выберите типы для названных ассоциаций. Также в текстовом поле возможно предложить собственный.
         </div>
         <table class="table" style="max-width: 600px">
-            @for (int index = 0; index < Model.ExpertAssociations.Count; index++) {
+            @for (var index = 0; index < Model.ExpertAssociations.Count; index++) {
                 <tr>
                     <td>
                         @Html.Hidden("model.ExpertAssociations[" + index + "].Id",
                             Model.ExpertAssociations.ElementAt(index).Id)
                         @Html.TextBox("model.ExpertAssociations[" + index + "].Notion",
                             Model.ExpertAssociations.ElementAt(index).Notion,
-                            new {@class = "form-control", @readonly = "true"})
+                            new { @class = "form-control", @readonly = "true" })
                     </td>
                     <td>
                         <div class="form-group">
                             <div class="col-md-12">
                                 @Html.DropDownList("model.ExpertAssociations[" + index + "].TypeId",
-                                    this.GetTypeSelectList(Model.ExpertAssociations.ElementAt(index).TypeId), new {@class = "form-control"})
+                                    this.GetTypeSelectList(Model.ExpertAssociations.ElementAt(index).TypeId), new { @class = "form-control" })
                             </div>
                         </div>
                     </td>
                     <td>
                         @Html.TextBox("model.ExpertAssociations[" + index + "].OfferType",
                             Model.ExpertAssociations.ElementAt(index).OfferType,
-                            new {@class = "form-control", @placeholder = "Предложите свой тип"})
+                            new { @class = "form-control", placeholder = "Предложите свой тип" })
                     </td>
                 </tr>
             }

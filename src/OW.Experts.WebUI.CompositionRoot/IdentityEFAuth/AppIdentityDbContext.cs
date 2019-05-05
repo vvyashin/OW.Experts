@@ -4,7 +4,8 @@ namespace OW.Experts.WebUI.CompositionRoot.IdentityEFAuth
 {
     public class AppIdentityDbContext : IdentityDbContext<AppIdentityUser>
     {
-        public AppIdentityDbContext() : base("IdentityDb")
+        public AppIdentityDbContext()
+            : base("IdentityDb")
         {
         }
 

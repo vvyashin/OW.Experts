@@ -1,4 +1,5 @@
 ﻿using System;
+using Elmah;
 
 namespace OW.Experts.WebUI.Services
 {
@@ -6,7 +7,7 @@ namespace OW.Experts.WebUI.Services
     {
         public virtual void Log(Exception exception)
         {
-            Elmah.ErrorSignal.FromCurrentContext().Raise(exception);
+            ErrorSignal.FromCurrentContext().Raise(exception);
         }
     }
 }

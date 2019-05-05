@@ -9,21 +9,20 @@ namespace OW.Experts.WebUI.Controllers
 
         public ICurrentUser CurrentAuthorizedUser
         {
-            get { return _currentUser ?? (_currentUser = new HttpContextCurrentUser()); }
-            set { if (_currentUser == null) _currentUser = value; }
+            get => _currentUser ?? (_currentUser = new HttpContextCurrentUser());
+            set
+            {
+                if (_currentUser == null) _currentUser = value;
+            }
         }
 
         public ActionResult Index()
         {
-            if (CurrentAuthorizedUser.IsAdmin) {
+            if (CurrentAuthorizedUser.IsAdmin)
                 return RedirectToAction("Index", "Admin");
-            }
-            else if (CurrentAuthorizedUser.IsExpert) {
+            if (CurrentAuthorizedUser.IsExpert)
                 return RedirectToAction("Index", "Expert");
-            }
-            else {
-                return RedirectToAction("Register", "Account");
-            }
+            return RedirectToAction("Register", "Account");
         }
     }
 }

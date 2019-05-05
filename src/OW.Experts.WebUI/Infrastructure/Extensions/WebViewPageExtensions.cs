@@ -18,7 +18,7 @@ namespace OW.Experts.WebUI.Infrastructure
 
         public static SelectList GetTypeSelectList(this WebViewPage webPage, string selectedNotionTypeId = null)
         {
-            var notionTypes = (IReadOnlyCollection<NotionTypeViewModel>) webPage.ViewBag.NotionTypes;
+            var notionTypes = (IReadOnlyCollection<NotionTypeViewModel>)webPage.ViewBag.NotionTypes;
 
             return new SelectList(notionTypes, nameof(NotionTypeViewModel.Id), nameof(NotionTypeViewModel.Name), selectedNotionTypeId);
         }

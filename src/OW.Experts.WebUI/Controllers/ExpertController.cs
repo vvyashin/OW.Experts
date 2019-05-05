@@ -18,36 +18,134 @@ namespace OW.Experts.WebUI.Controllers
     [Authorize(Roles = RoleNames.Expert)]
     public class ExpertController : BaseSessionController
     {
-        private ICurrentUser _currentUser;
-
-        public ICurrentUser CurrentAuthorizedUser
-        {
-            get { return _currentUser ?? (_currentUser = new HttpContextCurrentUser()); }
-            set { if (_currentUser == null) _currentUser = value; }
-        }
-
-        #region dependencies
-
         [NotNull]
         private readonly IExpertCurrentSessionService _currentSessionOfExpertsService;
 
         private readonly IGetNotionTypesQuery<NotionTypeViewModel> _notionTypeQuery;
+        private ICurrentUser _currentUser;
 
-        // + LogService in base class
-
-        #endregion
-
-        public ExpertController([NotNull] IUnitOfWorkFactory unitOfWorkFactory, [NotNull] IExpertCurrentSessionService currentSessionOfExpertsService,
-            [NotNull] IGetNotionTypesQuery<NotionTypeViewModel> notionTypeQuery, [NotNull] LogService logService)
+        public ExpertController(
+            [NotNull] IUnitOfWorkFactory unitOfWorkFactory,
+            [NotNull] IExpertCurrentSessionService currentSessionOfExpertsService,
+            [NotNull] IGetNotionTypesQuery<NotionTypeViewModel> notionTypeQuery,
+            [NotNull] LogService logService)
             : base(unitOfWorkFactory, currentSessionOfExpertsService, logService)
         {
-            if (currentSessionOfExpertsService == null)
-                throw new ArgumentNullException(nameof(currentSessionOfExpertsService));
+            if (currentSessionOfExpertsService == null) throw new ArgumentNullException(nameof(currentSessionOfExpertsService));
             if (notionTypeQuery == null) throw new ArgumentNullException(nameof(notionTypeQuery));
             if (logService == null) throw new ArgumentNullException(nameof(logService));
-            
+
             _currentSessionOfExpertsService = currentSessionOfExpertsService;
             _notionTypeQuery = notionTypeQuery;
+        }
+
+        public ICurrentUser CurrentAuthorizedUser
+        {
+            get => _currentUser ?? (_currentUser = new HttpContextCurrentUser());
+            set
+            {
+                if (_currentUser == null) _currentUser = value;
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Association(AllAssociationViewModel model, string action)
+        {
+            // ReSharper disable once PossibleNullReferenceException
+            return HandleHttpPostRequest(
+                currentSessionShouldExist: true,
+                currentSessionShouldOnPhase: SessionPhase.MakingAssociations,
+                tryExecute: () =>
+                {
+                    _currentSessionOfExpertsService.Associations(
+                        model.Body.Split(',', ';')
+                            .Select(x => x.Trim())
+                            .Distinct()
+                            .Where(x => !string.IsNullOrWhiteSpace(x))
+                            .ToList(),
+                        CurrentAuthorizedUser.Name);
+                    FinishPhaseIfActionIsFinish(action);
+                    this.Success("Ассоциации успешно сохранены");
+                    return RedirectToAction("ExpertTest");
+                },
+                viewWithProcessedForm: View("Association", model),
+                andIfErrorReturn: RedirectToAction("ExpertTest", "Expert"));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AssociationType(AssociationTypeViewModel model, string action)
+        {
+            return HandleHttpPostRequest(
+                currentSessionShouldExist: true,
+                currentSessionShouldOnPhase: SessionPhase.SpecifyingAssociationsTypes,
+                tryExecute: () =>
+                {
+                    _currentSessionOfExpertsService.AssociationsTypes(
+                        model.ExpertAssociations.ConvertTo<List<AssociationDto>>(),
+                        CurrentAuthorizedUser.Name);
+                    FinishPhaseIfActionIsFinish(action);
+                    this.Success("Типы ассоциаций успешно сохранены");
+                    return RedirectToAction("ExpertTest");
+                },
+                viewWithProcessedForm: View("AssociationType", model),
+                andIfErrorReturn: RedirectToAction("ExpertTest"));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Relation(RelationViewModel relationViewModel)
+        {
+            return HandleHttpPostRequest(
+                currentSessionShouldExist: true,
+                currentSessionShouldOnPhase: SessionPhase.SelectingAndSpecifyingRelations,
+                tryExecute: () =>
+                {
+                    _currentSessionOfExpertsService.Relations(
+                        relationViewModel.ConvertTo<RelationTupleDto>(),
+                        CurrentAuthorizedUser.Name);
+
+                    this.Success("Типы ассоциаций успешно сохранены");
+                    return RedirectToAction("ExpertTest");
+                },
+                viewWithProcessedForm: View("Relation", relationViewModel),
+                andIfErrorReturn: RedirectToAction("ExpertTest"));
+        }
+
+        [HttpGet]
+        public ActionResult Index()
+        {
+            return RedirectToAction("ExpertTest");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult JoinSession()
+        {
+            return HandleHttpPostRequest(
+                currentSessionShouldExist: true,
+                currentSessionShouldOnPhase: SessionPhase.MakingAssociations,
+                tryExecute: () =>
+                {
+                    _currentSessionOfExpertsService.JoinSession(CurrentAuthorizedUser.Name);
+                    return RedirectToAction("ExpertTest");
+                },
+                andIfErrorReturn: RedirectToAction("ExpertTest"));
+        }
+
+        [HttpGet]
+        public ActionResult ExpertTest()
+        {
+            using (UnitOfWorkFactory.Create()) {
+                if (_currentSessionOfExpertsService.CurrentSession == null) return NoSession();
+
+                if (_currentSessionOfExpertsService.DoesExpertJoinSession(CurrentAuthorizedUser.Name))
+                    return CurrentPhase();
+
+                var sessionModel = _currentSessionOfExpertsService.CurrentSession.ConvertTo<SessionViewModel>();
+                return View("JoinSession", sessionModel);
+            }
         }
 
         private ActionResult CurrentPhase()
@@ -70,127 +168,60 @@ namespace OW.Experts.WebUI.Controllers
         private ActionResult Association()
         {
             if (_currentSessionOfExpertsService.DoesExpertCompleteCurrentPhase(
-                CurrentAuthorizedUser.Name)) {
+                CurrentAuthorizedUser.Name))
                 return Wait();
-            }
 
             var model = new AllAssociationViewModel();
-            model.Body = String.Join(", ", _currentSessionOfExpertsService
-                .GetAssociationsByExpertName(CurrentAuthorizedUser.Name).Select(x => x.Notion));
+            model.Body = string.Join(
+                ", ",
+                _currentSessionOfExpertsService
+                    .GetAssociationsByExpertName(CurrentAuthorizedUser.Name).Select(x => x.Notion));
+
             // ReSharper disable once PossibleNullReferenceException
             model.BaseNotion = _currentSessionOfExpertsService.CurrentSession.BaseNotion;
 
             return View("Association", model);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Association(AllAssociationViewModel model, string action)
-        {
-            // ReSharper disable once PossibleNullReferenceException
-            return HandleHttpPostRequest(
-                currentSessionShouldExist: true,
-                currentSessionShouldOnPhase: SessionPhase.MakingAssociations,
-                tryExecute: () =>
-                {
-                    _currentSessionOfExpertsService.Associations(
-                        model.Body.Split(',', ';')
-                            .Select(x => x.Trim())
-                            .Distinct()
-                            .Where(x => !String.IsNullOrWhiteSpace(x))
-                            .ToList(), CurrentAuthorizedUser.Name);
-                    FinishPhaseIfActionIsFinish(action);
-                    this.Success("Ассоциации успешно сохранены");
-                    return RedirectToAction("ExpertTest");
-                },
-                viewWithProcessedForm: View("Association", model),
-                andIfErrorReturn: RedirectToAction("ExpertTest", "Expert")
-                );
-        }
-
         private void FinishPhaseIfActionIsFinish(string action)
         {
-            if (action == ViewConstants.FinishAction) {
+            if (action == ViewConstants.FinishAction)
                 _currentSessionOfExpertsService.FinishCurrentPhase(CurrentAuthorizedUser.Name);
-            }
         }
 
         private ActionResult AssociationType()
         {
             if (_currentSessionOfExpertsService.DoesExpertCompleteCurrentPhase(
-                CurrentAuthorizedUser.Name)) {
+                CurrentAuthorizedUser.Name))
                 return Wait();
-            }
 
             var associations = _currentSessionOfExpertsService
                 .GetAssociationsByExpertName(CurrentAuthorizedUser.Name)
                 .ConvertTo<List<AssociationViewModel>>();
 
-            AssociationTypeViewModel model = new AssociationTypeViewModel()
+            var model = new AssociationTypeViewModel
             {
-                ExpertAssociations = associations,
+                ExpertAssociations = associations
             };
-            this.PopulateNotionTypes(_notionTypeQuery.Execute(
-                new GetNotionTypesSpecification<NotionTypeViewModel>(x => new NotionTypeViewModel()
-                {
-                    Id = x.Id.ToString(),
-                    Name = x.Name
-                })));
+            this.PopulateNotionTypes(
+                _notionTypeQuery.Execute(
+                    new GetNotionTypesSpecification<NotionTypeViewModel>(
+                        x => new NotionTypeViewModel
+                        {
+                            Id = x.Id.ToString(),
+                            Name = x.Name
+                        })));
 
             return View("AssociationType", model);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult AssociationType(AssociationTypeViewModel model, string action)
-        {
-            return HandleHttpPostRequest(
-                currentSessionShouldExist: true,
-                currentSessionShouldOnPhase: SessionPhase.SpecifyingAssociationsTypes,
-                tryExecute: () =>
-                {
-                    _currentSessionOfExpertsService.AssociationsTypes(
-                        model.ExpertAssociations.ConvertTo<List<AssociationDto>>(), CurrentAuthorizedUser.Name);
-                    FinishPhaseIfActionIsFinish(action);
-                    this.Success("Типы ассоциаций успешно сохранены");
-                    return RedirectToAction("ExpertTest");
-                },
-                viewWithProcessedForm: View("AssociationType", model),
-                andIfErrorReturn: RedirectToAction("ExpertTest")
-                );
-        }
-
         private ActionResult Relation()
         {
-            Tuple<Relation, Relation> relationPair = _currentSessionOfExpertsService.
-                GetNextRelationByExpertName(CurrentAuthorizedUser.Name);
+            var relationPair = _currentSessionOfExpertsService.GetNextRelationByExpertName(CurrentAuthorizedUser.Name);
 
-            if (relationPair == null) {
+            if (relationPair == null)
                 return EndSession();
-            }
-            else {
-                return View("Relation", relationPair.ConvertTo<RelationViewModel>());
-            }
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Relation(RelationViewModel relationViewModel)
-        {
-            return HandleHttpPostRequest(
-                currentSessionShouldExist: true,
-                currentSessionShouldOnPhase: SessionPhase.SelectingAndSpecifyingRelations,
-                tryExecute: () =>
-                {
-                    _currentSessionOfExpertsService.Relations(
-                        relationViewModel.ConvertTo<RelationTupleDto>(), CurrentAuthorizedUser.Name);
-
-                    this.Success("Типы ассоциаций успешно сохранены");
-                    return RedirectToAction("ExpertTest");
-                },
-                viewWithProcessedForm: View("Relation", relationViewModel),
-                andIfErrorReturn: RedirectToAction("ExpertTest")
-                );
+            return View("Relation", relationPair.ConvertTo<RelationViewModel>());
         }
 
         private ActionResult Wait()
@@ -206,47 +237,6 @@ namespace OW.Experts.WebUI.Controllers
         private ActionResult NoSession()
         {
             return View("NoSession");
-        }
-
-        [HttpGet]
-        public ActionResult Index()
-        {
-            return RedirectToAction("ExpertTest");
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult JoinSession()
-        {
-            return HandleHttpPostRequest(
-                currentSessionShouldExist: true,
-                currentSessionShouldOnPhase: SessionPhase.MakingAssociations,
-                tryExecute: () =>
-                {
-                    _currentSessionOfExpertsService.JoinSession(CurrentAuthorizedUser.Name);
-                    return RedirectToAction("ExpertTest");
-                },
-                andIfErrorReturn: RedirectToAction("ExpertTest")
-                );
-        }
-
-        [HttpGet]
-        public ActionResult ExpertTest()
-        {
-            using (UnitOfWorkFactory.Create()) {
-                if (_currentSessionOfExpertsService.CurrentSession == null) {
-                    return NoSession();
-                }
-                else if (_currentSessionOfExpertsService.
-                    DoesExpertJoinSession(CurrentAuthorizedUser.Name)) {
-                    return CurrentPhase();
-                }
-                else {
-                    var sessionModel = _currentSessionOfExpertsService.
-                        CurrentSession.ConvertTo<SessionViewModel>();
-                    return View("JoinSession", sessionModel);
-                }
-            }
         }
     }
 }

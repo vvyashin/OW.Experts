@@ -1,5 +1,4 @@
-﻿@using System.Web.UI.WebControls
-@model OW.Experts.WebUI.ViewModels.Expert.RelationViewModel
+﻿@model OW.Experts.WebUI.ViewModels.Expert.RelationViewModel
 
 @{
     ViewBag.Title = "Relation";
@@ -10,7 +9,7 @@
 
 @Html.Partial("Partial/_LastState")
 
-@using (Html.BeginForm(Html.BeginForm("Relation", "Expert", FormMethod.Post, new {@class = "form-horizontal", role = "form"}))) {
+@using (Html.BeginForm(Html.BeginForm("Relation", "Expert", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))) {
     @Html.AntiForgeryToken()
 
     var firstName = Model.FirstNodeNotion;
@@ -18,7 +17,7 @@
     var secondName = Model.SecondNodeNotion;
     var secondType = Model.SecondNodeType;
 
-    <div style="max-width: 800px; padding: 5px; margin: 5px">
+    <div style="margin: 5px; max-width: 800px; padding: 5px;">
         @Html.HiddenFor(x => x.StraightRelationid)
         @Html.HiddenFor(x => x.ReverseRelationId)
         @Html.HiddenFor(x => x.FirstNodeNotion, Model.FirstNodeNotion)
@@ -36,7 +35,7 @@
             </div>
             <div class="radio">
                 <label>
-                    @Html.RadioButtonFor(x => x.DoesRelationExist, "no", new {@checked = ""})
+                    @Html.RadioButtonFor(x => x.DoesRelationExist, "no", new { @checked = "" })
                     Нет
                 </label>
             </div>
@@ -82,9 +81,9 @@
 }
 <style>
     .modal-content {
-        width: 600px !important;
         height: 600px !important;
         margin: 30px auto !important;
+        width: 600px !important;
     }
 </style>
 
@@ -92,20 +91,26 @@
 {
     <script type="text/javascript">
         $(function() {
-            $('body').on('click', '.modal-link', function(e) {
-                e.preventDefault();
-                $(this).attr('data-target', '#modal-container');
-                $(this).attr('data-toggle', 'modal');
-            });
-            $('body').on('click', '.modal-close-btn', function() {
-                $('#modal-container').modal('hide');
-            });
-            $('#modal-container').on('hidden.bs.modal', function() {
-                $(this).removeData('bs.modal');
-            });
-            $('#CancelModal').on('click', function() {
-                return false;
-            });
+            $('body').on('click',
+                '.modal-link',
+                function(e) {
+                    e.preventDefault();
+                    $(this).attr('data-target', '#modal-container');
+                    $(this).attr('data-toggle', 'modal');
+                });
+            $('body').on('click',
+                '.modal-close-btn',
+                function() {
+                    $('#modal-container').modal('hide');
+                });
+            $('#modal-container').on('hidden.bs.modal',
+                function() {
+                    $(this).removeData('bs.modal');
+                });
+            $('#CancelModal').on('click',
+                function() {
+                    return false;
+                });
         });
     </script>
     <script type="text/javascript">

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Web;
 using System.Web.Mvc;
 using OW.Experts.WebUI.ViewModels.Admin;
 
@@ -9,15 +8,15 @@ namespace OW.Experts.WebUI.Infrastructure.Binders
     {
         public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindindContext)
         {
-            if (bindindContext.ModelType == typeof (NodeCandidateListViewModel)) {
-                HttpRequestBase request = controllerContext.HttpContext.Request;
-                NodeCandidateListViewModel nodeCandidateListViewModel = new NodeCandidateListViewModel()
+            if (bindindContext.ModelType == typeof(NodeCandidateListViewModel)) {
+                var request = controllerContext.HttpContext.Request;
+                var nodeCandidateListViewModel = new NodeCandidateListViewModel
                 {
                     NodeCandidates = new List<NodeCandidateViewModel>()
                 };
-                for (int nodeI = 0; nodeI < request.Form.Count/5; nodeI++) {
+                for (var nodeI = 0; nodeI < request.Form.Count / 5; nodeI++) {
                     nodeCandidateListViewModel.NodeCandidates.Add(
-                        new NodeCandidateViewModel()
+                        new NodeCandidateViewModel
                         {
                             Notion = request.Form.Get($"model.NodeCandidates[{nodeI}].Notion"),
                             TypeId = request.Form.Get($"model.NodeCandidates[{nodeI}].TypeId"),
@@ -29,11 +28,11 @@ namespace OW.Experts.WebUI.Infrastructure.Binders
                                 request.Form.Get($"model.NodeCandidates[{nodeI}].TotalExpert"))
                         });
                 }
+
                 return nodeCandidateListViewModel;
             }
-            else {
-                return base.BindModel(controllerContext, bindindContext);
-            }
+
+            return base.BindModel(controllerContext, bindindContext);
         }
     }
 }

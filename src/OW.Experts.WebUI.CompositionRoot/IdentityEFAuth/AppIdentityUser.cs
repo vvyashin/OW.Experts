@@ -4,8 +4,5 @@ namespace OW.Experts.WebUI.CompositionRoot.IdentityEFAuth
 {
     public class AppIdentityUser : IdentityUser
     {
-        public AppIdentityUser()
-        {
-        }
     }
 }

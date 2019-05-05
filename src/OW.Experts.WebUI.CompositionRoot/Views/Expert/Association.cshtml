@@ -1,5 +1,4 @@
-﻿@using System.Web.Mvc.Html
-@using OW.Experts.WebUI.Constants
+﻿@using OW.Experts.WebUI.Constants
 @model OW.Experts.WebUI.ViewModels.Expert.AllAssociationViewModel
 
 @{
@@ -11,7 +10,7 @@
 
 @Html.Partial("Partial/_LastState")
 
-@using (Html.BeginForm("Association", "Expert", FormMethod.Post, new {@class = "form-horizontal", role = "form"})) {
+@using (Html.BeginForm("Association", "Expert", FormMethod.Post, new { @class = "form-horizontal", role = "form" })) {
     @Html.AntiForgeryToken()
     <div class="alert-info alert">
         В тектовое поле через запятую напишите ассоциации к понятию <strong>@Model.BaseNotion</strong>.
@@ -22,8 +21,8 @@
 
         <div class="form-group">
             <div class="col-md-10">
-                @Html.TextAreaFor(m => m.Body, 15, 70, new {@class = "form-control"})
-                @Html.ValidationMessageFor(m => m.Body, "", new {@class = "text-danger", @style = "display:block"})
+                @Html.TextAreaFor(m => m.Body, 15, 70, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Body, "", new { @class = "text-danger", style = "display:block" })
             </div>
         </div>
 

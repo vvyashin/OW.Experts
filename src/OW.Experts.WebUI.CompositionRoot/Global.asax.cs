@@ -1,4 +1,6 @@
 ﻿using System.Data.Entity;
+using System.Diagnostics.CodeAnalysis;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -8,7 +10,11 @@ using OW.Experts.WebUI.ViewModels.Admin;
 
 namespace OW.Experts.WebUI.CompositionRoot
 {
-    public class MvcApplication : System.Web.HttpApplication
+    [SuppressMessage(
+        "StyleCop.CSharp.DocumentationRules",
+        "SA1649:File name must match first type name",
+        Justification = "File must be named Global.asax.cs")]
+    public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
         {

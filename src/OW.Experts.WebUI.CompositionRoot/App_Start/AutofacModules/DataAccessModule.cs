@@ -29,15 +29,17 @@ namespace OW.Experts.WebUI.CompositionRoot.AutofacModules
             builder.RegisterAssemblyTypes(Assembly.Load("OW.Experts.Domain.Linq"))
                 .Where(t => t.Name.EndsWith("Repository"))
                 .WithParameter(
-                    (pi, c) => pi.ParameterType.IsGenericType && pi.ParameterType.GetGenericTypeDefinition() == typeof(IRepository<>),
-                    (pi, c) => c.ResolveKeyed("NHibernate", typeof(IRepository<>).MakeGenericType(pi.ParameterType.GetGenericArguments())))
+                    (pi, c) => pi.ParameterType.IsGenericType &&
+                               pi.ParameterType.GetGenericTypeDefinition() == typeof(IRepository<>),
+                    (pi, c) => c.ResolveKeyed(
+                        "NHibernate",
+                        typeof(IRepository<>).MakeGenericType(pi.ParameterType.GetGenericArguments())))
                 .AsImplementedInterfaces()
                 .InstancePerRequest();
-            
-            builder.RegisterGeneric(typeof (GetNotionsTypesQuery<>))
-                .As(typeof (IGetNotionTypesQuery<>))
-                .InstancePerRequest();
 
+            builder.RegisterGeneric(typeof(GetNotionsTypesQuery<>))
+                .As(typeof(IGetNotionTypesQuery<>))
+                .InstancePerRequest();
 
             FetchableQueryableFactory.Current = new NHFetchableQueryableFactory();
         }

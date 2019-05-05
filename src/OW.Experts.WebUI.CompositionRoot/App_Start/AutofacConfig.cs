@@ -18,7 +18,7 @@ namespace OW.Experts.WebUI.CompositionRoot
             builder.RegisterType<LogService>().AsSelf().SingleInstance();
             builder.RegisterModule(new DataAccessModule());
             builder.RegisterModule(new DomainModule());
-            
+
             var container = builder.Build();
 
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));

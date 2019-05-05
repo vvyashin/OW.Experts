@@ -16,7 +16,7 @@ namespace OW.Experts.WebUI.CompositionRoot.IdentityEFAuth
 
             var adminRole = new IdentityRole(RoleNames.Admin);
             roleManager.Create(adminRole);
-            
+
             base.Seed(context);
         }
     }

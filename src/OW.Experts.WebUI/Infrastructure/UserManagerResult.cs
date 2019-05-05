@@ -5,9 +5,15 @@ namespace OW.Experts.WebUI.Infrastructure
 {
     public class UserManagerResult
     {
+        public bool Succeeded { get; private set; }
+
+        public IEnumerable<string> Errors { get; private set; }
+
+        public ClaimsIdentity Claim { get; private set; }
+
         public static UserManagerResult Fail(string error)
         {
-            return Fail(new string[] {error});
+            return Fail(new[] { error });
         }
 
         public static UserManagerResult Fail(IEnumerable<string> errors)
@@ -27,9 +33,5 @@ namespace OW.Experts.WebUI.Infrastructure
                 Claim = claim
             };
         }
-
-        public bool Succeeded { get; private set; }
-        public IEnumerable<string> Errors { get; private set; }
-        public ClaimsIdentity Claim { get; private set; } = null;
     }
 }

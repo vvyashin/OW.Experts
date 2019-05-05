@@ -132,8 +132,9 @@
     <Compile Include="Services\LogService.cs" />
     <Compile Include="ViewModels\Account\LoginViewModel.cs" />
     <Compile Include="ViewModels\Account\RegisterViewModel.cs" />
-    <Compile Include="ViewModels\Admin\NewSessionViewModel.cs" />
     <Compile Include="ViewModels\Admin\NodeCandidateViewModel.cs" />
+    <Compile Include="ViewModels\Admin\NewSessionViewModel.cs" />
+    <Compile Include="ViewModels\Admin\NodeCandidateListViewModel.cs" />
     <Compile Include="ViewModels\Admin\SessionViewModel.cs" />
     <Compile Include="ViewModels\Expert\AllAssociationViewModel.cs" />
     <Compile Include="ViewModels\Expert\AssociationTypeViewModel.cs" />

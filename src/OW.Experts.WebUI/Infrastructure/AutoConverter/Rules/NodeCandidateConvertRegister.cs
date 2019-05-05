@@ -5,7 +5,7 @@ using OW.Experts.WebUI.ViewModels.Admin;
 
 namespace OW.Experts.WebUI.Infrastructure.AutoConverter.Rules
 {
-    public class NodeCandidateConvertRegister : IConvertRegister 
+    public class NodeCandidateConvertRegister : IConvertRegister
     {
         public void Register()
         {

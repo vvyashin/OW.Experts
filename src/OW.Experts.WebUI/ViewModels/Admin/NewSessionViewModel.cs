@@ -7,8 +7,7 @@ namespace OW.Experts.WebUI.ViewModels.Admin
     {
         [Required(ErrorMessage = "Необходимо ввести базовое понятие")]
         [DisplayName("Базовое понятие")]
-        [RegularExpression(@"^([A-Za-zА-Яа-я]+)$",
-            ErrorMessage = "Введенное значение не соответствует правилам")]
+        [RegularExpression(@"^([A-Za-zА-Яа-я]+)$", ErrorMessage = "Введенное значение не соответствует правилам")]
         public string BaseNotion { get; set; }
     }
 }
