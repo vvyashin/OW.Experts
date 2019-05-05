@@ -20,35 +20,16 @@ namespace OW.Experts.Domain.NHibernate
 
         public INhFetchRequest<TQueried, TFetch> NhFetchRequest { get; }
 
-        #region IQueryable Members
-
         public Type ElementType => NhFetchRequest.ElementType;
 
         public Expression Expression => NhFetchRequest.Expression;
 
         public IQueryProvider Provider => NhFetchRequest.Provider;
 
-        #endregion
-
-        #region IEnumerable<TQueried> Members
-
         public IEnumerator<TQueried> GetEnumerator()
         {
             return NhFetchRequest.GetEnumerator();
         }
-
-        #endregion
-
-        #region IEnumerable Members
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return NhFetchRequest.GetEnumerator();
-        }
-
-        #endregion
-
-        #region IFetchRequest<TQueried,TFetch> Members
 
         public IFetchRequest<TQueried, TRelated> Fetch<TRelated>(
             Expression<Func<TQueried, TRelated>> relatedObjectSelector)
@@ -83,6 +64,9 @@ namespace OW.Experts.Domain.NHibernate
             return NhFetchRequest.ToFuture();
         }
 
-        #endregion
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return NhFetchRequest.GetEnumerator();
+        }
     }
 }

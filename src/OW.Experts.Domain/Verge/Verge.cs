@@ -13,11 +13,7 @@ namespace OW.Experts.Domain
         Justification = "Domain Object have protected collections with underscoreCamelCase naming for ORM mapping")]
     public class Verge : DomainObject
     {
-        #region Rules
-
         public static readonly string GeneralTypeName = "Ассоциация";
-
-        #endregion
 
         // ReSharper disable once InconsistentNaming
         protected IList<VergeOfSession> _sessionWeightSlices;

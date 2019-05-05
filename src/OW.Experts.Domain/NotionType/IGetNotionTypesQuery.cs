@@ -3,8 +3,8 @@ using OW.Experts.Domain.Infrastructure.Query;
 
 namespace OW.Experts.Domain
 {
-    public interface IGetNotionTypesQuery<TResultItem> : IQuery<IReadOnlyCollection<TResultItem>,
-            GetNotionTypesSpecification<TResultItem>>
+    public interface IGetNotionTypesQuery<TResultItem>
+        : IQuery<IReadOnlyCollection<TResultItem>, GetNotionTypesSpecification<TResultItem>>
     {
     }
 }

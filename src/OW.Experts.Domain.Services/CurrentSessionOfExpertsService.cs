@@ -10,13 +10,9 @@ namespace OW.Experts.Domain.Services
         private const string SessionDoesNotExistErrorMessage = "Текущей сессии еще не существует";
         private const string SessionIsNotInPhase = "На данном этапе тестирования недоступно";
 
-        #region dependencies
-
         private readonly ISessionOfExpertsRepository _sessionOfExpertsRepository;
         private readonly ExpertService _expertService;
         private readonly SemanticNetworkService _semanticNetworkService;
-
-        #endregion
 
         private SessionOfExperts _currentSession;
 
@@ -65,8 +61,6 @@ namespace OW.Experts.Domain.Services
             if (session.CurrentPhase == SessionPhase.SelectingAndSpecifyingRelations)
                 _expertService.CreateRelations(session, _semanticNetworkService.GetNodesBySession(session));
         }
-
-        #region expert facade
 
         /// <summary>
         /// Checks that expert has joined the session.
@@ -222,10 +216,6 @@ namespace OW.Experts.Domain.Services
             _expertService.FinishCurrentPhase(expertName, CurrentSession);
         }
 
-        #endregion
-
-        #region semantic network facade
-
         /// <summary>
         /// Creates semantic network from chosen nodes.
         /// </summary>
@@ -263,8 +253,6 @@ namespace OW.Experts.Domain.Services
 
             return _semanticNetworkService.GetSemanticNetworkBySession(session);
         }
-
-        #endregion
 
         [CanBeNull]
         private SessionOfExperts GetCurrentSessionFromRepository()

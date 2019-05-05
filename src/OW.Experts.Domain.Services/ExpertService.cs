@@ -189,7 +189,8 @@ namespace OW.Experts.Domain.Services
         /// <returns>Association collection.</returns>
         [NotNull]
         public virtual IReadOnlyCollection<Association> GetAssociationsByExpertNameAndSession(
-            [NotNull] string expertName, [NotNull] SessionOfExperts sessionOfExperts)
+            [NotNull] string expertName,
+            [NotNull] SessionOfExperts sessionOfExperts)
         {
             if (expertName == null) throw new ArgumentNullException(nameof(expertName));
             if (sessionOfExperts == null) throw new ArgumentNullException(nameof(sessionOfExperts));
@@ -237,8 +238,7 @@ namespace OW.Experts.Domain.Services
             var nodes = nodesOfSession.Where(n => n.Notion != sessionOfExperts.BaseNotion).ToArray();
 
             if (experts != null) {
-                foreach (var expert in experts)
-                {
+                foreach (var expert in experts) {
                     expert.GenerateRelations(nodes);
                     _expertRepository.AddOrUpdate(expert);
                 }

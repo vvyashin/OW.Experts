@@ -6,16 +6,16 @@ using OW.Experts.Domain.Infrastructure.Query;
 
 namespace OW.Experts.Domain.Linq.Queries
 {
-    public class GetNotionsTypesQuery<TResulItem> :
-        LinqQueryBase<IReadOnlyCollection<TResulItem>, GetNotionTypesSpecification<TResulItem>>,
-        IGetNotionTypesQuery<TResulItem>
+    public class GetNotionsTypesQuery<TResultItem>
+        : LinqQueryBase<IReadOnlyCollection<TResultItem>, GetNotionTypesSpecification<TResultItem>>,
+            IGetNotionTypesQuery<TResultItem>
     {
         public GetNotionsTypesQuery([NotNull] ILinqProvider lingProvider)
             : base(lingProvider)
         {
         }
 
-        public override IReadOnlyCollection<TResulItem> Execute(GetNotionTypesSpecification<TResulItem> specification)
+        public override IReadOnlyCollection<TResultItem> Execute(GetNotionTypesSpecification<TResultItem> specification)
         {
             if (specification == null) throw new ArgumentNullException(nameof(specification));
 

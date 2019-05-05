@@ -76,14 +76,14 @@ namespace OW.Experts.Domain
             => new ReadOnlyCollection<Relation>(_relations);
 
         /// <summary>
-        /// Gets or sets last phase, completed by the expert.
-        /// </summary>
-        public virtual SessionPhase? LastCompletedPhase { get; set; }
-
-        /// <summary>
         /// Gets a value indicating whether the expert complete current phase of the session.
         /// </summary>
         public virtual bool IsPhaseCompleted => LastCompletedPhase == SessionOfExperts.CurrentPhase;
+
+        /// <summary>
+        /// Gets or sets last phase, completed by the expert.
+        /// </summary>
+        public virtual SessionPhase? LastCompletedPhase { get; set; }
 
         /// <summary>
         /// Clears all associations added earlier and adds new associations.
@@ -146,12 +146,14 @@ namespace OW.Experts.Domain
             var first = Relations.FirstOrDefault(relation => relation.IsChosen == ChosenState.HadNotChosen);
             if (first == null) return null;
 
-            var second = Relations.SingleOrDefault(relation => relation.Source.Equals(first.Destination)
-                                                               && relation.Destination.Equals(first.Source));
+            var second = Relations.SingleOrDefault(
+                relation => relation.Source.Equals(first.Destination)
+                            && relation.Destination.Equals(first.Source));
 
             if (second == null) {
-                throw new Exception($"{this} has not relation {first.Destination} - {first.Source} " +
-                                    $"although has {first.Source} - {first.Destination}");
+                throw new Exception(
+                    $"{this} has not relation {first.Destination} - {first.Source} " +
+                    $"although has {first.Source} - {first.Destination}");
             }
 
             return new Tuple<Relation, Relation>(first, second);

@@ -22,21 +22,6 @@ namespace OW.Experts.Domain.Linq.Repositories
             _linqProvider = linqProvider;
         }
 
-        public void AddOrUpdate(Node entity)
-        {
-            _repository.AddOrUpdate(entity);
-        }
-
-        public Node GetById(Guid id)
-        {
-            return _repository.GetById(id);
-        }
-
-        public void Remove(Node entity)
-        {
-            _repository.Remove(entity);
-        }
-
         public Node GetByNotionAndType(string notion, NotionType type)
         {
             return _linqProvider.Query<Node>().SingleOrDefault(x => x.Notion == notion && x.Type == type);
@@ -63,8 +48,9 @@ namespace OW.Experts.Domain.Linq.Repositories
                     sessionVerge.Weight);
 
             _linqProvider.Query<Verge>()
-                .Where(x => x.SourceNode.SessionsOfExperts.Contains(session) ||
-                            x.SourceNode.SessionsOfExperts.Contains(session))
+                .Where(
+                    x => x.SourceNode.SessionsOfExperts.Contains(session) ||
+                         x.SourceNode.SessionsOfExperts.Contains(session))
                 .FetchMany(x => x.SessionWeightSlices).ThenFetch(x => x.SessionOfExperts)
                 .Fetch(x => x.SourceNode)
                 .Fetch(x => x.DestinationNode)
@@ -84,21 +70,37 @@ namespace OW.Experts.Domain.Linq.Repositories
                 .ToList();
 
             var concepts = nodes
-                .Select(x => new ConceptReadModel(
-                    x.Notion,
-                    x.Type.Name,
-                    x.IngoingVerges
-                        .SelectMany(v => v.SessionWeightSlices)
-                        .Where(sv => sv.SessionOfExperts == session)
-                        .Select(vergeProjection)
-                        .ToList(),
-                    x.OutgoingVerges
-                        .SelectMany(v => v.SessionWeightSlices)
-                        .Where(sv => sv.SessionOfExperts == session)
-                        .Select(vergeProjection).ToList()))
+                .Select(
+                    x => new ConceptReadModel(
+                        x.Notion,
+                        x.Type.Name,
+                        x.IngoingVerges
+                            .SelectMany(v => v.SessionWeightSlices)
+                            .Where(sv => sv.SessionOfExperts == session)
+                            .Select(vergeProjection)
+                            .ToList(),
+                        x.OutgoingVerges
+                            .SelectMany(v => v.SessionWeightSlices)
+                            .Where(sv => sv.SessionOfExperts == session)
+                            .Select(vergeProjection).ToList()))
                 .ToList();
 
             return new SemanticNetworkReadModel(concepts);
+        }
+
+        public void AddOrUpdate(Node entity)
+        {
+            _repository.AddOrUpdate(entity);
+        }
+
+        public Node GetById(Guid id)
+        {
+            return _repository.GetById(id);
+        }
+
+        public void Remove(Node entity)
+        {
+            _repository.Remove(entity);
         }
     }
 }

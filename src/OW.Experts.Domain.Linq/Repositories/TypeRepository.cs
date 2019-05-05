@@ -8,8 +8,6 @@ namespace OW.Experts.Domain.Linq.Repositories
     public abstract class TypeRepository<T> : ITypeRepository<T>
         where T : TypeBase
     {
-        protected readonly ILinqProvider LinqProvider;
-
         private readonly IRepository<T> _repository;
 
         protected TypeRepository([NotNull] IRepository<T> repository, [NotNull] ILinqProvider linqProvider)
@@ -20,6 +18,8 @@ namespace OW.Experts.Domain.Linq.Repositories
             _repository = repository;
             LinqProvider = linqProvider;
         }
+
+        protected ILinqProvider LinqProvider { get; }
 
         public T GetById(Guid id)
         {

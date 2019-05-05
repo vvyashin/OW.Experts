@@ -26,14 +26,15 @@ namespace OW.Experts.Domain.Linq.Repositories
             return _linqProvider.Query<Association>()
                 .Where(x => x.Expert.SessionOfExperts == session)
                 .GroupBy(x => new { x.Notion, TypeName = x.Type.Name, TypeId = x.Type.Id })
-                .Select(gr => new NodeCandidate
-                {
-                    Notion = gr.Key.Notion,
-                    TypeId = gr.Key.TypeId,
-                    TypeName = gr.Key.TypeName,
-                    ExpertCount = gr.Count(),
-                    TotalExpert = totalExpectCount
-                })
+                .Select(
+                    gr => new NodeCandidate
+                    {
+                        Notion = gr.Key.Notion,
+                        TypeId = gr.Key.TypeId,
+                        TypeName = gr.Key.TypeName,
+                        ExpertCount = gr.Count(),
+                        TotalExpert = totalExpectCount
+                    })
                 .ToList();
         }
     }

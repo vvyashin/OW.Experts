@@ -14,11 +14,6 @@ namespace OW.Experts.Domain.Linq.Repositories
         {
         }
 
-        public override RelationType GetGeneralType()
-        {
-            return LinqProvider.Query<RelationType>().Single(x => x.Name == Constants.GeneralRelationType);
-        }
-
         public RelationType GetTaxonomyType()
         {
             return LinqProvider.Query<RelationType>().Single(x => x.Name == Constants.TaxonomyType);
@@ -27,6 +22,11 @@ namespace OW.Experts.Domain.Linq.Repositories
         public RelationType GetMeronomyType()
         {
             return LinqProvider.Query<RelationType>().Single(x => x.Name == Constants.MeronomyType);
+        }
+
+        public override RelationType GetGeneralType()
+        {
+            return LinqProvider.Query<RelationType>().Single(x => x.Name == Constants.GeneralRelationType);
         }
     }
 }

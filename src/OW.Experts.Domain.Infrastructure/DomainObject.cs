@@ -7,7 +7,16 @@ namespace OW.Experts.Domain.Infrastructure
     /// </summary>
     public abstract class DomainObject
     {
-        public virtual Guid Id { get; }
+#pragma warning disable 649 // backing field _id is used for ORM.
+
+        private Guid _id;
+
+#pragma warning restore 649
+
+        public virtual Guid Id
+        {
+            get { return _id; }
+        }
 
         public static bool operator !=(DomainObject left, DomainObject right)
         {

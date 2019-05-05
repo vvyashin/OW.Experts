@@ -2,6 +2,11 @@
 {
     public class GroupedRelation
     {
+        /// <summary>
+        /// Gets percent of experts that confirmed the relation.
+        /// </summary>
+        public double Percent => (double)ExpertCount / TotalExpectCount;
+
         public Node Source { get; set; }
 
         public Node Destination { get; set; }
@@ -17,10 +22,5 @@
         /// Gets or sets total number of experts in the session.
         /// </summary>
         public int TotalExpectCount { get; set; }
-
-        /// <summary>
-        /// Gets percent of experts that confirmed the relation.
-        /// </summary>
-        public double Percent => (double)ExpertCount / TotalExpectCount;
     }
 }

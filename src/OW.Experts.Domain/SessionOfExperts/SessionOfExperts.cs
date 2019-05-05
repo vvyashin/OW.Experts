@@ -25,12 +25,8 @@ namespace OW.Experts.Domain
         {
         }
 
-        #region rules
-
         public static Expression<Func<SessionOfExperts, bool>> IsEnded =>
             s => s.CurrentPhase == SessionPhase.Ended;
-
-        #endregion
 
         [NotNull]
         public virtual string BaseNotion { get; }

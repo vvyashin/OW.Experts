@@ -21,6 +21,21 @@ namespace OW.Experts.Domain.Linq.Repositories
             _linqProvider = linqProvider;
         }
 
+        public Expert GetExpertByNameAndSession(GetExpertByNameAndSessionSpecification specification)
+        {
+            return FetchQuery(specification.Fetch).SingleOrDefault(
+                x =>
+                    x.Name == specification.ExpertName &&
+                    x.SessionOfExperts == specification.SessionOfExperts);
+        }
+
+        public IReadOnlyCollection<Expert> GetExpertsBySession(GetExpertsBySessionSpecification specification)
+        {
+            return FetchQuery(specification.Fetch)
+                .Where(x => x.SessionOfExperts == specification.SessionOfExperts)
+                .ToList();
+        }
+
         public void AddOrUpdate(Expert entity)
         {
             _repository.AddOrUpdate(entity);
@@ -34,20 +49,6 @@ namespace OW.Experts.Domain.Linq.Repositories
         public void Remove(Expert entity)
         {
             _repository.Remove(entity);
-        }
-
-        public Expert GetExpertByNameAndSession(GetExpertByNameAndSessionSpecification specification)
-        {
-            return FetchQuery(specification.Fetch).SingleOrDefault(x =>
-                x.Name == specification.ExpertName &&
-                x.SessionOfExperts == specification.SessionOfExperts);
-        }
-
-        public IReadOnlyCollection<Expert> GetExpertsBySession(GetExpertsBySessionSpecification specification)
-        {
-            return FetchQuery(specification.Fetch)
-                .Where(x => x.SessionOfExperts == specification.SessionOfExperts)
-                .ToList();
         }
 
         private IQueryable<Expert> FetchQuery(ExpertFetch expertFetch)

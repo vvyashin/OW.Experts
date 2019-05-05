@@ -4,6 +4,8 @@ namespace OW.Experts.Domain
 {
     public class NodeCandidate
     {
+        public double ExpertPercent => (double)ExpertCount / TotalExpert;
+
         public string Notion { get; set; }
 
         public Guid TypeId { get; set; }
@@ -13,8 +15,6 @@ namespace OW.Experts.Domain
         public int ExpertCount { get; set; }
 
         public int TotalExpert { get; set; }
-
-        public double ExpertPercent => (double)ExpertCount / TotalExpert;
 
         public bool IsSaveAsNode { get; set; } = false;
     }

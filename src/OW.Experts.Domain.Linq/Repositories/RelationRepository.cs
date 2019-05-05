@@ -29,14 +29,15 @@ namespace OW.Experts.Domain.Linq.Repositories
 
             return relations
                 .GroupBy(x => new { x.Source, x.Destination, x.Type })
-                .Select(gr => new GroupedRelation
-                {
-                    Source = gr.Key.Source,
-                    Destination = gr.Key.Destination,
-                    Type = gr.Key.Type,
-                    ExpertCount = gr.Count(),
-                    TotalExpectCount = totalExpectCount
-                })
+                .Select(
+                    gr => new GroupedRelation
+                    {
+                        Source = gr.Key.Source,
+                        Destination = gr.Key.Destination,
+                        Type = gr.Key.Type,
+                        ExpertCount = gr.Count(),
+                        TotalExpectCount = totalExpectCount
+                    })
                 .ToList();
         }
     }
