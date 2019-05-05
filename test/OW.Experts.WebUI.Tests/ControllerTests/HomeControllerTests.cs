@@ -9,20 +9,15 @@ namespace OW.Experts.WebUI.UnitTests.ControllerTests
     [TestFixture]
     public class HomeControllerTests
     {
-        private HomeController CreateControllerUnderTest()
-        {
-            return new HomeController();
-        }
-
         [Test]
         public void Index_UserIsAdmin_RedirectToAdminIndex()
         {
-            ICurrentUser stubCurrentUser = Substitute.For<ICurrentUser>();
+            var stubCurrentUser = Substitute.For<ICurrentUser>();
             stubCurrentUser.IsAdmin.Returns(true);
-            HomeController cut = CreateControllerUnderTest();
+            var cut = CreateControllerUnderTest();
             cut.CurrentAuthorizedUser = stubCurrentUser;
-            
-            var result = (RedirectToRouteResult) cut.Index();
+
+            var result = (RedirectToRouteResult)cut.Index();
 
             Assert.AreEqual("Admin", result.RouteValues["controller"]);
             Assert.AreEqual("Index", result.RouteValues["action"]);
@@ -31,14 +26,14 @@ namespace OW.Experts.WebUI.UnitTests.ControllerTests
         [Test]
         public void Index_UserIsExpertAndNotAdmin_RedirectToExpertIndex()
         {
-            ICurrentUser stubCurrentUser = Substitute.For<ICurrentUser>();
+            var stubCurrentUser = Substitute.For<ICurrentUser>();
             stubCurrentUser.IsAdmin.Returns(false);
             stubCurrentUser.IsExpert.Returns(true);
-            HomeController cut = CreateControllerUnderTest();
+            var cut = CreateControllerUnderTest();
             cut.CurrentAuthorizedUser = stubCurrentUser;
-            
-            var result = (RedirectToRouteResult) cut.Index();
-            
+
+            var result = (RedirectToRouteResult)cut.Index();
+
             Assert.AreEqual("Expert", result.RouteValues["controller"]);
             Assert.AreEqual("Index", result.RouteValues["action"]);
         }
@@ -46,16 +41,21 @@ namespace OW.Experts.WebUI.UnitTests.ControllerTests
         [Test]
         public void Index_UserIsGuest_RedirectToAccountRegister()
         {
-            ICurrentUser stubCurrentUser = Substitute.For<ICurrentUser>();
+            var stubCurrentUser = Substitute.For<ICurrentUser>();
             stubCurrentUser.IsAdmin.Returns(false);
             stubCurrentUser.IsExpert.Returns(false);
-            HomeController cut = CreateControllerUnderTest();
+            var cut = CreateControllerUnderTest();
             cut.CurrentAuthorizedUser = stubCurrentUser;
-            
-            var result = (RedirectToRouteResult) cut.Index();
-            
+
+            var result = (RedirectToRouteResult)cut.Index();
+
             Assert.AreEqual("Account", result.RouteValues["controller"]);
-            Assert.AreEqual("Register", result.RouteValues["action"]);            
+            Assert.AreEqual("Register", result.RouteValues["action"]);
+        }
+
+        private HomeController CreateControllerUnderTest()
+        {
+            return new HomeController();
         }
     }
 }

@@ -13,6 +13,8 @@ namespace OW.Experts.WebUI.UnitTests.Base
         protected const string NodeCandidateIsNotExistErrorMessage =
             "Одного или нескольких выбранных потенциальных узлов не существует";
 
+        protected ICurrentSessionService FakeCurrentSessionOfExpertsService { get; set; }
+
         [OneTimeSetUp]
         public void SubstituteConverter()
         {
@@ -25,8 +27,6 @@ namespace OW.Experts.WebUI.UnitTests.Base
             SubstituteAutoConverter.Reset();
         }
 
-        protected ICurrentSessionService FakeCurrentSessionOfExpertsService { get; set; }
-
         protected SessionOfExperts SetFakeCurrentSession()
         {
             var session = Substitute.For<SessionOfExperts>();
@@ -34,12 +34,6 @@ namespace OW.Experts.WebUI.UnitTests.Base
             SetFakeCurrentSession(session);
 
             return session;
-        }
-
-        private void SetFakeCurrentSession(SessionOfExperts session)
-        {
-            FakeCurrentSessionOfExpertsService.DoesCurrentSessionExist.Returns(true);
-            FakeCurrentSessionOfExpertsService.CurrentSession.Returns(session);
         }
 
         protected SessionOfExperts SetFakeCurrentSession(SessionPhase sessionPhase)
@@ -56,6 +50,12 @@ namespace OW.Experts.WebUI.UnitTests.Base
         {
             FakeCurrentSessionOfExpertsService.CurrentSession.Returns((SessionOfExperts)null);
             FakeCurrentSessionOfExpertsService.DoesCurrentSessionExist.Returns(false);
+        }
+
+        private void SetFakeCurrentSession(SessionOfExperts session)
+        {
+            FakeCurrentSessionOfExpertsService.DoesCurrentSessionExist.Returns(true);
+            FakeCurrentSessionOfExpertsService.CurrentSession.Returns(session);
         }
     }
 }

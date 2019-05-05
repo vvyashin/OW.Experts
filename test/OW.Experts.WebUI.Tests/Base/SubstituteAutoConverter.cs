@@ -10,8 +10,8 @@ namespace OW.Experts.WebUI.UnitTests.Base
         public static void Substitute()
         {
             var autoConverter = NSubstitute.Substitute.For<IMappingServiceProvider>();
-            autoConverter.Map(Arg.Any<Type>(), Arg.Any<Type>(), Arg.Any<Object>())
-                .Returns(x => Activator.CreateInstance((Type) x.Args()[1]));
+            autoConverter.Map(Arg.Any<Type>(), Arg.Any<Type>(), Arg.Any<object>())
+                .Returns(x => Activator.CreateInstance((Type)x.Args()[1]));
 
             AutoConverter.CurrentConverter = autoConverter;
         }
