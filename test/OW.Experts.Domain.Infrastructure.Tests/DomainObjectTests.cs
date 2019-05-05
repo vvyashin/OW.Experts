@@ -19,7 +19,7 @@ namespace OW.Experts.Domain.Infrastructure.Tests
 
             domainObject.Equals(domainObjectWithEqualId)
                 .Should()
-                .Be(true, because: "objects are equal");
+                .Be(true, "objects are equal");
         }
     }
 }

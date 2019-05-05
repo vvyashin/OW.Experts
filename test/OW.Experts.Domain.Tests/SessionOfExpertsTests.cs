@@ -23,16 +23,6 @@ namespace OW.Experts.Domain.Tests
             TimeContext.Reset();
         }
 
-        [Test]
-        public void Ctor_StartedIsNow_CurrenSessionIsMakingAssociations()
-        {
-            var session = new SessionOfExperts("baseNotion");
-
-            session.CurrentPhase.Should().Be(SessionPhase.MakingAssociations);
-            session.StartTime.Should().BeNow();
-            session.BaseNotion.Should().Be("baseNotion");
-        }
-
         [TestCase(null)]
         [TestCase("")]
         [TestCase("\n")]
@@ -41,21 +31,6 @@ namespace OW.Experts.Domain.Tests
         {
             var ex = Assert.Throws<ArgumentException>(() => new SessionOfExperts(notion));
             Assert.That(ex.Message.FirstLine(), Is.EqualTo("Notion should not be empty string"));
-        }
-
-        private SessionOfExperts CreateSession()
-        {
-            return new SessionOfExperts("baseNotion");
-        }
-
-        [Test]
-        public void Finish_SessionPhaseIsEnded()
-        {
-            var session = CreateSession();
-
-            session.Finish();
-
-            session.CurrentPhase.Should().Be(SessionPhase.Ended);
         }
 
         [TestCase(SessionPhase.MakingAssociations, SessionPhase.SpecifyingAssociationsTypes)]
@@ -70,6 +45,31 @@ namespace OW.Experts.Domain.Tests
             session.NextPhaseOrFinish();
 
             session.CurrentPhase.Should().Be(nextPhase);
+        }
+
+        [Test]
+        public void Ctor_StartedIsNow_CurrenSessionIsMakingAssociations()
+        {
+            var session = new SessionOfExperts("baseNotion");
+
+            session.CurrentPhase.Should().Be(SessionPhase.MakingAssociations);
+            session.StartTime.Should().BeNow();
+            session.BaseNotion.Should().Be("baseNotion");
+        }
+
+        [Test]
+        public void Finish_SessionPhaseIsEnded()
+        {
+            var session = CreateSession();
+
+            session.Finish();
+
+            session.CurrentPhase.Should().Be(SessionPhase.Ended);
+        }
+
+        private SessionOfExperts CreateSession()
+        {
+            return new SessionOfExperts("baseNotion");
         }
     }
 }

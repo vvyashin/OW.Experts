@@ -9,19 +9,6 @@ namespace OW.Experts.Domain.Tests
     [TestFixture]
     public class AssociationTests
     {
-        private Association CreateAssociation()
-        {
-            var expertFake = Substitute.For<Expert>();
-
-            return new Association(expertFake, "notion");
-        }
-
-        [Test]
-        public void Ctor_IfExpertIsNull_Throw()
-        {
-            Assert.Throws<ArgumentNullException>(() => new Association(null, "notion"));
-        }
-
         [TestCase(null)]
         [TestCase("")]
         [TestCase("\n")]
@@ -32,6 +19,12 @@ namespace OW.Experts.Domain.Tests
 
             var ex = Assert.Throws<ArgumentException>(() => new Association(expertFake, notion));
             Assert.That(ex.Message.FirstLine(), Is.EqualTo("Notion should not be empty string"));
+        }
+
+        [Test]
+        public void Ctor_IfExpertIsNull_Throw()
+        {
+            Assert.Throws<ArgumentNullException>(() => new Association(null, "notion"));
         }
 
         [Test]
@@ -48,8 +41,16 @@ namespace OW.Experts.Domain.Tests
             var association = CreateAssociation();
             association.UpdateTypes(typeFake, "offer");
 
-            association.Should().BeEquivalentTo(new {Type = typeFake, OfferType = "offer"},
+            association.Should().BeEquivalentTo(
+                new { Type = typeFake, OfferType = "offer" },
                 opt => opt.ExcludingMissingMembers());
+        }
+
+        private Association CreateAssociation()
+        {
+            var expertFake = Substitute.For<Expert>();
+
+            return new Association(expertFake, "notion");
         }
     }
 }

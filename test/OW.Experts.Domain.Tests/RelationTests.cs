@@ -10,37 +10,14 @@ namespace OW.Experts.Domain.Tests
     [TestFixture]
     public class RelationTests
     {
-        private Relation CreateRelation()
-        {
-            var expertFake = Substitute.For<Expert>();
-            var sourceNodeFake = Substitute.For<Node>();
-            var destintationNodeFake = Substitute.For<Node>();
-
-            return new Relation(expertFake, sourceNodeFake, destintationNodeFake);
-        }
-
-        private class RelationWithTypes : Relation
-        {
-            public RelationWithTypes(Expert expert, Node source, Node destination, 
-                IEnumerable<RelationType> types) : base(expert, source, destination)
-            {
-                _types.AddRange(types);
-            }
-        }
-
-        private Relation CreateRelation(IEnumerable<RelationType> types)
-        {
-            var expertFake = Substitute.For<Expert>();
-            var sourceNodeFake = Substitute.For<Node>();
-            var destintationNodeFake = Substitute.For<Node>();
-
-            return new RelationWithTypes(expertFake, sourceNodeFake, destintationNodeFake, types);
-        }
-
         [Test]
-        public void UpdateTypes_IfTypeIsNull_Throw()
+        public void Ctor_RelationHadNotChosendAndHastEmptyTypeCollection()
         {
-            Assert.Throws<ArgumentNullException>(() => CreateRelation().UpdateTypes(null, ""));
+            var relation = new Relation(Substitute.For<Expert>(), Substitute.For<Node>(), Substitute.For<Node>());
+
+            relation.Should().BeEquivalentTo(
+                new { IsChosen = ChosenState.HadNotChosen, Types = new List<RelationType>() },
+                opt => opt.ExcludingMissingMembers());
         }
 
         [Test]
@@ -52,17 +29,46 @@ namespace OW.Experts.Domain.Tests
 
             relation.UpdateTypes(newTypeFake.Enumerate(), "offer");
 
-            relation.Should().BeEquivalentTo(new { IsChosen = ChosenState.HadChosen, Types = newTypeFake.Enumerate(), OfferType = "offer" },
+            relation.Should().BeEquivalentTo(
+                new { IsChosen = ChosenState.HadChosen, Types = newTypeFake.Enumerate(), OfferType = "offer" },
                 opt => opt.ExcludingMissingMembers());
         }
 
         [Test]
-        public void Ctor_RelationHadNotChosendAndHastEmptyTypeCollection()
+        public void UpdateTypes_IfTypeIsNull_Throw()
         {
-            var relation = new Relation(Substitute.For<Expert>(), Substitute.For<Node>(), Substitute.For<Node>());
+            Assert.Throws<ArgumentNullException>(() => CreateRelation().UpdateTypes(null, string.Empty));
+        }
 
-            relation.Should().BeEquivalentTo(new {IsChosen = ChosenState.HadNotChosen, Types = new List<RelationType>()},
-                opt => opt.ExcludingMissingMembers());
+        private Relation CreateRelation()
+        {
+            var expertFake = Substitute.For<Expert>();
+            var sourceNodeFake = Substitute.For<Node>();
+            var destintationNodeFake = Substitute.For<Node>();
+
+            return new Relation(expertFake, sourceNodeFake, destintationNodeFake);
+        }
+
+        private Relation CreateRelation(IEnumerable<RelationType> types)
+        {
+            var expertFake = Substitute.For<Expert>();
+            var sourceNodeFake = Substitute.For<Node>();
+            var destintationNodeFake = Substitute.For<Node>();
+
+            return new RelationWithTypes(expertFake, sourceNodeFake, destintationNodeFake, types);
+        }
+
+        private class RelationWithTypes : Relation
+        {
+            public RelationWithTypes(
+                Expert expert,
+                Node source,
+                Node destination,
+                IEnumerable<RelationType> types)
+                : base(expert, source, destination)
+            {
+                _types.AddRange(types);
+            }
         }
     }
 }

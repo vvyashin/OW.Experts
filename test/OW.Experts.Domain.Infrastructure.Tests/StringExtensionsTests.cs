@@ -9,17 +9,6 @@ namespace OW.Experts.Domain.Infrastructure.Tests
     public class StringExtensionsTests
     {
         [Test]
-        public void TestSubstring()
-        {
-            var returnSubstring = "returnSubstring";
-            var tillValue = "till";
-
-            var actual = (returnSubstring + tillValue).Substring(tillValue);
-
-            actual.Should().Be(returnSubstring);
-        }
-
-        [Test]
         public void TestFirstLine()
         {
             var firstLine = "firstLine";
@@ -28,6 +17,17 @@ namespace OW.Experts.Domain.Infrastructure.Tests
             var actual = (firstLine + Environment.NewLine + secondLine).FirstLine();
 
             actual.Should().Be(firstLine);
+        }
+
+        [Test]
+        public void TestSubstring()
+        {
+            var returnSubstring = "returnSubstring";
+            var tillValue = "till";
+
+            var actual = (returnSubstring + tillValue).Substring(tillValue);
+
+            actual.Should().Be(returnSubstring);
         }
     }
 }

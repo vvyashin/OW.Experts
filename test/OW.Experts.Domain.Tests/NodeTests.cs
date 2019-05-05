@@ -17,6 +17,19 @@ namespace OW.Experts.Domain.Tests
             Assert.Throws<ArgumentException>(() => new Node(notion, Substitute.For<NotionType>()));
         }
 
+        [TestCase("notion", "NotIOn")]
+        [TestCase("notion", "notion")]
+        public void Equals_NotionsAreEqualsIgnoreCase_False(string node1Notion, string node2Notion)
+        {
+            var notionType = Substitute.For<NotionType>();
+            var node = new Node(node1Notion, notionType);
+            var node2 = new Node(node2Notion, notionType);
+
+            var result = node.Equals(node2);
+
+            result.Should().BeTrue();
+        }
+
         [Test]
         public void Equals_DifferentTypes_ReturnFalsse()
         {
@@ -24,17 +37,6 @@ namespace OW.Experts.Domain.Tests
             var sessionOfExpert = new SessionOfExperts("notion");
 
             var result = node.Equals(sessionOfExpert);
-
-            result.Should().BeFalse();
-        }
-
-        [Test]
-        public void Equals_TypesDoesNotEquals_False()
-        {
-            var node = new Node("notion", Substitute.For<NotionType>());
-            var node2 = new Node("notion", Substitute.For<NotionType>());
-
-            var result = node.Equals(node2);
 
             result.Should().BeFalse();
         }
@@ -51,17 +53,15 @@ namespace OW.Experts.Domain.Tests
             result.Should().BeFalse();
         }
 
-        [TestCase("notion", "NotIOn")]
-        [TestCase("notion", "notion")]
-        public void Equals_NotionsAreEqualsIgnoreCase_False(string node1Notion, string node2Notion)
+        [Test]
+        public void Equals_TypesDoesNotEquals_False()
         {
-            var notionType = Substitute.For<NotionType>();
-            var node = new Node(node1Notion, notionType);
-            var node2 = new Node(node2Notion, notionType);
+            var node = new Node("notion", Substitute.For<NotionType>());
+            var node2 = new Node("notion", Substitute.For<NotionType>());
 
             var result = node.Equals(node2);
 
-            result.Should().BeTrue();
+            result.Should().BeFalse();
         }
 
         [Test]
@@ -72,7 +72,7 @@ namespace OW.Experts.Domain.Tests
 
             node.AddSessionOfExperts(session);
 
-            node.SessionsOfExperts.Should().BeEquivalentTo(new[] {session});
+            node.SessionsOfExperts.Should().BeEquivalentTo(session);
         }
     }
 }

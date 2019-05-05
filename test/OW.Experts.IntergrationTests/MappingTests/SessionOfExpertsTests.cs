@@ -22,7 +22,7 @@ namespace OW.Experts.IntergrationTests.MappingTests
         {
             TimeContext.Reset();
         }
-        
+
         [Test]
         public void NewSessionAndUpdatePhase()
         {

@@ -7,9 +7,11 @@ namespace OW.Experts.Domain.Tests
     public class NotionTypeTests
     {
         [Test]
-        public void New_IfNameIsNull_Throw()
+        public void Ctor()
         {
-            Assert.Throws<ArgumentNullException>(() => new NotionType(null));
+            var type = new NotionType("name");
+
+            Assert.That(type.Name, Is.EqualTo("name"));
         }
 
         [Test]
@@ -20,11 +22,9 @@ namespace OW.Experts.Domain.Tests
         }
 
         [Test]
-        public void Ctor()
+        public void New_IfNameIsNull_Throw()
         {
-            var type = new NotionType("name");
-
-            Assert.That(type.Name, Is.EqualTo("name"));
+            Assert.Throws<ArgumentNullException>(() => new NotionType(null));
         }
     }
 }

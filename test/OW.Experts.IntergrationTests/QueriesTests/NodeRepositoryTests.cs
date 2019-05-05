@@ -9,7 +9,6 @@ namespace IntergrationTests.QueriesTests
         [Test]
         public void GetSemanticNetworkBySession()
         {
-            
         }
     }
 }

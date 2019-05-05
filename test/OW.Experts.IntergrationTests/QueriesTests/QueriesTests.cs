@@ -9,6 +9,12 @@ namespace OW.Experts.IntergrationTests.QueriesTests
     [TestFixture]
     public class QueriesTests : DropCreateOnOneTimeSetupTestFixture
     {
+#pragma warning disable SA1132 // Justification: Test data fields are combined for readability
+        private SessionOfExperts _session1, _session2;
+
+        private Expert _expert1, _expert2, _expert3;
+#pragma warning restore SA1132
+
         public override void OnOneTimeSetup()
         {
             base.OnOneTimeSetup();
@@ -16,12 +22,50 @@ namespace OW.Experts.IntergrationTests.QueriesTests
             Seed();
         }
 
-        private SessionOfExperts _session1, _session2;
-        private Expert _expert1, _expert2, _expert3;
+        [Test]
+        public void ExpertRepository_GetExpertByNameAndSession()
+        {
+            using (UnitOfWorkFactory.Create()) {
+                var expertRepository = new ExpertRepository(GetRepository<Expert>(), LinqProvider);
+
+                var actualExpert = expertRepository.GetExpertByNameAndSession(
+                    new GetExpertByNameAndSessionSpecification(
+                        _expert1.Name,
+                        _expert1.SessionOfExperts,
+                        ExpertFetch.None));
+
+                actualExpert.Should().BeEquivalentTo(_expert1, opt => opt.ExcludingNestedObjects());
+            }
+        }
+
+        [Test]
+        public void NodeRepository_GetSemanticNetworkBySession()
+        {
+            using (UnitOfWorkFactory.Create()) {
+                var expertRepository = new NodeRepository(GetRepository<Node>(), LinqProvider);
+
+                var actualSemanticNetwork = expertRepository.GetSemanticNetworkBySession(_session1);
+
+                actualSemanticNetwork.Concepts.Should().BeEquivalentTo(
+                    new ConceptReadModel(
+                        "notion1",
+                        "type",
+                        new List<VergeReadModel> { new VergeReadModel("notion2", "type", "notion1", "type", "type", 20) },
+                        new List<VergeReadModel>
+                            { new VergeReadModel("notion1", "type", "notion2", "type", "type", 20) }),
+                    new ConceptReadModel(
+                        "notion2",
+                        "type",
+                        new List<VergeReadModel> { new VergeReadModel("notion1", "type", "notion2", "type", "type", 20) },
+                        new List<VergeReadModel>
+                            { new VergeReadModel("notion2", "type", "notion1", "type", "type", 20) }));
+            }
+        }
 
         private void Seed()
         {
-            using (var unitOfWork = UnitOfWorkFactory.Create()) {
+            using (var unitOfWork = UnitOfWorkFactory.Create())
+            {
                 _session1 = new SessionOfExperts("baseNotion");
                 _session2 = new SessionOfExperts("otherNotion");
 
@@ -60,43 +104,8 @@ namespace OW.Experts.IntergrationTests.QueriesTests
                 var verge2 = new Verge(node2, node1, relationType, 20);
                 verge2.UpdateWeightFromSession(20, _session1);
                 vergeRepo.AddOrUpdate(verge2);
-                
+
                 unitOfWork.Commit();
-            }
-        }
-
-        [Test]
-        public void ExpertRepository_GetExpertByNameAndSession()
-        {
-            using (UnitOfWorkFactory.Create()) {
-                var expertRepository = new ExpertRepository(GetRepository<Expert>(), LinqProvider);
-
-                var actualExpert = expertRepository.GetExpertByNameAndSession(
-                    new GetExpertByNameAndSessionSpecification(_expert1.Name, _expert1.SessionOfExperts,
-                        ExpertFetch.None));
-
-                actualExpert.Should().BeEquivalentTo(_expert1, opt => opt.ExcludingNestedObjects());
-            }
-        }
-
-        [Test]
-        public void NodeRepository_GetSemanticNetworkBySession()
-        {
-            using (UnitOfWorkFactory.Create()) {
-                var expertRepository = new NodeRepository(GetRepository<Node>(), LinqProvider);
-
-                var actualSemanticNetwork = expertRepository.GetSemanticNetworkBySession(_session1);
-
-                actualSemanticNetwork.Concepts.Should().BeEquivalentTo(new []
-                {
-                    new ConceptReadModel("notion1", "type",
-                        new List<VergeReadModel>() {new VergeReadModel("notion2", "type", "notion1", "type", "type", 20)}, 
-                        new List<VergeReadModel>() {new VergeReadModel("notion1", "type", "notion2", "type", "type", 20)}),
-
-                    new ConceptReadModel("notion2", "type",
-                        new List<VergeReadModel>() {new VergeReadModel("notion1", "type", "notion2", "type", "type", 20)},
-                        new List<VergeReadModel>() {new VergeReadModel("notion2", "type", "notion1", "type", "type", 20)}),
-                });
             }
         }
     }
