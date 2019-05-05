@@ -3,10 +3,9 @@ using OW.Experts.Domain.NHibernate;
 
 namespace OW.Experts.Data.Seed
 {
-    class Program
+    public static class Program
     {
-        // ReSharper disable once UnusedParameter.Local
-        static void Main(string[] args)
+        public static void Main()
         {
             var sessionFactory = OWDatabaseConfiguration.Configure("thread_static");
             var unitOfWorkFactory = new NHUnitOfWorkFactory(sessionFactory);

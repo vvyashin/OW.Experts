@@ -19,15 +19,6 @@ namespace OW.Experts.Domain.NHibernate
             _sessionFactory = sessionFactory;
         }
 
-        private ISession GetSession()
-        {
-            if (!CurrentSessionContext.HasBind(_sessionFactory)) {
-                throw new InvalidOperationException("Unit of work should be started to using repository");
-            }
-
-            return _sessionFactory.GetCurrentSession();
-        }
-
         public void AddOrUpdate(T entity)
         {
             var session = GetSession();
@@ -39,17 +30,26 @@ namespace OW.Experts.Domain.NHibernate
             var session = GetSession();
 
             T @return;
-            if ((@return = session.Get<T>(id) ) == null) {
+            if ((@return = session.Get<T>(id)) == null) {
                 throw new InvalidOperationException($"Entity of type {typeof(T).FullName} with Id = {id} does not exist");
             }
+
             return @return;
         }
-        
+
         public void Remove(T entity)
         {
             var session = GetSession();
 
             session.Delete(entity);
+        }
+
+        private ISession GetSession()
+        {
+            if (!CurrentSessionContext.HasBind(_sessionFactory))
+                throw new InvalidOperationException("Unit of work should be started to using repository");
+
+            return _sessionFactory.GetCurrentSession();
         }
     }
 }

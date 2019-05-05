@@ -9,19 +9,21 @@ namespace OW.Experts.Domain.NHibernate
 {
     public class NHUnitOfWork : IUnitOfWork
     {
+        private readonly bool isCommited = false;
         private ISession _session;
         private ITransaction _transaction;
 
         internal NHUnitOfWork([NotNull] ISessionFactory sessionFactory, IsolationLevel isolationLevel)
         {
             if (sessionFactory == null) throw new ArgumentNullException(nameof(sessionFactory));
-            if (CurrentSessionContext.HasBind(sessionFactory)) throw new InvalidOperationException("UnitOfWork already created. Please, use or dispose it");
-            
+            if (CurrentSessionContext.HasBind(sessionFactory))
+                throw new InvalidOperationException("UnitOfWork already created. Please, use or dispose it");
+
             _session = sessionFactory.OpenSession();
             CurrentSessionContext.Bind(_session);
             _transaction = _session.BeginTransaction(isolationLevel);
         }
-        
+
         public void Dispose()
         {
             if (!_transaction.WasCommitted && !_transaction.WasRolledBack)
@@ -34,17 +36,13 @@ namespace OW.Experts.Domain.NHibernate
             _session = null;
         }
 
-        private bool isCommited = false;
-
         public void Commit()
         {
-            if (isCommited) {
+            if (isCommited)
                 throw new InvalidOperationException("Transaction was commited. Please, create new UnitOfWork.");
-            }
 
-            if (_transaction == null) {
+            if (_transaction == null)
                 throw new InvalidOperationException("Transaction was rolled back. Please, create new UnitOfWork.");
-            }
 
             _transaction.Commit();
         }

@@ -4,7 +4,7 @@ namespace OW.Experts.Domain.NHibernate.Mapping
 {
     public class ExpertMap : DomainObjectMapping<Expert>
     {
-        ExpertMap()
+        private ExpertMap()
         {
             Map(x => x.LastCompletedPhase)
                 .Nullable();

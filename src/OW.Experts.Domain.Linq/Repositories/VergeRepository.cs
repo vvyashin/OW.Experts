@@ -8,8 +8,8 @@ namespace OW.Experts.Domain.Linq.Repositories
 {
     public class VergeRepository : IVergeRepository
     {
-        private readonly IRepository<Verge> _repository;
         private readonly ILinqProvider _linqProvider;
+        private readonly IRepository<Verge> _repository;
 
         public VergeRepository([NotNull] IRepository<Verge> repository, [NotNull] ILinqProvider linqProvider)
         {
@@ -19,7 +19,7 @@ namespace OW.Experts.Domain.Linq.Repositories
             _repository = repository;
             _linqProvider = linqProvider;
         }
-        
+
         public void AddOrUpdate(Verge entity)
         {
             _repository.AddOrUpdate(entity);
@@ -38,7 +38,7 @@ namespace OW.Experts.Domain.Linq.Repositories
         public Verge GetByNodesAndTypes(Node source, Node destination, RelationType type)
         {
             return _linqProvider.Query<Verge>()
-                    .SingleOrDefault(x => x.SourceNode == source && x.DestinationNode == destination && x.Type == type);
+                .SingleOrDefault(x => x.SourceNode == source && x.DestinationNode == destination && x.Type == type);
         }
     }
 }

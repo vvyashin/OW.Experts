@@ -2,9 +2,5 @@
 {
     public class NotionTypeMap : TypeBaseMapping<NotionType>
     {
-        public NotionTypeMap()
-        {
-            
-        }
     }
 }

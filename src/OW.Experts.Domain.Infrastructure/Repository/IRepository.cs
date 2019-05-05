@@ -7,23 +7,24 @@ namespace OW.Experts.Domain.Infrastructure.Repository
         where T : DomainObject
     {
         /// <summary>
-        /// Insert or update entity to repository
+        /// Inserts or updates entity to repository.
         /// </summary>
-        /// <param name="entity">entity to adding or updating</param>
+        /// <param name="entity">Entity to adding or updating.</param>
         void AddOrUpdate([NotNull] T entity);
 
         /// <summary>
-        /// Get entity by id. If entity does not exist throw InvalidOperationException.
+        /// Gets entity by id. If entity does not exist throw InvalidOperationException.
         /// </summary>
-        /// <param name="id">Id</param>
-        /// <returns>Entity of type T</returns>
-        /// <exception cref="InvalidOperationException">Throw if entity does not exist</exception>
-        [NotNull] T GetById(Guid id);
-        
+        /// <param name="id">Id.</param>
+        /// <returns>Entity of type T.</returns>
+        /// <exception cref="InvalidOperationException">Throw if entity does not exist.</exception>
+        [NotNull]
+        T GetById(Guid id);
+
         /// <summary>
-        /// Remove entity from repository
+        /// Removes entity from repository.
         /// </summary>
-        /// <param name="entity">Entity to remove</param>
+        /// <param name="entity">Entity to remove.</param>
         void Remove([NotNull] T entity);
     }
 }

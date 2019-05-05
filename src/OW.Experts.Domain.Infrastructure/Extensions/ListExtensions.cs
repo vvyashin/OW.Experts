@@ -3,16 +3,15 @@ using System.Collections.Generic;
 
 namespace OW.Experts.Domain.Infrastructure.Extensions
 {
-    public static class IListExtension
+    public static class ListExtensions
     {
         public static void AddRange<T>(this IList<T> list, IEnumerable<T> items)
         {
             if (list == null) throw new ArgumentNullException(nameof(list));
             if (items == null) throw new ArgumentNullException(nameof(items));
 
-            var list1 = list as List<T>;
-            if (list1 != null) {
-                list1.AddRange(items);
+            if (list is List<T> implList) {
+                implList.AddRange(items);
             }
             else {
                 foreach (var item in items) {

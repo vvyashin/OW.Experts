@@ -15,16 +15,26 @@ namespace OW.Experts.Domain.NHibernate
     {
         public NHFetchableQueryable(IQueryable<TQueried> query)
         {
-            this.Query = query;
+            Query = query;
         }
 
-        public IQueryable<TQueried> Query { get; private set; }
+        public IQueryable<TQueried> Query { get; }
+
+        #region IQueryable Members
+
+        public Type ElementType => Query.ElementType;
+
+        public Expression Expression => Query.Expression;
+
+        public IQueryProvider Provider => Query.Provider;
+
+        #endregion
 
         #region IEnumerable<TQueried> Members
 
         public IEnumerator<TQueried> GetEnumerator()
         {
-            return this.Query.GetEnumerator();
+            return Query.GetEnumerator();
         }
 
         #endregion
@@ -33,40 +43,25 @@ namespace OW.Experts.Domain.NHibernate
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.Query.GetEnumerator();
-        }
-
-        #endregion
-
-        #region IQueryable Members
-
-        public Type ElementType
-        {
-            get { return this.Query.ElementType; }
-        }
-
-        public Expression Expression
-        {
-            get { return this.Query.Expression; }
-        }
-
-        public IQueryProvider Provider
-        {
-            get { return this.Query.Provider; }
+            return Query.GetEnumerator();
         }
 
         #endregion
 
         #region IFetchableQueryable<TQueried> Members
 
-        public IFetchRequest<TQueried, TRelated> Fetch<TRelated>(Expression<Func<TQueried, TRelated>> relatedObjectSelector)
+        public IFetchRequest<TQueried, TRelated> Fetch<TRelated>(
+            Expression<Func<TQueried, TRelated>> relatedObjectSelector)
         {
-            return new NHFetchRequest<TQueried, TRelated>(EagerFetchingExtensionMethods.Fetch<TQueried, TRelated>(this.Query, relatedObjectSelector));
+            return new NHFetchRequest<TQueried, TRelated>(
+                EagerFetchingExtensionMethods.Fetch(Query, relatedObjectSelector));
         }
 
-        public IFetchRequest<TQueried, TRelated> FetchMany<TRelated>(Expression<Func<TQueried, IEnumerable<TRelated>>> relatedObjectSelector)
+        public IFetchRequest<TQueried, TRelated> FetchMany<TRelated>(
+            Expression<Func<TQueried, IEnumerable<TRelated>>> relatedObjectSelector)
         {
-            return new NHFetchRequest<TQueried, TRelated>(EagerFetchingExtensionMethods.FetchMany<TQueried, TRelated>(this.Query, relatedObjectSelector));
+            return new NHFetchRequest<TQueried, TRelated>(
+                EagerFetchingExtensionMethods.FetchMany(Query, relatedObjectSelector));
         }
 
         #endregion

@@ -7,8 +7,10 @@ namespace OW.Experts.Domain.Linq.Repositories
 {
     public class RelationTypeRepository : TypeRepository<RelationType>, IRelationTypeRepository
     {
-        public RelationTypeRepository([NotNull] IRepository<RelationType> repository, [NotNull] ILinqProvider linqProvider) : 
-            base(repository, linqProvider)
+        public RelationTypeRepository(
+            [NotNull] IRepository<RelationType> repository,
+            [NotNull] ILinqProvider linqProvider)
+            : base(repository, linqProvider)
         {
         }
 

@@ -7,8 +7,10 @@ namespace OW.Experts.Domain.Linq.Repositories
 {
     public class NotionTypeRepository : TypeRepository<NotionType>
     {
-        public NotionTypeRepository([NotNull] IRepository<NotionType> repository, [NotNull] ILinqProvider linqProvider) : 
-            base(repository, linqProvider)
+        public NotionTypeRepository(
+            [NotNull] IRepository<NotionType> repository,
+            [NotNull] ILinqProvider linqProvider)
+            : base(repository, linqProvider)
         {
         }
 

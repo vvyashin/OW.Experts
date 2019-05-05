@@ -9,7 +9,7 @@ namespace OW.Experts.Domain.NHibernate
     public class NHUnitOfWorkFactory : IUnitOfWorkFactory
     {
         [NotNull]
-        private ISessionFactory _sessionFactory;
+        private readonly ISessionFactory _sessionFactory;
 
         public NHUnitOfWorkFactory([NotNull] ISessionFactory sessionFactory)
         {

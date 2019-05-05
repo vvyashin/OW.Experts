@@ -2,6 +2,7 @@
 // http://stackoverflow.com/a/5742158
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -12,13 +13,22 @@ namespace OW.Experts.Domain.NHibernate
 {
     public class NHFetchRequest<TQueried, TFetch> : IFetchRequest<TQueried, TFetch>
     {
-
         public NHFetchRequest(INhFetchRequest<TQueried, TFetch> nhFetchRequest)
         {
             NhFetchRequest = nhFetchRequest;
         }
 
-        public INhFetchRequest<TQueried, TFetch> NhFetchRequest { get; private set; }
+        public INhFetchRequest<TQueried, TFetch> NhFetchRequest { get; }
+
+        #region IQueryable Members
+
+        public Type ElementType => NhFetchRequest.ElementType;
+
+        public Expression Expression => NhFetchRequest.Expression;
+
+        public IQueryProvider Provider => NhFetchRequest.Provider;
+
+        #endregion
 
         #region IEnumerable<TQueried> Members
 
@@ -31,61 +41,46 @@ namespace OW.Experts.Domain.NHibernate
 
         #region IEnumerable Members
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        IEnumerator IEnumerable.GetEnumerator()
         {
             return NhFetchRequest.GetEnumerator();
         }
 
         #endregion
 
-        #region IQueryable Members
-
-        public Type ElementType
-        {
-            get { return NhFetchRequest.ElementType; }
-        }
-
-        public System.Linq.Expressions.Expression Expression
-        {
-            get { return NhFetchRequest.Expression; }
-        }
-
-        public IQueryProvider Provider
-        {
-            get { return NhFetchRequest.Provider; }
-        }
-
-        #endregion
-
         #region IFetchRequest<TQueried,TFetch> Members
 
-        public IFetchRequest<TQueried, TRelated> Fetch<TRelated>(Expression<Func<TQueried, TRelated>> relatedObjectSelector)
+        public IFetchRequest<TQueried, TRelated> Fetch<TRelated>(
+            Expression<Func<TQueried, TRelated>> relatedObjectSelector)
         {
-            var fetch = EagerFetchingExtensionMethods.Fetch(this.NhFetchRequest, relatedObjectSelector);
+            var fetch = EagerFetchingExtensionMethods.Fetch(NhFetchRequest, relatedObjectSelector);
             return new NHFetchRequest<TQueried, TRelated>(fetch);
         }
 
-        public IFetchRequest<TQueried, TRelated> FetchMany<TRelated>(Expression<Func<TQueried, IEnumerable<TRelated>>> relatedObjectSelector)
+        public IFetchRequest<TQueried, TRelated> FetchMany<TRelated>(
+            Expression<Func<TQueried, IEnumerable<TRelated>>> relatedObjectSelector)
         {
-            var fecth = EagerFetchingExtensionMethods.FetchMany(this.NhFetchRequest, relatedObjectSelector);
+            var fecth = EagerFetchingExtensionMethods.FetchMany(NhFetchRequest, relatedObjectSelector);
             return new NHFetchRequest<TQueried, TRelated>(fecth);
         }
 
-        public IFetchRequest<TQueried, TRelated> ThenFetch<TRelated>(Expression<Func<TFetch, TRelated>> relatedObjectSelector)
+        public IFetchRequest<TQueried, TRelated> ThenFetch<TRelated>(
+            Expression<Func<TFetch, TRelated>> relatedObjectSelector)
         {
-            var fetch = EagerFetchingExtensionMethods.ThenFetch(this.NhFetchRequest, relatedObjectSelector);
+            var fetch = NhFetchRequest.ThenFetch(relatedObjectSelector);
             return new NHFetchRequest<TQueried, TRelated>(fetch);
         }
 
-        public IFetchRequest<TQueried, TRelated> ThenFetchMany<TRelated>(Expression<Func<TFetch, IEnumerable<TRelated>>> relatedObjectSelector)
+        public IFetchRequest<TQueried, TRelated> ThenFetchMany<TRelated>(
+            Expression<Func<TFetch, IEnumerable<TRelated>>> relatedObjectSelector)
         {
-            var fetch = EagerFetchingExtensionMethods.ThenFetchMany(this.NhFetchRequest, relatedObjectSelector);
+            var fetch = NhFetchRequest.ThenFetchMany(relatedObjectSelector);
             return new NHFetchRequest<TQueried, TRelated>(fetch);
         }
 
         public IEnumerable<TQueried> ToFuture()
         {
-            return this.NhFetchRequest.ToFuture();
+            return NhFetchRequest.ToFuture();
         }
 
         #endregion

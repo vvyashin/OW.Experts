@@ -6,10 +6,12 @@ using OW.Experts.Domain.Infrastructure.Query;
 
 namespace OW.Experts.Domain.Linq.Queries
 {
-    public class GetNotionsTypesQuery<TResulItem> : LinqQueryBase<IReadOnlyCollection<TResulItem>, GetNotionTypesSpecification<TResulItem>>, 
+    public class GetNotionsTypesQuery<TResulItem> :
+        LinqQueryBase<IReadOnlyCollection<TResulItem>, GetNotionTypesSpecification<TResulItem>>,
         IGetNotionTypesQuery<TResulItem>
     {
-        public GetNotionsTypesQuery([NotNull] ILinqProvider lingProvider) : base(lingProvider)
+        public GetNotionsTypesQuery([NotNull] ILinqProvider lingProvider)
+            : base(lingProvider)
         {
         }
 

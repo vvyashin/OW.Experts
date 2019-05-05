@@ -9,8 +9,8 @@ namespace OW.Experts.Domain.Linq.Repositories
 {
     public class ExpertRepository : IExpertRepository
     {
-        private readonly IRepository<Expert> _repository;
         private readonly ILinqProvider _linqProvider;
+        private readonly IRepository<Expert> _repository;
 
         public ExpertRepository(IRepository<Expert> repository, ILinqProvider linqProvider)
         {
@@ -36,23 +36,10 @@ namespace OW.Experts.Domain.Linq.Repositories
             _repository.Remove(entity);
         }
 
-        private IQueryable<Expert> FetchQuery(ExpertFetch expertFetch)
-        {
-            var query = _linqProvider.Query<Expert>();
-            if ((expertFetch & ExpertFetch.Associations) == ExpertFetch.Associations) {
-                query.FetchMany(x => x.Associations);
-            }
-            if ((expertFetch & ExpertFetch.Relations) == ExpertFetch.Relations) {
-                query.FetchMany(x => x.Relations);
-            }
-
-            return query;
-        }
-
         public Expert GetExpertByNameAndSession(GetExpertByNameAndSessionSpecification specification)
         {
-            return FetchQuery(specification.Fetch).SingleOrDefault(x => 
-                x.Name == specification.ExpertName && 
+            return FetchQuery(specification.Fetch).SingleOrDefault(x =>
+                x.Name == specification.ExpertName &&
                 x.SessionOfExperts == specification.SessionOfExperts);
         }
 
@@ -61,6 +48,16 @@ namespace OW.Experts.Domain.Linq.Repositories
             return FetchQuery(specification.Fetch)
                 .Where(x => x.SessionOfExperts == specification.SessionOfExperts)
                 .ToList();
+        }
+
+        private IQueryable<Expert> FetchQuery(ExpertFetch expertFetch)
+        {
+            var query = _linqProvider.Query<Expert>();
+            if ((expertFetch & ExpertFetch.Associations) == ExpertFetch.Associations)
+                query.FetchMany(x => x.Associations);
+            if ((expertFetch & ExpertFetch.Relations) == ExpertFetch.Relations) query.FetchMany(x => x.Relations);
+
+            return query;
         }
     }
 }

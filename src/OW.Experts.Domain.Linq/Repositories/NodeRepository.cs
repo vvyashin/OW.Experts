@@ -10,8 +10,8 @@ namespace OW.Experts.Domain.Linq.Repositories
 {
     public class NodeRepository : INodeRepository
     {
-        private readonly IRepository<Node> _repository;
         private readonly ILinqProvider _linqProvider;
+        private readonly IRepository<Node> _repository;
 
         public NodeRepository([NotNull] IRepository<Node> repository, [NotNull] ILinqProvider linqProvider)
         {
@@ -53,12 +53,15 @@ namespace OW.Experts.Domain.Linq.Repositories
         {
             if (session == null) throw new ArgumentNullException(nameof(session));
 
-            Func<VergeOfSession, VergeReadModel> vergeProjection = (sessionVerge) =>
-                new VergeReadModel(sessionVerge.Verge.SourceNode.Notion, sessionVerge.Verge.SourceNode.Type.Name,
-                    sessionVerge.Verge.DestinationNode.Notion, sessionVerge.Verge.DestinationNode.Type.Name,
-                    sessionVerge.Verge.Type.Name, sessionVerge.Weight);
+            Func<VergeOfSession, VergeReadModel> vergeProjection = sessionVerge =>
+                new VergeReadModel(
+                    sessionVerge.Verge.SourceNode.Notion,
+                    sessionVerge.Verge.SourceNode.Type.Name,
+                    sessionVerge.Verge.DestinationNode.Notion,
+                    sessionVerge.Verge.DestinationNode.Type.Name,
+                    sessionVerge.Verge.Type.Name,
+                    sessionVerge.Weight);
 
-            // caching in session
             _linqProvider.Query<Verge>()
                 .Where(x => x.SourceNode.SessionsOfExperts.Contains(session) ||
                             x.SourceNode.SessionsOfExperts.Contains(session))
@@ -81,11 +84,14 @@ namespace OW.Experts.Domain.Linq.Repositories
                 .ToList();
 
             var concepts = nodes
-                .Select(x => new ConceptReadModel(x.Notion, x.Type.Name,
+                .Select(x => new ConceptReadModel(
+                    x.Notion,
+                    x.Type.Name,
                     x.IngoingVerges
                         .SelectMany(v => v.SessionWeightSlices)
                         .Where(sv => sv.SessionOfExperts == session)
-                        .Select(vergeProjection).ToList(),
+                        .Select(vergeProjection)
+                        .ToList(),
                     x.OutgoingVerges
                         .SelectMany(v => v.SessionWeightSlices)
                         .Where(sv => sv.SessionOfExperts == session)

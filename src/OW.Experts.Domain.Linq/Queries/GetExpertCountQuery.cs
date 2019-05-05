@@ -7,7 +7,8 @@ namespace OW.Experts.Domain.Linq.Queries
 {
     internal class GetExpertCountQuery : LinqQueryBase<int, GetExpertCountSpecification>
     {
-        public GetExpertCountQuery([NotNull] ILinqProvider lingProvider) : base(lingProvider)
+        public GetExpertCountQuery([NotNull] ILinqProvider lingProvider)
+            : base(lingProvider)
         {
         }
 

@@ -2,7 +2,7 @@
 
 namespace OW.Experts.Domain.NHibernate.Mapping
 {
-    class AssociationMap : DomainObjectMapping<Association>
+    internal class AssociationMap : DomainObjectMapping<Association>
     {
         public AssociationMap()
         {

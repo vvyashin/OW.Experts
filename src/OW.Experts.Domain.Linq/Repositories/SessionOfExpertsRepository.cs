@@ -10,10 +10,12 @@ namespace OW.Experts.Domain.Linq.Repositories
 {
     public class SessionOfExpertsRepository : ISessionOfExpertsRepository
     {
-        private readonly IRepository<SessionOfExperts> _repository;
         private readonly ILinqProvider _linqProvider;
+        private readonly IRepository<SessionOfExperts> _repository;
 
-        public SessionOfExpertsRepository([NotNull] IRepository<SessionOfExperts> repository, [NotNull] ILinqProvider linqProvider)
+        public SessionOfExpertsRepository(
+            [NotNull] IRepository<SessionOfExperts> repository,
+            [NotNull] ILinqProvider linqProvider)
         {
             if (repository == null) throw new ArgumentNullException(nameof(repository));
             if (linqProvider == null) throw new ArgumentNullException(nameof(linqProvider));

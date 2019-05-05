@@ -2,9 +2,5 @@
 {
     public class RelationTypeMap : TypeBaseMapping<RelationType>
     {
-        public RelationTypeMap()
-        {
-            
-        }
     }
 }

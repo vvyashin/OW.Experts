@@ -6,7 +6,7 @@ namespace OW.Experts.Domain.Infrastructure.Extensions
     {
         public static IReadOnlyCollection<T> Enumerate<T>(this T @object)
         {
-            return new[] {@object}.AsReadOnly();
-        } 
+            return new[] { @object }.AsReadOnly();
+        }
     }
 }

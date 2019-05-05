@@ -24,12 +24,12 @@ namespace OW.Experts.Domain.Linq.Repositories
                 new GetExpertCountSpecification(sessionOfExperts));
 
             var relations = _linqProvider.Query<Relation>()
-                .SelectMany(x => x.Types, (relation, type) => new {relation.Source, relation.Destination, Type = type})
+                .SelectMany(x => x.Types, (relation, type) => new { relation.Source, relation.Destination, Type = type })
                 .ToList();
 
             return relations
                 .GroupBy(x => new { x.Source, x.Destination, x.Type })
-                .Select(gr => new GroupedRelation()
+                .Select(gr => new GroupedRelation
                 {
                     Source = gr.Key.Source,
                     Destination = gr.Key.Destination,

@@ -12,6 +12,7 @@ namespace OW.Experts.Domain.Infrastructure.Fetching
     {
         IFetchRequest<TQueried, TRelated> Fetch<TRelated>(Expression<Func<TQueried, TRelated>> relatedObjectSelector);
 
-        IFetchRequest<TQueried, TRelated> FetchMany<TRelated>(Expression<Func<TQueried, IEnumerable<TRelated>>> relatedObjectSelector);
+        IFetchRequest<TQueried, TRelated> FetchMany<TRelated>(
+            Expression<Func<TQueried, IEnumerable<TRelated>>> relatedObjectSelector);
     }
 }

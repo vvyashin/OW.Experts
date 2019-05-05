@@ -5,17 +5,12 @@ namespace OW.Experts.Domain.Infrastructure
     public abstract class TimeContext
     {
         private static TimeContext _current;
+
         public static TimeContext Current
         {
-            get
-            {
-                return _current ?? (_current = new SystemTimeContext());
-            }
-            set
-            {
-                _current = value;
-            }
-        } 
+            get => _current ?? (_current = new SystemTimeContext());
+            set => _current = value;
+        }
 
         public abstract DateTime Now { get; }
 
