@@ -7,39 +7,48 @@ namespace OW.Experts.Domain
     public class Association : DomainObject
     {
         /// <summary>
-        /// Ctor only for mapping
+        /// Initializes a new instance of the <see cref="Association" /> class.
         /// </summary>
-        // ReSharper disable once NotNullMemberIsNotInitialized
-        protected Association() { }
-
-        /// <summary>
-        /// Ctor for creating new object
-        /// </summary>
-        /// <param name="expert">expert, who offer association</param>
-        /// <param name="notion">notion of association</param>
+        /// <param name="expert">Expert, who suggested association.</param>
+        /// <param name="notion">Association notion.</param>
         public Association([NotNull] Expert expert, [NotNull] string notion)
         {
             if (expert == null) throw new ArgumentNullException(nameof(expert));
             if (string.IsNullOrWhiteSpace(notion))
                 throw new ArgumentException("Notion should not be empty string", nameof(notion));
+
             Expert = expert;
             Notion = notion;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Association" /> class.
+        /// </summary>
+        /// <remarks>Empty ctor can be used only by ORM.</remarks>
+        protected Association()
+        {
+        }
+
+        /// <summary>
+        /// Gets expert who suggested the association.
+        /// </summary>
         [NotNull]
         public virtual Expert Expert { get; }
 
+        /// <summary>
+        /// Gets association notion.
+        /// </summary>
         [NotNull]
         public virtual string Notion { get; }
 
         /// <summary>
-        /// Type chosen by the expert from list of known types
+        /// Gets or sets type chosen by the expert from the list of known types.
         /// </summary>
         [CanBeNull]
         public virtual NotionType Type { get; protected set; }
 
         /// <summary>
-        /// Type offered by the expert (It's not from list of known types).
+        /// Gets or sets type suggested by the expert to add to the list of known types.
         /// </summary>
         [CanBeNull]
         public virtual string OfferType { get; protected set; }

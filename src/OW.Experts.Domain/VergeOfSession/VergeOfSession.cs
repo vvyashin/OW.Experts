@@ -7,10 +7,12 @@ namespace OW.Experts.Domain
     public class VergeOfSession : DomainObject
     {
         /// <summary>
-        /// Ctor only for mapping from repository
+        /// Initializes a new instance of the <see cref="VergeOfSession"/> class.
         /// </summary>
         // ReSharper disable once NotNullMemberIsNotInitialized
-        public VergeOfSession() { }
+        public VergeOfSession()
+        {
+        }
 
         public VergeOfSession([NotNull] Verge verge, [NotNull] SessionOfExperts sessionOfExperts, int weight)
         {

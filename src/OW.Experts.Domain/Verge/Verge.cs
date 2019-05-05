@@ -1,24 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 using OW.Experts.Domain.Infrastructure;
 
 namespace OW.Experts.Domain
 {
+    [SuppressMessage(
+        "Microsoft.StyleCop.CSharp.Maintainability",
+        "SA1401:FieldsMustBePrivate",
+        Justification = "Domain Object have protected collections with underscoreCamelCase naming for ORM mapping")]
     public class Verge : DomainObject
     {
         #region Rules
-        
+
         public static readonly string GeneralTypeName = "Ассоциация";
 
         #endregion
 
-        /// <summary>
-        /// Ctor only for mapping from repository
-        /// </summary>
-        // ReSharper disable once NotNullMemberIsNotInitialized
-        protected Verge() { }
+        // ReSharper disable once InconsistentNaming
+        protected IList<VergeOfSession> _sessionWeightSlices;
 
         public Verge([NotNull] Node sourceNode, [NotNull] Node destinationNode, [NotNull] RelationType type, int weight)
         {
@@ -33,6 +35,14 @@ namespace OW.Experts.Domain
             _sessionWeightSlices = new List<VergeOfSession>();
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Verge"/> class.
+        /// </summary>
+        // ReSharper disable once NotNullMemberIsNotInitialized
+        protected Verge()
+        {
+        }
+
         [NotNull]
         public virtual Node SourceNode { get; }
 
@@ -44,11 +54,8 @@ namespace OW.Experts.Domain
 
         public virtual int Weight { get; }
 
-        // ReSharper disable once InconsistentNaming
-        protected IList<VergeOfSession> _sessionWeightSlices;
-
         [NotNull]
-        public virtual IReadOnlyCollection<VergeOfSession> SessionWeightSlices 
+        public virtual IReadOnlyCollection<VergeOfSession> SessionWeightSlices
             => new ReadOnlyCollection<VergeOfSession>(_sessionWeightSlices);
 
         [NotNull]
@@ -59,7 +66,7 @@ namespace OW.Experts.Domain
 
             _sessionWeightSlices.Add(new VergeOfSession(this, sessionOfExperts, addedWeight));
 
-            var newWeight = (Weight + addedWeight)/2;
+            var newWeight = (Weight + addedWeight) / 2;
 
             return new Verge(SourceNode, DestinationNode, Type, newWeight);
         }

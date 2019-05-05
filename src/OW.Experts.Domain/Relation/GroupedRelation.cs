@@ -9,18 +9,18 @@
         public RelationType Type { get; set; }
 
         /// <summary>
-        /// Number of experts that confirmed the relation
+        /// Gets or sets number of experts that confirmed the relation.
         /// </summary>
         public int ExpertCount { get; set; }
 
         /// <summary>
-        /// Total number of experts in the session
+        /// Gets or sets total number of experts in the session.
         /// </summary>
         public int TotalExpectCount { get; set; }
 
         /// <summary>
-        /// Percent of experts that confirmed the relation
+        /// Gets percent of experts that confirmed the relation.
         /// </summary>
-        public double Percent => (double) ExpertCount/TotalExpectCount;
+        public double Percent => (double)ExpertCount / TotalExpectCount;
     }
 }

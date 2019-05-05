@@ -15,7 +15,7 @@ namespace OW.Experts.Domain
         int GetExpertCount();
 
         void CreateSemanticNetworkFromNodeCandidates([NotNull] IReadOnlyCollection<NodeCandidate> nodeCandidates);
-        
+
         void SaveRelationsAsVergesOfSemanticNetwork();
 
         SemanticNetworkReadModel GetSemanticNetwork();

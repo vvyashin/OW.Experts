@@ -8,7 +8,7 @@ namespace OW.Experts.Domain
     {
         [NotNull]
         IReadOnlyCollection<SessionOfExperts> GetAllEndedSessionsOfExperts();
-        
+
         [CanBeNull]
         SessionOfExperts GetCurrent();
 

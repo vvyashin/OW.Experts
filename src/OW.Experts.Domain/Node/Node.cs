@@ -1,23 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 using OW.Experts.Domain.Infrastructure;
 
 namespace OW.Experts.Domain
 {
-    /// <summary>
-    /// Class representing node of semantic network
-    /// </summary>
+    [SuppressMessage(
+        "Microsoft.StyleCop.CSharp.Maintainability",
+        "SA1401:FieldsMustBePrivate",
+        Justification = "Domain Object have protected collections with underscoreCamelCase naming for ORM mapping")]
     public class Node : DomainObject
     {
-        /// <summary>
-        /// Ctor only for mapping from repository
-        /// </summary>
-        // ReSharper disable once NotNullMemberIsNotInitialized
-        protected Node()
-        {
-        }
+        // ReSharper disable once InconsistentNaming
+        protected readonly IList<Verge> _ingoingVerges;
+
+        // ReSharper disable once InconsistentNaming
+        protected readonly IList<Verge> _outgoingVerges;
+
+        // ReSharper disable once InconsistentNaming
+        protected readonly IList<SessionOfExperts> _sessionsOfExperts;
 
         public Node([NotNull] string notion, [NotNull] NotionType type)
         {
@@ -32,26 +35,28 @@ namespace OW.Experts.Domain
             _outgoingVerges = new List<Verge>();
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Node"/> class.
+        /// </summary>
+        /// <remarks>Empty ctor can be used only by ORM.</remarks>
+        protected Node()
+        {
+        }
+
         [NotNull]
         public virtual string Notion { get; }
 
         [NotNull]
         public virtual NotionType Type { get; }
 
-        // ReSharper disable once InconsistentNaming
-        protected readonly IList<SessionOfExperts> _sessionsOfExperts;
         [NotNull]
-        public virtual IReadOnlyCollection<SessionOfExperts> SessionsOfExperts 
+        public virtual IReadOnlyCollection<SessionOfExperts> SessionsOfExperts
             => new ReadOnlyCollection<SessionOfExperts>(_sessionsOfExperts);
 
-        // ReSharper disable once InconsistentNaming
-        protected readonly IList<Verge> _ingoingVerges;
         [NotNull]
-        public virtual IReadOnlyCollection<Verge> IngoingVerges 
+        public virtual IReadOnlyCollection<Verge> IngoingVerges
             => new ReadOnlyCollection<Verge>(_ingoingVerges);
 
-        // ReSharper disable once InconsistentNaming
-        protected readonly IList<Verge> _outgoingVerges;
         [NotNull]
         public virtual IReadOnlyCollection<Verge> OutgoingVerges
             => new ReadOnlyCollection<Verge>(_outgoingVerges);
@@ -63,17 +68,17 @@ namespace OW.Experts.Domain
             _sessionsOfExperts.Add(sessionOfExperts);
         }
 
+        public override int GetHashCode()
+        {
+            return Notion.GetHashCode() ^ Type.GetHashCode();
+        }
+
         protected override bool Equals(DomainObject obj)
         {
             if (!(obj is Node)) return false;
 
-            var node = (Node) obj;
-            return StringComparer.OrdinalIgnoreCase.Equals(this.Notion, node.Notion) && this.Type == node.Type;
-        }
-
-        public override int GetHashCode()
-        {
-            return Notion.GetHashCode() ^ Type.GetHashCode();
+            var node = (Node)obj;
+            return StringComparer.OrdinalIgnoreCase.Equals(Notion, node.Notion) && Type == node.Type;
         }
     }
 }

@@ -16,7 +16,7 @@ namespace OW.Experts.Domain
         public SessionOfExperts SessionOfExperts { get; }
 
         /// <summary>
-        /// Fetch strategy
+        /// Gets the strategy of the data fetching.
         /// </summary>
         public ExpertFetch Fetch { get; }
     }

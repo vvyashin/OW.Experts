@@ -7,12 +7,12 @@ namespace OW.Experts.Domain
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Id of type chosen by the expert from list of known types
+        /// Gets or sets id of type chosen by the expert from the list of known types.
         /// </summary>
         public Guid TypeId { get; set; }
 
         /// <summary>
-        /// Type offered by the expert (It's not from list of known types).
+        /// Gets or sets type suggested by the expert to add to the list of known types.
         /// </summary>
         public string OfferType { get; set; }
     }

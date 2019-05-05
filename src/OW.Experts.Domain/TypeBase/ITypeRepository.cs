@@ -3,7 +3,8 @@ using JetBrains.Annotations;
 
 namespace OW.Experts.Domain
 {
-    public interface ITypeRepository<T> where T : TypeBase
+    public interface ITypeRepository<out T>
+        where T : TypeBase
     {
         [NotNull]
         T GetById(Guid id);

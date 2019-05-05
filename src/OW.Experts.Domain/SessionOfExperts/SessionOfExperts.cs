@@ -7,28 +7,30 @@ namespace OW.Experts.Domain
 {
     public class SessionOfExperts : DomainObject
     {
-        #region rules
-
-        public static Expression<Func<SessionOfExperts, bool>> IsEnded =>
-            s => s.CurrentPhase == SessionPhase.Ended;
-
-        #endregion
-
-        /// <summary>
-        /// Ctor only for mapping from repository
-        /// </summary>
-        // ReSharper disable once NotNullMemberIsNotInitialized
-        protected SessionOfExperts() { }
-
         public SessionOfExperts([NotNull] string baseNotion)
         {
-            if (String.IsNullOrWhiteSpace(baseNotion))
+            if (string.IsNullOrWhiteSpace(baseNotion))
                 throw new ArgumentException("Notion should not be empty string", nameof(baseNotion));
 
             BaseNotion = baseNotion;
             StartTime = TimeContext.Current.Now;
             CurrentPhase = SessionPhase.MakingAssociations;
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SessionOfExperts"/> class.
+        /// </summary>
+        // ReSharper disable once NotNullMemberIsNotInitialized
+        protected SessionOfExperts()
+        {
+        }
+
+        #region rules
+
+        public static Expression<Func<SessionOfExperts, bool>> IsEnded =>
+            s => s.CurrentPhase == SessionPhase.Ended;
+
+        #endregion
 
         [NotNull]
         public virtual string BaseNotion { get; }
@@ -39,12 +41,10 @@ namespace OW.Experts.Domain
 
         public virtual void NextPhaseOrFinish()
         {
-            if (CurrentPhase < SessionPhase.SelectingAndSpecifyingRelations) {
+            if (CurrentPhase < SessionPhase.SelectingAndSpecifyingRelations)
                 CurrentPhase++;
-            }
-            else {
+            else
                 Finish();
-            }
         }
 
         public virtual void Finish()

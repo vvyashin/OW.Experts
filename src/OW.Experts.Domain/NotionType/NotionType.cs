@@ -1,19 +1,25 @@
 ﻿namespace OW.Experts.Domain
 {
     /// <summary>
-    /// Type of notions that represents as node of semantic network or association of experts
+    /// Type of notions that represents as node of semantic network or association of experts.
     /// </summary>
     public class NotionType : TypeBase
     {
         /// <summary>
-        /// Ctor only for mapping from repository
+        /// Initializes a new instance of the <see cref="NotionType"/> class.
         /// </summary>
-        protected NotionType() { }
+        /// <param name="name">Name of type.</param>
+        public NotionType(string name)
+            : base(name)
+        {
+        }
 
         /// <summary>
-        /// Ctor for creating new object
+        /// Initializes a new instance of the <see cref="NotionType"/> class.
         /// </summary>
-        /// <param name="name">name of type</param>
-        public NotionType(string name) : base(name) { }
+        /// <remarks>Empty ctor can be used only by ORM.</remarks>
+        protected NotionType()
+        {
+        }
     }
 }

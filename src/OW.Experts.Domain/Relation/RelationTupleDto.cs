@@ -5,37 +5,37 @@ namespace OW.Experts.Domain
     public class RelationTupleDto
     {
         /// <summary>
-        /// Relation from left node to right node
+        /// Gets or sets relation from left node to right node.
         /// </summary>
         public Guid StraightRelationId { get; set; }
-        
+
         /// <summary>
-        /// Relation from right node to left node
+        /// Gets or sets relation from right node to left node.
         /// </summary>
         public Guid ReverseRelationId { get; set; }
 
         /// <summary>
-        /// Flag of existence any relations between nodes
+        /// Gets or sets a value indicating whether relation exists between nodes.
         /// </summary>
         public bool DoesRelationExist { get; set; }
-        
+
         /// <summary>
-        /// Straight relation has type IsA
+        /// Gets or sets a value indicating whether straight relation has type IsA.
         /// </summary>
         public bool IsStraightTaxonym { get; set; }
-        
+
         /// <summary>
-        /// Straight relation has type PartOf
+        /// Gets or sets a value indicating whether straight relation has type PartOf.
         /// </summary>
         public bool IsStraightMeronym { get; set; }
-        
+
         /// <summary>
-        /// Reverse relation has type IsA
+        /// Gets or sets a value indicating whether reverse relation has type IsA.
         /// </summary>
         public bool IsReverseTaxonym { get; set; }
-        
+
         /// <summary>
-        /// Reverse relation has type PartOf
+        /// Gets or sets a value indicating whether reverse relation has type PartOf.
         /// </summary>
         public bool IsReverseMeronym { get; set; }
     }

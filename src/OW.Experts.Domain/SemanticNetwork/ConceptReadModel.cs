@@ -6,7 +6,9 @@ namespace OW.Experts.Domain
 {
     public class ConceptReadModel
     {
-        public ConceptReadModel([NotNull] string notion, [NotNull] string typeName, 
+        public ConceptReadModel(
+            [NotNull] string notion,
+            [NotNull] string typeName,
             [NotNull] IReadOnlyCollection<VergeReadModel> incoming,
             [NotNull] IReadOnlyCollection<VergeReadModel> outgoing)
         {
@@ -22,6 +24,7 @@ namespace OW.Experts.Domain
         }
 
         public IReadOnlyCollection<VergeReadModel> Incoming { get; }
+
         public IReadOnlyCollection<VergeReadModel> Outgoing { get; }
 
         public string Notion { get; }
